@@ -1,7 +1,5 @@
-#include <iostream>
-using namespace std;
+#include "config/config.h"
 
 int main (int argc, char *argv[]) {
-	cout << "Current execturion path: " << argv[0];
-	return 0;
+	printConfig(argv[1]);
 }
