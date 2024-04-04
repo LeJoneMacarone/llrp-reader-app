@@ -1,23 +1,21 @@
 #include "config/config.h"
 #include "internet/internet.h"
+#include <string>
 
 int main (int argc, char *argv[]) {
 	const char* configFile = argv[1];
-	
+
 	Configuration* config = fileToConfig(configFile);
 
-	if (!config) cout << "An error has occured\n";
-	
+	if (!config) cerr << "fileToConfig: an error has occured while loading the configuration\n";
+		
 	cout << "server-url = " << config->serverURL << "\n";
 
-	string URL;
- 	const char* buffer;
+ 	string buffer;
 
-	URL.append(config->serverURL);
-	URL.append("greninja");
-
-	fetchData(URL.c_str(), &buffer);
-	cout << buffer;
+	fetchData(config->serverURL, &buffer);
+	
+	cout << buffer << "\n";
 
 	// comment
 }
