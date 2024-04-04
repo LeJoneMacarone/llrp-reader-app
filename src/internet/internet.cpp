@@ -1,18 +1,13 @@
-#include <curl/curl.h>
+#include "internet.h"
 #include <iostream>
 
-using namespace std;
-
-size_t writeToString(void *contents, size_t size, size_t nmemb, char** buffer)
-{
+size_t writeToString(void* contents, size_t size, size_t nmemb, string* buffer) {
     size_t newLength = size*nmemb;
-    
-	*buffer = new char[newLength];
-	
-	return newLength;
+    buffer->append((char*) contents, newLength);
+    return newLength;
 }
 
-void fetchData(const char *URL, const char** buffer){
+void fetchData(const char *URL, string* buffer){
 	CURL *curl;
 	CURLcode res;
  
@@ -22,9 +17,6 @@ void fetchData(const char *URL, const char** buffer){
 	if(!curl) return;
 	curl_easy_setopt(curl, CURLOPT_URL, URL);
 
-	/* cache the CA cert bundle in memory for a week */
-	curl_easy_setopt(curl, CURLOPT_CA_CACHE_TIMEOUT, 604800L);
-
 	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeToString);
 	curl_easy_setopt(curl, CURLOPT_WRITEDATA, buffer);
 
@@ -33,7 +25,7 @@ void fetchData(const char *URL, const char** buffer){
 	
 	/* Check for errors */
   	if(res != CURLE_OK)
-		fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+		cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << "\n";
 
   	/* always cleanup */
 	curl_easy_cleanup(curl);
