@@ -1,8 +1,7 @@
-# compiler
-CC := gcc
-CFLAGS := -g -Wall -l curl
+CC := g++
+CFLAGS := -g -Wall
+LIBFLAGS := -l curl
 
-# Directories
 SRC_DIR := ./src
 BUILD_DIR := ./build
 BIN_DIR := ./bin
@@ -13,14 +12,15 @@ BIN_FILES := $(BIN_DIR)/main
 
 .PHONY: build clean
 
-# Compile and assemble the artifacts from src/ to build/
-build: $(OBJ_FILES)
-
 $(BUILD_DIR)/%.o: $(SRC_DIR)/*/%.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
-
+	$(CC) $(CFLAGS) -c $^ $(LIBFLAGS) -o $@
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $^ $(LIBFLAGS) -o $@
+
+$(BIN_FILES): $(OBJ_FILES)
+	$(CC) $(CFLAGS) $^ $(LIBFLAGS) -o $@
+
+build: $(BIN_FILES)
 
 clean:
 	rm -rf $(BUILD_DIR)/*
