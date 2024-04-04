@@ -1,5 +1,4 @@
 #include "internet.h"
-#include <iostream>
 
 size_t writeToString(void* contents, size_t size, size_t nmemb, string* buffer) {
     size_t newLength = size*nmemb;
