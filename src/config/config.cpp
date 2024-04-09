@@ -1,25 +1,6 @@
 #include "config.h"
 
-int readFile(const char* filePath, char** buffer){
-    FILE* file = fopen(filePath , "r");
-    
-    if (file == NULL) return -1;
-
-    fseek(file, 0, SEEK_END); 
-
-    size_t fileSize = ftell(file); 
-
-    fseek(file, 0, SEEK_SET);
-
-    *buffer = (char*) malloc(fileSize);
-    int size = fread(*buffer, 1, fileSize, file);
-
-    fclose(file);
-
-    return size;
-}
-
-void printConfig(const char* filePath){
+void printConfig(const char* filePath) {
 	char* buffer;
 	int size = readFile(filePath, &buffer);
 		
@@ -43,7 +24,7 @@ Configuration* stringToConfig(const char* string) {
 	Configuration* config = new Configuration();
 	
 	config->serverURL = cJSON_GetObjectItem(json, "server-url")->valuestring;
-	
+
 	return config;
 }
 
