@@ -10,13 +10,13 @@ int readFile(const char* filePath, char** buffer);
 
 /*
  * Writes the content to the file given by filePath.
- * Returns -1 if an error occured.
+ * The file is created if it doesn't exist.
  */
 void writeFile(const char* filePath, const char* content);
 
 /*
  * Writes the content at the end of the file given by filePath.
- * Returns -1 if an error occured.
+ * The file is created if it doesn't exist.
  */
 void appendFile(const char* filePath, const char* content); 
 
