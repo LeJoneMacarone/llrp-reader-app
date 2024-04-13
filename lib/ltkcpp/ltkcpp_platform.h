@@ -32,7 +32,6 @@
 #include <string.h>         /* memcpy() */
 #include <time.h>
 #include <stdlib.h>
-#include <stdint.h>
 
 #define FALSE       0
 #define TRUE        1
