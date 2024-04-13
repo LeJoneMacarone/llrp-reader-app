@@ -6,20 +6,20 @@
 using namespace std;
 
 typedef struct {
-	char* serverURL;
+	char * serverURL;
 } Configuration;
 
 /*
  * Prints the application configuration on the terminal
  */
-void printConfig(const char* filePath);
+void printConfig(const char * filePath);
 
 /*
  * Converts a JSON string to a configuration object.
  */
-Configuration* stringToConfig(const char* string);
+Configuration* stringToConfig(const char * string);
 
 /*
  * Converts a JSON file to a configuration object. Returns NULL on error.
  */
-Configuration* fileToConfig(const char* filePath); 
+Configuration * fileToConfig(const char * filePath); 
