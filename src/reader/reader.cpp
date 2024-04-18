@@ -12,6 +12,7 @@ CConnection* connectToReader(const char* hostname) {
  	CConnection* connection = new CConnection(typeRegistry, 32u*KB);
  
  	if (NULL == connection) {
+		// TODO: change printf to a log
  		printf("ERROR: new CConnection failed\n");
  		return NULL;
  	}
@@ -20,6 +21,7 @@ CConnection* connectToReader(const char* hostname) {
  	int status = connection->openConnectionToReader(hostname);
  	
 	if (0 != status) {
+		// TODO: change printf to a log
  		printf(
 			"ERROR: connection failed: %s (%i)\n", 
 			connection->getConnectError(), 
@@ -32,10 +34,43 @@ CConnection* connectToReader(const char* hostname) {
  	return connection;
  }
 
+int sendMessage (CConnection * connection, CMessage * message) {
+	// TODO: change printfs to logs;
+
+	if(RC_OK != connection->sendMessage(message))
+    {
+        const CErrorDetails * error = connection->getSendError();
+
+        printf(
+			"ERROR: %s sendMessage failed, %s\n",
+            message->m_pType->m_pName,
+            error->m_pWhatStr ? error->m_pWhatStr : "no reason given"
+		);
+
+        if(NULL != error->m_pRefType)
+        {
+            printf(
+				"ERROR: ... reference type %s\n",
+                error->m_pRefType->m_pName
+			);
+        }
+
+        if(NULL != error->m_pRefField)
+        {
+            printf(
+				"ERROR: ... reference field %s\n",
+                error->m_pRefField->m_pName
+			);
+        }
+
+        return -1;
+    }
+
+    return 0;
+}
+
 CMessage * recvMessage(CConnection * connection, int timeoutMS) {
-    CMessage * message;
-   
-	message = connection->recvMessage(timeoutMS);
+    CMessage * message = connection->recvMessage(timeoutMS);
 
     if(NULL == message)
     {
@@ -43,20 +78,26 @@ CMessage * recvMessage(CConnection * connection, int timeoutMS) {
 
         if(error->m_eResultCode != RC_RecvTimeout)
         {
-        	printf("ERROR: recvMessage failed, %s\n",
-            	error->m_pWhatStr ? error->m_pWhatStr : "no reason given");
+        	printf(
+				"ERROR: recvMessage failed, %s\n",
+				error->m_pWhatStr ? error->m_pWhatStr : "no reason given"
+			);
         }
 
         if(NULL != error->m_pRefType)
         {
-            printf("ERROR: ... reference type %s\n",
-                error->m_pRefType->m_pName);
+            printf(
+				"ERROR: ... reference type %s\n",
+                error->m_pRefType->m_pName
+			);
         }
 
         if(NULL != error->m_pRefField)
         {
-            printf("ERROR: ... reference field %s\n",
-                error->m_pRefField->m_pName);
+            printf(
+				"ERROR: ... reference field %s\n",
+                error->m_pRefField->m_pName
+			);
         }
 
         return NULL;
@@ -141,3 +182,4 @@ void formatOneEPC (CParameter *pEPCParameter, char *buf, int buflen) {
     // null terminate this for good practice
     buf[buflen-1] = '\0';
 }
+
