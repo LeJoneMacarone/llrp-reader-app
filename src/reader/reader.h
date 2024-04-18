@@ -28,3 +28,9 @@ CMessage * recvMessage(CConnection * connection, int timeoutMS);
  * Returns the message or NULL in case of an error. 
  */
 CMessage * transact (CConnection * connection, CMessage * request);
+
+/*
+ * Adds a ROSpec to the reader. Equivalent to transact a ADD_ROSPEC message.
+ * Returns the reponse or NULL in case of an error. 
+ */
+CMessage * addROSpec(CConnection * connection);

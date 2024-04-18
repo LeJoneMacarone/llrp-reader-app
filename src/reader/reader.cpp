@@ -1,4 +1,5 @@
 #include "reader.h"
+#include <cstddef>
 
 #define KB 1024u
 
@@ -243,3 +244,69 @@ void formatOneEPC(CParameter *pEPCParameter, char *buf, int buflen) {
     buf[buflen-1] = '\0';
 }
 
+CMessage * addROSpec(CConnection * connection) {
+	// initialize fields and parameters of the ROSpec, from the most internal 
+	// to the the most external
+	
+	// ROSpecStartTrigger
+	CROSpecStartTrigger * startTrigger = new CROSpecStartTrigger();
+	startTrigger->setROSpecStartTriggerType(ROSpecStartTriggerType_Null);
+	
+	// ROSpecStopTrigger
+	CROSpecStopTrigger * stopTrigger = new CROSpecStopTrigger();
+	stopTrigger->setROSpecStopTriggerType(ROSpecStopTriggerType_Null);
+	stopTrigger->setDurationTriggerValue(0);
+
+	// ROBoundarySpec = (ROSpecStartTrigger, ROSpecStopTrigger)
+	CROBoundarySpec * boundarySpec = new CROBoundarySpec();
+	boundarySpec->setROSpecStartTrigger(startTrigger);
+	boundarySpec->setROSpecStopTrigger(stopTrigger);
+	
+	// AISpecStopTrigger
+	CAISpecStopTrigger * aiSpecStopTrigger = new CAISpecStopTrigger();
+	aiSpecStopTrigger->setAISpecStopTriggerType(AISpecStopTriggerType_Null);
+	aiSpecStopTrigger->setDurationTrigger(0);
+
+	// InventoryParameterSpec 
+	CInventoryParameterSpec * inventoryParameterSpec 
+		= new CInventoryParameterSpec();
+	inventoryParameterSpec->setInventoryParameterSpecID(1234);
+	inventoryParameterSpec->setProtocolID(AirProtocols_EPCGlobalClass1Gen2);
+	
+	// AntennaIDs
+    llrp_u16v_t antennaIDs = llrp_u16v_t(2);
+    antennaIDs.m_pValue[0] = 1;
+    antennaIDs.m_pValue[1] = 2;
+
+	// AISpec = (AISpecStopTrigger, InventoryParameterSpec, AntennaIDs)
+	CAISpec * aiSpec = new CAISpec();
+	aiSpec->setAntennaIDs(antennaIDs);
+	aiSpec->setAISpecStopTrigger(aiSpecStopTrigger);
+	aiSpec->addInventoryParameterSpec(inventoryParameterSpec);
+
+	// ROSpec = (ROSpecID, Priority, CurrentState, ROBoundarySpec, AISpec)
+	CROSpec * roSpec = new CROSpec();
+	roSpec->setROSpecID(1111);
+	roSpec->setPriority(0);
+	roSpec->setROBoundarySpec(boundarySpec);
+	roSpec->setCurrentState(ROSpecState_Disabled);
+	roSpec->addSpecParameter(aiSpec);
+
+	// append the ROSpec ta a message
+	CADD_ROSPEC * message = new CADD_ROSPEC();
+	message->setROSpec(roSpec);
+	message->setMessageID(0);
+
+	// send the message
+	CMessage * response = transact(connection, message);
+	
+	delete message;
+
+	// TODO: log errors (i.e. NULL response)
+	
+	// TODO: log the ROSpec was added
+
+	return response;
+}
+
+CMessage * enableROSpec(CConnection connection);
