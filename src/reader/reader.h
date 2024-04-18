@@ -12,12 +12,19 @@ using namespace LLRP;
 CConnection * connectToReader(const char* hostname);
 
 /*
- * Sends a message to the reader. Returns 0 if the message was sent successfully
- * and -1 otherwise.
+ * Sends a message to the reader. Returns 0 if the message was successfully sent
+ * or -1 otherwise.
  */
 int sendMessage (CConnection * connection, CMessage * message);
 
 /*
- * Returns a message sent by the reader during the given timeout
+ * Waits for a message from the reader during the given timeout (in ms).
+ * Returns the message or NULL in case of an error.
  */
 CMessage * recvMessage(CConnection * connection, int timeoutMS);
+
+/*
+ * Equivalent to sending a message to the reader and receiving it's response.
+ * Returns the message or NULL in case of an error. 
+ */
+CMessage * transact (CConnection * connection, CMessage * request);

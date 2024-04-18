@@ -3,7 +3,9 @@
 #define KB 1024u
 
 CConnection* connectToReader(const char* hostname) {
- 	// the registry is used for decoding messages
+ 	// TODO: change printfs to logs
+
+	// the registry is used for decoding messages
  	CTypeRegistry* typeRegistry = getTheTypeRegistry();
  	enrollCoreTypesIntoRegistry(typeRegistry);
  
@@ -12,7 +14,6 @@ CConnection* connectToReader(const char* hostname) {
  	CConnection* connection = new CConnection(typeRegistry, 32u*KB);
  
  	if (NULL == connection) {
-		// TODO: change printf to a log
  		printf("ERROR: new CConnection failed\n");
  		return NULL;
  	}
@@ -21,7 +22,6 @@ CConnection* connectToReader(const char* hostname) {
  	int status = connection->openConnectionToReader(hostname);
  	
 	if (0 != status) {
-		// TODO: change printf to a log
  		printf(
 			"ERROR: connection failed: %s (%i)\n", 
 			connection->getConnectError(), 
@@ -34,10 +34,10 @@ CConnection* connectToReader(const char* hostname) {
  	return connection;
  }
 
-int sendMessage (CConnection * connection, CMessage * message) {
+int sendMessage(CConnection * connection, CMessage * message) {
 	// TODO: change printfs to logs;
 
-	if(RC_OK != connection->sendMessage(message))
+	if (RC_OK != connection->sendMessage(message))
     {
         const CErrorDetails * error = connection->getSendError();
 
@@ -47,7 +47,7 @@ int sendMessage (CConnection * connection, CMessage * message) {
             error->m_pWhatStr ? error->m_pWhatStr : "no reason given"
 		);
 
-        if(NULL != error->m_pRefType)
+        if (NULL != error->m_pRefType)
         {
             printf(
 				"ERROR: ... reference type %s\n",
@@ -55,7 +55,7 @@ int sendMessage (CConnection * connection, CMessage * message) {
 			);
         }
 
-        if(NULL != error->m_pRefField)
+        if (NULL != error->m_pRefField)
         {
             printf(
 				"ERROR: ... reference field %s\n",
@@ -70,13 +70,15 @@ int sendMessage (CConnection * connection, CMessage * message) {
 }
 
 CMessage * recvMessage(CConnection * connection, int timeoutMS) {
-    CMessage * message = connection->recvMessage(timeoutMS);
+    // TODO: change printfs to logs
 
-    if(NULL == message)
+	CMessage * message = connection->recvMessage(timeoutMS);
+
+    if (NULL == message)
     {
         const CErrorDetails * error = connection->getRecvError();
 
-        if(error->m_eResultCode != RC_RecvTimeout)
+        if (error->m_eResultCode != RC_RecvTimeout)
         {
         	printf(
 				"ERROR: recvMessage failed, %s\n",
@@ -84,7 +86,7 @@ CMessage * recvMessage(CConnection * connection, int timeoutMS) {
 			);
         }
 
-        if(NULL != error->m_pRefType)
+        if (NULL != error->m_pRefType)
         {
             printf(
 				"ERROR: ... reference type %s\n",
@@ -92,7 +94,7 @@ CMessage * recvMessage(CConnection * connection, int timeoutMS) {
 			);
         }
 
-        if(NULL != error->m_pRefField)
+        if (NULL != error->m_pRefField)
         {
             printf(
 				"ERROR: ... reference field %s\n",
@@ -108,13 +110,71 @@ CMessage * recvMessage(CConnection * connection, int timeoutMS) {
     return message;
 }
 
+CMessage * transact(CConnection * connection, CMessage * request)
+{
+	// TODO: log the requested message
+
+    CMessage * response = connection->transact(request, 5000);
+	
+	// TODO: change printfs to logs
+
+    if (NULL == response)
+    {
+        const CErrorDetails *   pError = connection->getTransactError();
+
+        printf(
+			"ERROR: %s transact failed, %s\n",
+            request->m_pType->m_pName,
+            pError->m_pWhatStr ? pError->m_pWhatStr : "no reason given"
+		);
+
+        if (NULL != pError->m_pRefType)
+        {
+            printf(
+				"ERROR: ... reference type %s\n",
+                pError->m_pRefType->m_pName
+			);
+        }
+
+        if (NULL != pError->m_pRefField)
+        {
+            printf(
+				"ERROR: ... reference field %s\n",
+                pError->m_pRefField->m_pName
+			);
+        }
+
+        return NULL;
+    }
+	
+	// TODO: log response message
+   
+	// in case of being an error message
+    if (&CERROR_MESSAGE::s_typeDescriptor == response->m_pType)
+    {
+        const CTypeDescriptor * pResponseType;
+
+        pResponseType = request->m_pType->m_pResponseType;
+
+        printf(
+			"ERROR: Received ERROR_MESSAGE instead of %s\n",
+            pResponseType->m_pName
+		);
+        
+		delete response;
+        response = NULL;
+    }
+
+    return response;
+}
+
 /* 
- * Converts a CEPCData to a string. Internally, is converting an array of bits 
+ * Converts a CEPCData to a string. Equivalent to converting an array of bits 
  * to an array of characters.
  *
  * TODO: provide references for the conversion algorithm  
  */
-void formatOneEPC (CParameter *pEPCParameter, char *buf, int buflen) {
+void formatOneEPC(CParameter *pEPCParameter, char *buf, int buflen) {
     char * p = buf;
     int bufsize = buflen;
     int written = 0;
