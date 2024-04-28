@@ -1,7 +1,13 @@
 #include "reader.h"
-#include <cstddef>
 
 #define KB 1024u
+#define seconds 1000
+
+static int messageID = 0;
+
+int getMessageID() {
+    return messageID++;
+}
 
 CConnection* connectToReader(const char* hostname) {
  	// TODO: change printfs to logs
@@ -18,10 +24,10 @@ CConnection* connectToReader(const char* hostname) {
  		printf("ERROR: new CConnection failed\n");
  		return NULL;
  	}
- 	
+
  	// open the connection with the provided hostname
  	int status = connection->openConnectionToReader(hostname);
- 	
+
 	if (0 != status) {
  		printf(
 			"ERROR: connection failed: %s (%i)\n", 
@@ -35,216 +41,147 @@ CConnection* connectToReader(const char* hostname) {
  	return connection;
  }
 
-int sendMessage(CConnection * connection, CMessage * message) {
-	// TODO: change printfs to logs;
-
-	if (RC_OK != connection->sendMessage(message))
-    {
-        const CErrorDetails * error = connection->getSendError();
-
-        printf(
-			"ERROR: %s sendMessage failed, %s\n",
-            message->m_pType->m_pName,
-            error->m_pWhatStr ? error->m_pWhatStr : "no reason given"
-		);
-
-        if (NULL != error->m_pRefType)
-        {
-            printf(
-				"ERROR: ... reference type %s\n",
-                error->m_pRefType->m_pName
-			);
-        }
-
-        if (NULL != error->m_pRefField)
-        {
-            printf(
-				"ERROR: ... reference field %s\n",
-                error->m_pRefField->m_pName
-			);
-        }
-
+int checkConnectionStatus(CConnection * connection) {
+    // expect the message within 10 seconds
+    CMessage * message = recvMessage(connection, 10 * seconds);
+	
+    // make sure there's a message before proceding
+    if (NULL == message) {
+        // TODO: log that checkConnectionStatus failed
+        printf("ERROR: checkConnectionStatus failed\n");
+        delete message;
         return -1;
     }
+
+    // make sure the message it's a READER_EVENT_NOTIFICATION
+    if (&CREADER_EVENT_NOTIFICATION::s_typeDescriptor != message -> m_pType) {
+        // TODO: log that checkConnectionStatus failed
+        printf("ERROR: checkConnectionStatus failed\n");
+        delete message;
+        return -1;
+    }
+
+    CREADER_EVENT_NOTIFICATION * notification 
+        = (CREADER_EVENT_NOTIFICATION *) message;
+
+    CReaderEventNotificationData * data 
+        = notification->getReaderEventNotificationData();
+
+    // make sure there's data before proceding    
+    if (NULL == data) {
+        // TODO: log that checkConnectionStatus failed
+        printf("ERROR: checkConnectionStatus failed\n");
+        delete message;
+        return -1;
+    }
+
+    // the ConnectionAttemptEvent parameter must be present.
+    CConnectionAttemptEvent * event = data->getConnectionAttemptEvent();
+    if (NULL == event) {
+        // TODO: log that checkConnectionStatus failed
+        printf("ERROR: checkConnectionStatus failed\n");
+        delete message;
+        return -1;
+    }
+
+    // the status in the ConnectionAttemptEvent parameter
+    // must indicate connection success
+    if (ConnectionAttemptStatusType_Success != event -> getStatus()) {
+        // TODO: log that checkConnectionStatus failed
+        printf("ERROR: checkConnectionStatus failed\n");
+        delete message;
+        return -1;
+    }
+    
+    delete message;
+
+    // TODO: log connection status ok
+    printf("INFO: connection ok\n");
 
     return 0;
 }
 
-CMessage * recvMessage(CConnection * connection, int timeoutMS) {
-    // TODO: change printfs to logs
+int enableImpinjExtensions(CConnection * connection) {
+    // compose the command message
+    CIMPINJ_ENABLE_EXTENSIONS * command = new CIMPINJ_ENABLE_EXTENSIONS();
+    command->setMessageID(getMessageID());
+    
+    // send/recv message
+    CMessage * responseMessage = transact(connection, command);
 
-	CMessage * message = connection->recvMessage(timeoutMS);
+    delete command;
 
-    if (NULL == message)
-    {
-        const CErrorDetails * error = connection->getRecvError();
-
-        if (error->m_eResultCode != RC_RecvTimeout)
-        {
-        	printf(
-				"ERROR: recvMessage failed, %s\n",
-				error->m_pWhatStr ? error->m_pWhatStr : "no reason given"
-			);
-        }
-
-        if (NULL != error->m_pRefType)
-        {
-            printf(
-				"ERROR: ... reference type %s\n",
-                error->m_pRefType->m_pName
-			);
-        }
-
-        if (NULL != error->m_pRefField)
-        {
-            printf(
-				"ERROR: ... reference field %s\n",
-                error->m_pRefField->m_pName
-			);
-        }
-
-        return NULL;
+    // make sure we received something
+    if (NULL == responseMessage) {
+        /* transact already tattled */
+        return -1;
     }
 
-	// TODO: log the connection message 
+    CIMPINJ_ENABLE_EXTENSIONS_RESPONSE * response 
+        = (CIMPINJ_ENABLE_EXTENSIONS_RESPONSE *) responseMessage;
 
-    return message;
+    // Check the LLRPStatus parameter.
+    if (0 != checkLLRPStatus(
+        response->getLLRPStatus(), 
+        "enableImpinjExtensions"
+    )) {
+        /* checkLLRPStatus already tattled */
+        delete responseMessage;
+        return -1;
+    }
+
+    delete responseMessage;
+
+    /*
+     * Tattle progress, maybe
+     */
+
+    // TODO: log that extensions were enabled
+    printf("INFO: Impinj extensions enabled\n");
+
+    return 0;
 }
 
-CMessage * transact(CConnection * connection, CMessage * request)
-{
-	// TODO: log the requested message
+int resetConfigurationToFactoryDefaults(CConnection * connection) {
+    // compose the command message
+    CSET_READER_CONFIG * command;
+    command = new CSET_READER_CONFIG();
+    command -> setMessageID(getMessageID());
+    command -> setResetToFactoryDefault(1);
 
-    CMessage * response = connection->transact(request, 5000);
-	
-	// TODO: change printfs to logs
+    // send/recv message
+    CMessage * responseMessage = transact(connection, command);
 
-    if (NULL == response)
-    {
-        const CErrorDetails *   pError = connection->getTransactError();
+    delete command;
 
-        printf(
-			"ERROR: %s transact failed, %s\n",
-            request->m_pType->m_pName,
-            pError->m_pWhatStr ? pError->m_pWhatStr : "no reason given"
-		);
-
-        if (NULL != pError->m_pRefType)
-        {
-            printf(
-				"ERROR: ... reference type %s\n",
-                pError->m_pRefType->m_pName
-			);
-        }
-
-        if (NULL != pError->m_pRefField)
-        {
-            printf(
-				"ERROR: ... reference field %s\n",
-                pError->m_pRefField->m_pName
-			);
-        }
-
-        return NULL;
-    }
-	
-	// TODO: log response message
-   
-	// in case of being an error message
-    if (&CERROR_MESSAGE::s_typeDescriptor == response->m_pType)
-    {
-        const CTypeDescriptor * pResponseType;
-
-        pResponseType = request->m_pType->m_pResponseType;
-
-        printf(
-			"ERROR: Received ERROR_MESSAGE instead of %s\n",
-            pResponseType->m_pName
-		);
-        
-		delete response;
-        response = NULL;
+    // make sure we received a message
+    if (NULL == responseMessage) {
+        /* transact already tattled */
+        return -1;
     }
 
-    return response;
+    CSET_READER_CONFIG_RESPONSE * response 
+        = (CSET_READER_CONFIG_RESPONSE * ) responseMessage;
+    
+    // check the LLRPStatus parameter
+    if (0 != checkLLRPStatus(
+        response->getLLRPStatus(),
+        "resetConfigurationToFactoryDefaults"
+    )) {
+        /* checkLLRPStatus already tattled */
+        delete responseMessage;
+        return -1;
+    }
+
+    delete responseMessage;
+    
+    // TODO: log success
+    printf("INFO: Connection success!\n");
+    
+    return 0;
 }
 
-/* 
- * Converts a CEPCData to a string. Equivalent to converting an array of bits 
- * to an array of characters.
- *
- * TODO: provide references for the conversion algorithm  
- */
-void formatOneEPC(CParameter *pEPCParameter, char *buf, int buflen) {
-    char * p = buf;
-    int bufsize = buflen;
-    int written = 0;
-
-    if(NULL != pEPCParameter)
-    {
-        llrp_u96_t my_u96;
-        llrp_u1v_t my_u1v;
-        llrp_u8_t * pValue = NULL;
-        
-		unsigned int n, i;
-		
-        const CTypeDescriptor * pType;
-        pType = pEPCParameter->m_pType;
-        if(&CEPC_96::s_typeDescriptor == pType)
-        {
-            CEPC_96 * pEPC_96;
-
-            pEPC_96 = (CEPC_96 *) pEPCParameter;
-            my_u96 = pEPC_96->getEPC();
-            pValue = my_u96.m_aValue;
-            n = 12u;
-        }
-        else if(&CEPCData::s_typeDescriptor == pType)
-        {
-            CEPCData * pEPCData;
-
-            pEPCData = (CEPCData *) pEPCParameter;
-            my_u1v = pEPCData->getEPC();
-            pValue = my_u1v.m_pValue;
-            n = (my_u1v.m_nBit + 7u) / 8u;
-        }
-
-        if(NULL != pValue)
-        {
-            for(i = 0; i < n; i++)
-            {
-                if(0 < i && i%2 == 0 && 1 < bufsize)
-                {
-                    *p++ = '-';
-                    bufsize--;
-                }
-                if(bufsize > 2)
-                {
-                    written = snprintf(p, bufsize, "%02X", pValue[i]);
-                    bufsize -= written;
-                    p+= written;
-                }
-            }
-        }
-        else
-        {
-            written = snprintf(p, bufsize, "%s", "---unknown-epc-data-type---");
-            bufsize -= written;
-            p += written;
-        }
-    }
-    else
-    {
-        written = snprintf(p, bufsize, "%s", "--null epc---");
-        bufsize -= written;
-        p += written;
-    }
-
-    // null terminate this for good practice
-    buf[buflen-1] = '\0';
-}
-
-CMessage * addROSpec(CConnection * connection) {
+int addROSpec(CConnection * connection) {
 	// initialize fields and parameters of the ROSpec, from the most internal 
 	// to the the most external
 	
@@ -298,15 +235,221 @@ CMessage * addROSpec(CConnection * connection) {
 	message->setMessageID(0);
 
 	// send the message
-	CMessage * response = transact(connection, message);
+	CADD_ROSPEC_RESPONSE * response 
+		= (CADD_ROSPEC_RESPONSE *) transact(connection, message);
 	
 	delete message;
-
-	// TODO: log errors (i.e. NULL response)
 	
-	// TODO: log the ROSpec was added
+	// TODO: log errors (i.e. NULL response)
+    if(NULL == response)
+        return -1;
 
-	return response;
+    if(0 != checkLLRPStatus(response->getLLRPStatus(), "addROSpec"))
+        return -1;
+
+    delete response;
+
+	// TODO: log the ROSpec was added
+    printf("INFO: ROSpec added\n");
+
+    return 0;
 }
 
-CMessage * enableROSpec(CConnection connection);
+int enableROSpec(CConnection * connection) {
+    // compose the command message
+    CENABLE_ROSPEC * command = new CENABLE_ROSPEC();
+    command -> setMessageID(getMessageID());
+    command -> setROSpecID(1111);
+
+    // send/recv message
+    CMessage * responseMessage = transact(connection, command);
+
+    delete command;
+
+    // make sure we received a message
+    if (NULL == responseMessage) {
+        /* transact already tattled */
+        return -1;
+    }
+
+    CENABLE_ROSPEC_RESPONSE * response 
+        = (CENABLE_ROSPEC_RESPONSE *) responseMessage;
+
+    // check the LLRPStatus parameter.
+    if (0 != checkLLRPStatus(
+        response -> getLLRPStatus(), 
+        "enableROSpec"
+    )) {
+        /* checkLLRPStatus already tattled */
+        delete responseMessage;
+        return -1;
+    }
+
+    delete responseMessage;
+
+    // TODO: log ROSpec enabled
+    printf("INFO: ROSpec enabled\n");
+
+    return 0;
+}
+
+int startROSpec(CConnection * connection) {
+    // compose the command message
+    CSTART_ROSPEC * command = new CSTART_ROSPEC();
+    command -> setMessageID(getMessageID());
+    command -> setROSpecID(1111);
+
+    // send/recv message
+    CMessage * responseMessage = transact(connection, command);
+
+    delete command;
+
+    // make sure we received the message
+    if (NULL == responseMessage) {
+        /* transact already tattled */
+        return -1;
+    }
+
+    CSTART_ROSPEC_RESPONSE * response
+        = (CSTART_ROSPEC_RESPONSE * ) responseMessage;
+
+    
+    // check the LLRPStatus parameter. 
+    if (0 != checkLLRPStatus(
+        response -> getLLRPStatus(), 
+        "startROSpec"
+    )) {
+        /* checkLLRPStatus already tattled */
+        delete responseMessage;
+        return -1;
+    }
+    delete responseMessage;
+    
+    // TODO: log started ROSpec
+    printf("INFO: ROSpec started\n");
+
+    return 0;
+}
+
+int stopROSpec(CConnection * connection) {
+    // compose the command message
+    CSTOP_ROSPEC * command = new CSTOP_ROSPEC();
+    command -> setMessageID(getMessageID());
+    command -> setROSpecID(1111);
+
+    // send/recv message
+    CMessage * responseMessage = transact(connection, command);
+
+    delete command;
+
+    // make sure we received the message
+    if (NULL == responseMessage) {
+        /* transact already tattled */
+        return -1;
+    }
+
+    CSTOP_ROSPEC_RESPONSE * response
+        = (CSTOP_ROSPEC_RESPONSE * ) responseMessage;
+    
+    // check the LLRPStatus parameter. 
+    if (0 != checkLLRPStatus(
+        response -> getLLRPStatus(), 
+        "stopROSpec"
+    )) {
+        /* checkLLRPStatus already tattled */
+        delete responseMessage;
+        return -1;
+    }
+    delete responseMessage;
+    
+    // TODO: log stopped ROSpec
+    printf("INFO: ROSpec stopped\n");
+
+    return 0;
+}
+
+void awaitAndPrintReport(CConnection * connection, int timeout) {
+    int done = 0;
+    time_t startTime = time(NULL);
+    time_t tempTime;
+    
+    const CTypeDescriptor * messageType;
+
+    // keep receiving messages until done or until something bad happens
+    while (!done) {
+        /*
+         * Wait up to 1 second for a report.  Check
+         * That way, we can check the timestamp even if
+         * there are no reports coming in
+         */
+        CMessage * message = recvMessage(connection, 1 * seconds);
+
+        // validate the timestamp
+        tempTime = time(NULL);
+        if (difftime(tempTime, startTime) > timeout) {
+            done = 1;
+        }
+
+        // make sure we received a message
+        if (NULL == message) {
+            continue;
+        }
+
+        // handle messages by checking their types
+        messageType = message->m_pType;
+        if (&CRO_ACCESS_REPORT::s_typeDescriptor == messageType) {
+            
+            CRO_ACCESS_REPORT * report = (CRO_ACCESS_REPORT * ) message;
+            printTagReportData(report);
+
+        // TODO: handle various types of messages (e.g. antenna events)
+        } else {
+            // TODO: log that an unexpected message appeared
+            printf("Unexpected message\n");
+        }
+
+        delete message;
+    }
+}
+
+
+int readerClientRun(const char * pReaderHostName) {
+    CConnection * connection = connectToReader(pReaderHostName);
+
+    if (0 != checkConnectionStatus(connection)) return 1;
+
+    //if (0 != enableImpinjExtensions(connection)) return 2;
+
+    if (0 != resetConfigurationToFactoryDefaults(connection)) return 3;
+
+    // OPTIONAL: getCapabilities(); getReaderConfig(); setReaderConfig();
+
+    if (0 != addROSpec(connection)) return 4;
+
+    if (0 != enableROSpec(connection)) return 5;
+
+    if (0 != startROSpec(connection)) return 6;
+
+    awaitAndPrintReport(connection, 60);
+
+    if (0 != stopROSpec(connection)) return 7;
+
+    // TODO: log cleaning up reader
+    printf("INFO: reseting reader to factory defauls...\n");
+
+    resetConfigurationToFactoryDefaults(connection);
+
+    // TODO: log finish
+    printf("INFO: finish\n");
+
+    connection->closeConnectionToReader();
+    
+    delete connection;
+
+    // delete typeRegistry;
+
+    CXMLTextDecoder::cleanupParser();
+
+    return 0;
+}
+

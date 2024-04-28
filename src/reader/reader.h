@@ -1,8 +1,9 @@
-#include <stdio.h>
+#include "reader-utils.h"
 
-#include "../../lib/ltkcpp/ltkcpp.h"
-
-using namespace LLRP;
+/*
+ * TODO: add documentation
+ */
+int readerClientRun(const char * hostname);
 
 /*
  * Constructs and initializes a new connection with the reader, returning it's 
@@ -12,25 +13,32 @@ using namespace LLRP;
 CConnection * connectToReader(const char* hostname);
 
 /*
- * Sends a message to the reader. Returns 0 if the message was successfully sent
- * or -1 otherwise.
+ * TODO: add documentation
  */
-int sendMessage (CConnection * connection, CMessage * message);
+int checkConnectionStatus(CConnection * connection);
 
 /*
- * Waits for a message from the reader during the given timeout (in ms).
- * Returns the message or NULL in case of an error.
+ * TODO: add documentation
  */
-CMessage * recvMessage(CConnection * connection, int timeoutMS);
-
-/*
- * Equivalent to sending a message to the reader and receiving it's response.
- * Returns the message or NULL in case of an error. 
- */
-CMessage * transact (CConnection * connection, CMessage * request);
+int enableImpinjExtensions(CConnection * connection);
 
 /*
  * Adds a ROSpec to the reader. Equivalent to transact a ADD_ROSPEC message.
  * Returns the reponse or NULL in case of an error. 
  */
-CMessage * addROSpec(CConnection * connection);
+int addROSpec(CConnection * connection);
+
+/*
+ * TODO: add documentation
+ */
+int enableROSpec(CConnection * connection);
+
+/*
+ * TODO: add documentation
+ */
+int stopROSpec(CConnection * connection);
+
+/*
+ * TODO: add documentation
+ */
+void awaitAndPrintReport(CConnection * connection, int timeout);
