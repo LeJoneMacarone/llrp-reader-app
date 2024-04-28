@@ -1,9 +1,10 @@
+#include <cstdio>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
 #include "logs.h"
 
-const char * addTimestamp (const char * message) {
+const char * add_timestamp (const char * message) {
 	time_t now = time(NULL);
 	
 	char * timestamp = ctime(&now);
@@ -18,7 +19,7 @@ const char * addTimestamp (const char * message) {
 	return newMessage;
 }
 
-recorder_t * recorderInit(FILE * stream, const char * (* callback) (const char *)) {
+recorder_t * recorder_init(FILE * stream, const char * (* callback) (const char *)) {
 	recorder_t * recorder = (recorder_t *) malloc(sizeof(recorder_t));
 	
 	if (NULL == recorder) return NULL;
@@ -28,17 +29,17 @@ recorder_t * recorderInit(FILE * stream, const char * (* callback) (const char *
 	return recorder;
 }
 
-logger_t * loggerInit() {
+logger_t * logger_init(recorder_t * recorders, size_t size) {
 	logger_t * logger = (logger_t *) malloc(sizeof(logger_t));
 	
 	if (NULL == logger) return NULL;
 
-	logger->size = 0;
-	logger->recorders = NULL;
+	logger->size = size;
+	logger->recorders = recorders;
 	return logger;
 }
 
-void loggerAdd(logger_t * logger, recorder_t recorder) {
+void logger_add(logger_t * logger, recorder_t recorder) {
 	logger->size ++;	
 	
 	logger->recorders = (recorder_t *) realloc(
@@ -49,10 +50,9 @@ void loggerAdd(logger_t * logger, recorder_t recorder) {
 	logger->recorders[logger->size - 1] = recorder;
 }
 
-void loggerLog(logger_t * logger, const char * message) {
+void logger_log(logger_t * logger, const char * message) {
 	for (size_t i = 0; i < logger->size; i ++) {
-		const char * newMessage = 
-			logger->recorders[i].callback == NULL ?
+		const char * newMessage = logger->recorders[i].callback == NULL ?
 			message : (const char *) logger->recorders[i].callback(message);
 		
 		fprintf(logger->recorders[i].stream, "%s\n", newMessage);
