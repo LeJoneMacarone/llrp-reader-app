@@ -112,6 +112,11 @@ class CImpinjMarginReadOpSpecResult;
 class CImpinjBLEVersion;
 class CImpinjLocationAlgorithmControl;
 class CImpinjRFPowerSweep;
+class CImpinjTruncatedReplyConfiguration;
+class CImpinjAuthenticate;
+class CImpinjAuthenticateOpSpecResult;
+class CImpinjTagFilterVerificationConfiguration;
+class CImpinjEnableTagPopulationEstimationAlgorithm;
 
 /*
  * Vendor descriptor declarations.
@@ -168,7 +173,29 @@ g_nsdescImpinj;
 
 enum EImpinjRequestedDataType
 {
-ImpinjRequestedDataType_All_Capabilities = 1000, /**< All_Capabilities */ ImpinjRequestedDataType_Impinj_Detailed_Version = 1001, /**< Impinj_Detailed_Version */ ImpinjRequestedDataType_Impinj_Frequency_Capabilities = 1002, /**< Impinj_Frequency_Capabilities */ ImpinjRequestedDataType_Impinj_xArray_Capabilities = 1003, /**< Impinj_xArray_Capabilities */ ImpinjRequestedDataType_Impinj_Antenna_Capabilities = 1004, /**< Impinj_Antenna_Capabilities */ ImpinjRequestedDataType_All_Configuration = 2000, /**< All_Configuration */ ImpinjRequestedDataType_Impinj_Sub_Regulatory_Region = 2001, /**< Impinj_Sub_Regulatory_Region */ ImpinjRequestedDataType_Impinj_GPI_Debounce_Configuration = 2003, /**< Impinj_GPI_Debounce_Configuration */ ImpinjRequestedDataType_Impinj_Reader_Temperature = 2004, /**< Impinj_Reader_Temperature */ ImpinjRequestedDataType_Impinj_Link_Monitor_Configuration = 2005, /**< Impinj_Link_Monitor_Configuration */ ImpinjRequestedDataType_Impinj_Report_Buffer_Configuration = 2006, /**< Impinj_Report_Buffer_Configuration */ ImpinjRequestedDataType_Impinj_Access_Spec_Configuration = 2007, /**< Impinj_Access_Spec_Configuration */ ImpinjRequestedDataType_Impinj_GPS_NMEA_Sentences = 2008, /**< Impinj_GPS_NMEA_Sentences */ ImpinjRequestedDataType_Impinj_Advanced_GPO_Configuration = 2009, /**< Impinj_Advanced_GPO_Configuration */ ImpinjRequestedDataType_Impinj_Tilt_Configuration = 2010, /**< Impinj_Tilt_Configuration */ ImpinjRequestedDataType_Impinj_Beacon_Configuration = 2011, /**< Impinj_Beacon_Configuration */ ImpinjRequestedDataType_Impinj_Antenna_Configuration = 2012, /**< Impinj_Antenna_Configuration */ ImpinjRequestedDataType_Impinj_Location_Configuration = 2013, /**< Impinj_Location_Configuration */ ImpinjRequestedDataType_Impinj_Transition_Configuration = 2014, /**< Impinj_Transition_Configuration */ ImpinjRequestedDataType_Impinj_Hub_Configuration = 2015, /**< Impinj_Hub_Configuration */ ImpinjRequestedDataType_Impinj_PolarizationControl_Configuration = 2017, /**< Impinj_PolarizationControl_Configuration */ ImpinjRequestedDataType_Impinj_Direction_Configuration = 2018, /**< Impinj_Direction_Configuration */  
+
+    ImpinjRequestedDataType_All_Capabilities = 1000, /**< All_Capabilities */ 
+    ImpinjRequestedDataType_Impinj_Detailed_Version = 1001, /**< Impinj_Detailed_Version */ 
+    ImpinjRequestedDataType_Impinj_Frequency_Capabilities = 1002, /**< Impinj_Frequency_Capabilities */ 
+    ImpinjRequestedDataType_Impinj_xArray_Capabilities = 1003, /**< Impinj_xArray_Capabilities */ 
+    ImpinjRequestedDataType_Impinj_Antenna_Capabilities = 1004, /**< Impinj_Antenna_Capabilities */ 
+    ImpinjRequestedDataType_All_Configuration = 2000, /**< All_Configuration */ 
+    ImpinjRequestedDataType_Impinj_Sub_Regulatory_Region = 2001, /**< Impinj_Sub_Regulatory_Region */ 
+    ImpinjRequestedDataType_Impinj_GPI_Debounce_Configuration = 2003, /**< Impinj_GPI_Debounce_Configuration */ 
+    ImpinjRequestedDataType_Impinj_Reader_Temperature = 2004, /**< Impinj_Reader_Temperature */ 
+    ImpinjRequestedDataType_Impinj_Link_Monitor_Configuration = 2005, /**< Impinj_Link_Monitor_Configuration */ 
+    ImpinjRequestedDataType_Impinj_Report_Buffer_Configuration = 2006, /**< Impinj_Report_Buffer_Configuration */ 
+    ImpinjRequestedDataType_Impinj_Access_Spec_Configuration = 2007, /**< Impinj_Access_Spec_Configuration */ 
+    ImpinjRequestedDataType_Impinj_GPS_NMEA_Sentences = 2008, /**< Impinj_GPS_NMEA_Sentences */ 
+    ImpinjRequestedDataType_Impinj_Advanced_GPO_Configuration = 2009, /**< Impinj_Advanced_GPO_Configuration */ 
+    ImpinjRequestedDataType_Impinj_Tilt_Configuration = 2010, /**< Impinj_Tilt_Configuration */ 
+    ImpinjRequestedDataType_Impinj_Beacon_Configuration = 2011, /**< Impinj_Beacon_Configuration */ 
+    ImpinjRequestedDataType_Impinj_Antenna_Configuration = 2012, /**< Impinj_Antenna_Configuration */ 
+    ImpinjRequestedDataType_Impinj_Location_Configuration = 2013, /**< Impinj_Location_Configuration */ 
+    ImpinjRequestedDataType_Impinj_Transition_Configuration = 2014, /**< Impinj_Transition_Configuration */ 
+    ImpinjRequestedDataType_Impinj_Hub_Configuration = 2015, /**< Impinj_Hub_Configuration */ 
+    ImpinjRequestedDataType_Impinj_PolarizationControl_Configuration = 2017, /**< Impinj_PolarizationControl_Configuration */ 
+    ImpinjRequestedDataType_Impinj_Direction_Configuration = 2018, /**< Impinj_Direction_Configuration */  
 };
 
 extern const SEnumTableEntry
@@ -205,12 +232,46 @@ g_estImpinjRequestedDataType[];
     
     
     
+    
+    
+    
+    
   
  **/
 
 enum EImpinjRegulatoryRegion
 {
-ImpinjRegulatoryRegion_FCC_Part_15_247 = 0, /**< FCC_Part_15_247 */ ImpinjRegulatoryRegion_ETSI_EN_300_220 = 1, /**< ETSI_EN_300_220 */ ImpinjRegulatoryRegion_ETSI_EN_302_208_With_LBT = 2, /**< ETSI_EN_302_208_With_LBT */ ImpinjRegulatoryRegion_Hong_Kong_920_925_MHz = 3, /**< Hong_Kong_920_925_MHz */ ImpinjRegulatoryRegion_Taiwan_922_928_MHz = 4, /**< Taiwan_922_928_MHz */ ImpinjRegulatoryRegion_ETSI_EN_302_208_v1_2_1 = 7, /**< ETSI_EN_302_208_v1_2_1 */ ImpinjRegulatoryRegion_Korea_917_921_MHz = 8, /**< Korea_917_921_MHz */ ImpinjRegulatoryRegion_Malaysia_919_923_MHz = 9, /**< Malaysia_919_923_MHz */ ImpinjRegulatoryRegion_China_920_925_MHz = 10, /**< China_920_925_MHz */ ImpinjRegulatoryRegion_South_Africa_915_919_MHz = 12, /**< South_Africa_915_919_MHz */ ImpinjRegulatoryRegion_Brazil_902_907_and_915_928_MHz = 13, /**< Brazil_902_907_and_915_928_MHz */ ImpinjRegulatoryRegion_Thailand_920_925_MHz = 14, /**< Thailand_920_925_MHz */ ImpinjRegulatoryRegion_Singapore_920_925_MHz = 15, /**< Singapore_920_925_MHz */ ImpinjRegulatoryRegion_Australia_920_926_MHz = 16, /**< Australia_920_926_MHz */ ImpinjRegulatoryRegion_India_865_867_MHz = 17, /**< India_865_867_MHz */ ImpinjRegulatoryRegion_Uruguay_916_928_MHz = 18, /**< Uruguay_916_928_MHz */ ImpinjRegulatoryRegion_Vietnam_920_925_MHz = 19, /**< Vietnam_920_925_MHz */ ImpinjRegulatoryRegion_Israel_915_917_MHz = 20, /**< Israel_915_917_MHz */ ImpinjRegulatoryRegion_Philippines_918_920_MHz = 21, /**< Philippines_918_920_MHz */ ImpinjRegulatoryRegion_Indonesia_923_925_MHz = 23, /**< Indonesia_923_925_MHz */ ImpinjRegulatoryRegion_New_Zealand_921p5_928_MHz = 24, /**< New_Zealand_921p5_928_MHz */ ImpinjRegulatoryRegion_Japan_916_921_MHz_Without_LBT = 25, /**< Japan_916_921_MHz_Without_LBT */ ImpinjRegulatoryRegion_Latin_America_902_928_MHz = 26, /**< Latin_America_902_928_MHz */ ImpinjRegulatoryRegion_Peru_916_928_MHz = 27, /**< Peru_916_928_MHz */ ImpinjRegulatoryRegion_Bangladesh_925_927_MHz = 28, /**< Bangladesh_925_927_MHz */ ImpinjRegulatoryRegion_ETSI_915_921_MHz = 29, /**< ETSI_915_921_MHz */  
+
+    ImpinjRegulatoryRegion_FCC_Part_15_247 = 0, /**< FCC_Part_15_247 */ 
+    ImpinjRegulatoryRegion_ETSI_EN_300_220 = 1, /**< ETSI_EN_300_220 */ 
+    ImpinjRegulatoryRegion_ETSI_EN_302_208_With_LBT = 2, /**< ETSI_EN_302_208_With_LBT */ 
+    ImpinjRegulatoryRegion_Hong_Kong_920_925_MHz = 3, /**< Hong_Kong_920_925_MHz */ 
+    ImpinjRegulatoryRegion_Taiwan_922_928_MHz = 4, /**< Taiwan_922_928_MHz */ 
+    ImpinjRegulatoryRegion_ETSI_EN_302_208_v1_2_1 = 7, /**< ETSI_EN_302_208_v1_2_1 */ 
+    ImpinjRegulatoryRegion_Korea_917_921_MHz = 8, /**< Korea_917_921_MHz */ 
+    ImpinjRegulatoryRegion_Malaysia_919_923_MHz = 9, /**< Malaysia_919_923_MHz */ 
+    ImpinjRegulatoryRegion_China_920_925_MHz = 10, /**< China_920_925_MHz */ 
+    ImpinjRegulatoryRegion_South_Africa_915_919_MHz = 12, /**< South_Africa_915_919_MHz */ 
+    ImpinjRegulatoryRegion_Brazil_902_907_and_915_928_MHz = 13, /**< Brazil_902_907_and_915_928_MHz */ 
+    ImpinjRegulatoryRegion_Thailand_920_925_MHz = 14, /**< Thailand_920_925_MHz */ 
+    ImpinjRegulatoryRegion_Singapore_920_925_MHz = 15, /**< Singapore_920_925_MHz */ 
+    ImpinjRegulatoryRegion_Australia_920_926_MHz = 16, /**< Australia_920_926_MHz */ 
+    ImpinjRegulatoryRegion_India_865_867_MHz = 17, /**< India_865_867_MHz */ 
+    ImpinjRegulatoryRegion_Uruguay_916_928_MHz = 18, /**< Uruguay_916_928_MHz */ 
+    ImpinjRegulatoryRegion_Vietnam_918_923_MHz = 19, /**< Vietnam_918_923_MHz */ 
+    ImpinjRegulatoryRegion_Israel_915_917_MHz = 20, /**< Israel_915_917_MHz */ 
+    ImpinjRegulatoryRegion_Philippines_918_920_MHz = 21, /**< Philippines_918_920_MHz */ 
+    ImpinjRegulatoryRegion_Vietnam_920_923_MHz = 22, /**< Vietnam_920_923_MHz */ 
+    ImpinjRegulatoryRegion_Indonesia_920_923_MHz = 23, /**< Indonesia_920_923_MHz */ 
+    ImpinjRegulatoryRegion_New_Zealand_921p5_928_MHz = 24, /**< New_Zealand_921p5_928_MHz */ 
+    ImpinjRegulatoryRegion_Japan_916_921_MHz_Without_LBT = 25, /**< Japan_916_921_MHz_Without_LBT */ 
+    ImpinjRegulatoryRegion_Latin_America_902_928_MHz = 26, /**< Latin_America_902_928_MHz */ 
+    ImpinjRegulatoryRegion_Peru_916_928_MHz = 27, /**< Peru_916_928_MHz */ 
+    ImpinjRegulatoryRegion_Bangladesh_925_927_MHz = 28, /**< Bangladesh_925_927_MHz */ 
+    ImpinjRegulatoryRegion_ETSI_915_921_MHz = 29, /**< ETSI_915_921_MHz */ 
+    ImpinjRegulatoryRegion_Morocco_867_868_MHz = 30, /**< Morocco_867_868_MHz */ 
+    ImpinjRegulatoryRegion_Paraguay_918_928_MHz = 31, /**< Paraguay_918_928_MHz */ 
+    ImpinjRegulatoryRegion_Morocco = 32, /**< Morocco */  
 };
 
 extern const SEnumTableEntry
@@ -233,7 +294,14 @@ g_estImpinjRegulatoryRegion[];
 
 enum EImpinjInventorySearchType
 {
-ImpinjInventorySearchType_Reader_Selected = 0, /**< Reader_Selected */ ImpinjInventorySearchType_Single_Target = 1, /**< Single_Target */ ImpinjInventorySearchType_Dual_Target = 2, /**< Dual_Target */ ImpinjInventorySearchType_Single_Target_With_Suppression = 3, /**< Single_Target_With_Suppression */ ImpinjInventorySearchType_No_Target = 4, /**< No_Target */ ImpinjInventorySearchType_Single_Target_BtoA = 5, /**< Single_Target_BtoA */ ImpinjInventorySearchType_Dual_Target_with_BtoASelect = 6, /**< Dual_Target_with_BtoASelect */  
+
+    ImpinjInventorySearchType_Reader_Selected = 0, /**< Reader_Selected */ 
+    ImpinjInventorySearchType_Single_Target = 1, /**< Single_Target */ 
+    ImpinjInventorySearchType_Dual_Target = 2, /**< Dual_Target */ 
+    ImpinjInventorySearchType_Single_Target_With_Suppression = 3, /**< Single_Target_With_Suppression */ 
+    ImpinjInventorySearchType_No_Target = 4, /**< No_Target */ 
+    ImpinjInventorySearchType_Single_Target_BtoA = 5, /**< Single_Target_BtoA */ 
+    ImpinjInventorySearchType_Dual_Target_with_BtoASelect = 6, /**< Dual_Target_with_BtoASelect */  
 };
 
 extern const SEnumTableEntry
@@ -252,7 +320,10 @@ g_estImpinjInventorySearchType[];
 
 enum EImpinjFixedFrequencyMode
 {
-ImpinjFixedFrequencyMode_Disabled = 0, /**< Disabled */ ImpinjFixedFrequencyMode_Auto_Select = 1, /**< Auto_Select */ ImpinjFixedFrequencyMode_Channel_List = 2, /**< Channel_List */  
+
+    ImpinjFixedFrequencyMode_Disabled = 0, /**< Disabled */ 
+    ImpinjFixedFrequencyMode_Auto_Select = 1, /**< Auto_Select */ 
+    ImpinjFixedFrequencyMode_Channel_List = 2, /**< Channel_List */  
 };
 
 extern const SEnumTableEntry
@@ -270,7 +341,9 @@ g_estImpinjFixedFrequencyMode[];
 
 enum EImpinjReducedPowerMode
 {
-ImpinjReducedPowerMode_Disabled = 0, /**< Disabled */ ImpinjReducedPowerMode_Enabled = 1, /**< Enabled */  
+
+    ImpinjReducedPowerMode_Disabled = 0, /**< Disabled */ 
+    ImpinjReducedPowerMode_Enabled = 1, /**< Enabled */  
 };
 
 extern const SEnumTableEntry
@@ -288,7 +361,9 @@ g_estImpinjReducedPowerMode[];
 
 enum EImpinjLowDutyCycleMode
 {
-ImpinjLowDutyCycleMode_Disabled = 0, /**< Disabled */ ImpinjLowDutyCycleMode_Enabled = 1, /**< Enabled */  
+
+    ImpinjLowDutyCycleMode_Disabled = 0, /**< Disabled */ 
+    ImpinjLowDutyCycleMode_Enabled = 1, /**< Enabled */  
 };
 
 extern const SEnumTableEntry
@@ -306,7 +381,9 @@ g_estImpinjLowDutyCycleMode[];
 
 enum EImpinjLinkMonitorMode
 {
-ImpinjLinkMonitorMode_Disabled = 0, /**< Disabled */ ImpinjLinkMonitorMode_Enabled = 1, /**< Enabled */  
+
+    ImpinjLinkMonitorMode_Disabled = 0, /**< Disabled */ 
+    ImpinjLinkMonitorMode_Enabled = 1, /**< Enabled */  
 };
 
 extern const SEnumTableEntry
@@ -324,7 +401,9 @@ g_estImpinjLinkMonitorMode[];
 
 enum EImpinjReportBufferMode
 {
-ImpinjReportBufferMode_Normal = 0, /**< Normal */ ImpinjReportBufferMode_Low_Latency = 1, /**< Low_Latency */  
+
+    ImpinjReportBufferMode_Normal = 0, /**< Normal */ 
+    ImpinjReportBufferMode_Low_Latency = 1, /**< Low_Latency */  
 };
 
 extern const SEnumTableEntry
@@ -347,7 +426,14 @@ g_estImpinjReportBufferMode[];
 
 enum EImpinjBlockPermalockResultType
 {
-ImpinjBlockPermalockResultType_Success = 0, /**< Success */ ImpinjBlockPermalockResultType_Insufficient_Power = 1, /**< Insufficient_Power */ ImpinjBlockPermalockResultType_Nonspecific_Tag_Error = 2, /**< Nonspecific_Tag_Error */ ImpinjBlockPermalockResultType_No_Response_From_Tag = 3, /**< No_Response_From_Tag */ ImpinjBlockPermalockResultType_Nonspecific_Reader_Error = 4, /**< Nonspecific_Reader_Error */ ImpinjBlockPermalockResultType_Incorrect_Password_Error = 5, /**< Incorrect_Password_Error */ ImpinjBlockPermalockResultType_Tag_Memory_Overrun_Error = 6, /**< Tag_Memory_Overrun_Error */  
+
+    ImpinjBlockPermalockResultType_Success = 0, /**< Success */ 
+    ImpinjBlockPermalockResultType_Insufficient_Power = 1, /**< Insufficient_Power */ 
+    ImpinjBlockPermalockResultType_Nonspecific_Tag_Error = 2, /**< Nonspecific_Tag_Error */ 
+    ImpinjBlockPermalockResultType_No_Response_From_Tag = 3, /**< No_Response_From_Tag */ 
+    ImpinjBlockPermalockResultType_Nonspecific_Reader_Error = 4, /**< Nonspecific_Reader_Error */ 
+    ImpinjBlockPermalockResultType_Incorrect_Password_Error = 5, /**< Incorrect_Password_Error */ 
+    ImpinjBlockPermalockResultType_Tag_Memory_Overrun_Error = 6, /**< Tag_Memory_Overrun_Error */  
 };
 
 extern const SEnumTableEntry
@@ -369,7 +455,13 @@ g_estImpinjBlockPermalockResultType[];
 
 enum EImpinjGetBlockPermalockStatusResultType
 {
-ImpinjGetBlockPermalockStatusResultType_Success = 0, /**< Success */ ImpinjGetBlockPermalockStatusResultType_Nonspecific_Tag_Error = 1, /**< Nonspecific_Tag_Error */ ImpinjGetBlockPermalockStatusResultType_No_Response_From_Tag = 2, /**< No_Response_From_Tag */ ImpinjGetBlockPermalockStatusResultType_Nonspecific_Reader_Error = 3, /**< Nonspecific_Reader_Error */ ImpinjGetBlockPermalockStatusResultType_Incorrect_Password_Error = 4, /**< Incorrect_Password_Error */ ImpinjGetBlockPermalockStatusResultType_Tag_Memory_Overrun_Error = 5, /**< Tag_Memory_Overrun_Error */  
+
+    ImpinjGetBlockPermalockStatusResultType_Success = 0, /**< Success */ 
+    ImpinjGetBlockPermalockStatusResultType_Nonspecific_Tag_Error = 1, /**< Nonspecific_Tag_Error */ 
+    ImpinjGetBlockPermalockStatusResultType_No_Response_From_Tag = 2, /**< No_Response_From_Tag */ 
+    ImpinjGetBlockPermalockStatusResultType_Nonspecific_Reader_Error = 3, /**< Nonspecific_Reader_Error */ 
+    ImpinjGetBlockPermalockStatusResultType_Incorrect_Password_Error = 4, /**< Incorrect_Password_Error */ 
+    ImpinjGetBlockPermalockStatusResultType_Tag_Memory_Overrun_Error = 5, /**< Tag_Memory_Overrun_Error */  
 };
 
 extern const SEnumTableEntry
@@ -388,7 +480,10 @@ g_estImpinjGetBlockPermalockStatusResultType[];
 
 enum EImpinjQTDataProfile
 {
-ImpinjQTDataProfile_Unknown = 0, /**< Unknown */ ImpinjQTDataProfile_Private = 1, /**< Private */ ImpinjQTDataProfile_Public = 2, /**< Public */  
+
+    ImpinjQTDataProfile_Unknown = 0, /**< Unknown */ 
+    ImpinjQTDataProfile_Private = 1, /**< Private */ 
+    ImpinjQTDataProfile_Public = 2, /**< Public */  
 };
 
 extern const SEnumTableEntry
@@ -407,7 +502,10 @@ g_estImpinjQTDataProfile[];
 
 enum EImpinjQTAccessRange
 {
-ImpinjQTAccessRange_Unknown = 0, /**< Unknown */ ImpinjQTAccessRange_Normal_Range = 1, /**< Normal_Range */ ImpinjQTAccessRange_Short_Range = 2, /**< Short_Range */  
+
+    ImpinjQTAccessRange_Unknown = 0, /**< Unknown */ 
+    ImpinjQTAccessRange_Normal_Range = 1, /**< Normal_Range */ 
+    ImpinjQTAccessRange_Short_Range = 2, /**< Short_Range */  
 };
 
 extern const SEnumTableEntry
@@ -426,7 +524,10 @@ g_estImpinjQTAccessRange[];
 
 enum EImpinjQTPersistence
 {
-ImpinjQTPersistence_Unknown = 0, /**< Unknown */ ImpinjQTPersistence_Temporary = 1, /**< Temporary */ ImpinjQTPersistence_Permanent = 2, /**< Permanent */  
+
+    ImpinjQTPersistence_Unknown = 0, /**< Unknown */ 
+    ImpinjQTPersistence_Temporary = 1, /**< Temporary */ 
+    ImpinjQTPersistence_Permanent = 2, /**< Permanent */  
 };
 
 extern const SEnumTableEntry
@@ -448,7 +549,13 @@ g_estImpinjQTPersistence[];
 
 enum EImpinjSetQTConfigResultType
 {
-ImpinjSetQTConfigResultType_Success = 0, /**< Success */ ImpinjSetQTConfigResultType_Insufficient_Power = 1, /**< Insufficient_Power */ ImpinjSetQTConfigResultType_Nonspecific_Tag_Error = 2, /**< Nonspecific_Tag_Error */ ImpinjSetQTConfigResultType_No_Response_From_Tag = 3, /**< No_Response_From_Tag */ ImpinjSetQTConfigResultType_Nonspecific_Reader_Error = 4, /**< Nonspecific_Reader_Error */ ImpinjSetQTConfigResultType_Incorrect_Password_Error = 5, /**< Incorrect_Password_Error */  
+
+    ImpinjSetQTConfigResultType_Success = 0, /**< Success */ 
+    ImpinjSetQTConfigResultType_Insufficient_Power = 1, /**< Insufficient_Power */ 
+    ImpinjSetQTConfigResultType_Nonspecific_Tag_Error = 2, /**< Nonspecific_Tag_Error */ 
+    ImpinjSetQTConfigResultType_No_Response_From_Tag = 3, /**< No_Response_From_Tag */ 
+    ImpinjSetQTConfigResultType_Nonspecific_Reader_Error = 4, /**< Nonspecific_Reader_Error */ 
+    ImpinjSetQTConfigResultType_Incorrect_Password_Error = 5, /**< Incorrect_Password_Error */  
 };
 
 extern const SEnumTableEntry
@@ -469,7 +576,12 @@ g_estImpinjSetQTConfigResultType[];
 
 enum EImpinjGetQTConfigResultType
 {
-ImpinjGetQTConfigResultType_Success = 0, /**< Success */ ImpinjGetQTConfigResultType_Nonspecific_Tag_Error = 1, /**< Nonspecific_Tag_Error */ ImpinjGetQTConfigResultType_No_Response_From_Tag = 2, /**< No_Response_From_Tag */ ImpinjGetQTConfigResultType_Nonspecific_Reader_Error = 3, /**< Nonspecific_Reader_Error */ ImpinjGetQTConfigResultType_Incorrect_Password_Error = 4, /**< Incorrect_Password_Error */  
+
+    ImpinjGetQTConfigResultType_Success = 0, /**< Success */ 
+    ImpinjGetQTConfigResultType_Nonspecific_Tag_Error = 1, /**< Nonspecific_Tag_Error */ 
+    ImpinjGetQTConfigResultType_No_Response_From_Tag = 2, /**< No_Response_From_Tag */ 
+    ImpinjGetQTConfigResultType_Nonspecific_Reader_Error = 3, /**< Nonspecific_Reader_Error */ 
+    ImpinjGetQTConfigResultType_Incorrect_Password_Error = 4, /**< Incorrect_Password_Error */  
 };
 
 extern const SEnumTableEntry
@@ -487,7 +599,9 @@ g_estImpinjGetQTConfigResultType[];
 
 enum EImpinjSerializedTIDMode
 {
-ImpinjSerializedTIDMode_Disabled = 0, /**< Disabled */ ImpinjSerializedTIDMode_Enabled = 1, /**< Enabled */  
+
+    ImpinjSerializedTIDMode_Disabled = 0, /**< Disabled */ 
+    ImpinjSerializedTIDMode_Enabled = 1, /**< Enabled */  
 };
 
 extern const SEnumTableEntry
@@ -505,7 +619,9 @@ g_estImpinjSerializedTIDMode[];
 
 enum EImpinjRFPhaseAngleMode
 {
-ImpinjRFPhaseAngleMode_Disabled = 0, /**< Disabled */ ImpinjRFPhaseAngleMode_Enabled = 1, /**< Enabled */  
+
+    ImpinjRFPhaseAngleMode_Disabled = 0, /**< Disabled */ 
+    ImpinjRFPhaseAngleMode_Enabled = 1, /**< Enabled */  
 };
 
 extern const SEnumTableEntry
@@ -523,7 +639,9 @@ g_estImpinjRFPhaseAngleMode[];
 
 enum EImpinjPeakRSSIMode
 {
-ImpinjPeakRSSIMode_Disabled = 0, /**< Disabled */ ImpinjPeakRSSIMode_Enabled = 1, /**< Enabled */  
+
+    ImpinjPeakRSSIMode_Disabled = 0, /**< Disabled */ 
+    ImpinjPeakRSSIMode_Enabled = 1, /**< Enabled */  
 };
 
 extern const SEnumTableEntry
@@ -541,7 +659,9 @@ g_estImpinjPeakRSSIMode[];
 
 enum EImpinjGPSCoordinatesMode
 {
-ImpinjGPSCoordinatesMode_Disabled = 0, /**< Disabled */ ImpinjGPSCoordinatesMode_Enabled = 1, /**< Enabled */  
+
+    ImpinjGPSCoordinatesMode_Disabled = 0, /**< Disabled */ 
+    ImpinjGPSCoordinatesMode_Enabled = 1, /**< Enabled */  
 };
 
 extern const SEnumTableEntry
@@ -564,7 +684,14 @@ g_estImpinjGPSCoordinatesMode[];
 
 enum EImpinjAdvancedGPOMode
 {
-ImpinjAdvancedGPOMode_Normal = 0, /**< Normal */ ImpinjAdvancedGPOMode_Pulsed = 1, /**< Pulsed */ ImpinjAdvancedGPOMode_Reader_Operational_Status = 2, /**< Reader_Operational_Status */ ImpinjAdvancedGPOMode_LLRP_Connection_Status = 3, /**< LLRP_Connection_Status */ ImpinjAdvancedGPOMode_Reader_Inventory_Status = 4, /**< Reader_Inventory_Status */ ImpinjAdvancedGPOMode_Network_Connection_Status = 5, /**< Network_Connection_Status */ ImpinjAdvancedGPOMode_Reader_Inventory_Tags_Status = 6, /**< Reader_Inventory_Tags_Status */  
+
+    ImpinjAdvancedGPOMode_Normal = 0, /**< Normal */ 
+    ImpinjAdvancedGPOMode_Pulsed = 1, /**< Pulsed */ 
+    ImpinjAdvancedGPOMode_Reader_Operational_Status = 2, /**< Reader_Operational_Status */ 
+    ImpinjAdvancedGPOMode_LLRP_Connection_Status = 3, /**< LLRP_Connection_Status */ 
+    ImpinjAdvancedGPOMode_Reader_Inventory_Status = 4, /**< Reader_Inventory_Status */ 
+    ImpinjAdvancedGPOMode_Network_Connection_Status = 5, /**< Network_Connection_Status */ 
+    ImpinjAdvancedGPOMode_Reader_Inventory_Tags_Status = 6, /**< Reader_Inventory_Tags_Status */  
 };
 
 extern const SEnumTableEntry
@@ -582,7 +709,9 @@ g_estImpinjAdvancedGPOMode[];
 
 enum EImpinjOptimizedReadMode
 {
-ImpinjOptimizedReadMode_Disabled = 0, /**< Disabled */ ImpinjOptimizedReadMode_Enabled = 1, /**< Enabled */  
+
+    ImpinjOptimizedReadMode_Disabled = 0, /**< Disabled */ 
+    ImpinjOptimizedReadMode_Enabled = 1, /**< Enabled */  
 };
 
 extern const SEnumTableEntry
@@ -600,7 +729,9 @@ g_estImpinjOptimizedReadMode[];
 
 enum EImpinjAccessSpecOrderingMode
 {
-ImpinjAccessSpecOrderingMode_FIFO = 0, /**< FIFO */ ImpinjAccessSpecOrderingMode_Ascending = 1, /**< Ascending */  
+
+    ImpinjAccessSpecOrderingMode_FIFO = 0, /**< FIFO */ 
+    ImpinjAccessSpecOrderingMode_Ascending = 1, /**< Ascending */  
 };
 
 extern const SEnumTableEntry
@@ -618,7 +749,9 @@ g_estImpinjAccessSpecOrderingMode[];
 
 enum EImpinjRFDopplerFrequencyMode
 {
-ImpinjRFDopplerFrequencyMode_Disabled = 0, /**< Disabled */ ImpinjRFDopplerFrequencyMode_Enabled = 1, /**< Enabled */  
+
+    ImpinjRFDopplerFrequencyMode_Disabled = 0, /**< Disabled */ 
+    ImpinjRFDopplerFrequencyMode_Enabled = 1, /**< Enabled */  
 };
 
 extern const SEnumTableEntry
@@ -636,7 +769,9 @@ g_estImpinjRFDopplerFrequencyMode[];
 
 enum EImpinjTxPowerReportingModeEnum
 {
-ImpinjTxPowerReportingModeEnum_Disabled = 0, /**< Disabled */ ImpinjTxPowerReportingModeEnum_Enabled = 1, /**< Enabled */  
+
+    ImpinjTxPowerReportingModeEnum_Disabled = 0, /**< Disabled */ 
+    ImpinjTxPowerReportingModeEnum_Enabled = 1, /**< Enabled */  
 };
 
 extern const SEnumTableEntry
@@ -655,7 +790,10 @@ g_estImpinjTxPowerReportingModeEnum[];
 
 enum EImpinjHubConnectedType
 {
-ImpinjHubConnectedType_Unknown = 0, /**< Unknown */ ImpinjHubConnectedType_Disconnected = 1, /**< Disconnected */ ImpinjHubConnectedType_Connected = 2, /**< Connected */  
+
+    ImpinjHubConnectedType_Unknown = 0, /**< Unknown */ 
+    ImpinjHubConnectedType_Disconnected = 1, /**< Disconnected */ 
+    ImpinjHubConnectedType_Connected = 2, /**< Connected */  
 };
 
 extern const SEnumTableEntry
@@ -680,7 +818,16 @@ g_estImpinjHubConnectedType[];
 
 enum EImpinjHubFaultType
 {
-ImpinjHubFaultType_No_Fault = 0, /**< No_Fault */ ImpinjHubFaultType_RF_Power = 1, /**< RF_Power */ ImpinjHubFaultType_RF_Power_On_Hub_1 = 2, /**< RF_Power_On_Hub_1 */ ImpinjHubFaultType_RF_Power_On_Hub_2 = 3, /**< RF_Power_On_Hub_2 */ ImpinjHubFaultType_RF_Power_On_Hub_3 = 4, /**< RF_Power_On_Hub_3 */ ImpinjHubFaultType_RF_Power_On_Hub_4 = 5, /**< RF_Power_On_Hub_4 */ ImpinjHubFaultType_No_Init = 6, /**< No_Init */ ImpinjHubFaultType_Serial_Overflow = 7, /**< Serial_Overflow */ ImpinjHubFaultType_Disconnected = 8, /**< Disconnected */  
+
+    ImpinjHubFaultType_No_Fault = 0, /**< No_Fault */ 
+    ImpinjHubFaultType_RF_Power = 1, /**< RF_Power */ 
+    ImpinjHubFaultType_RF_Power_On_Hub_1 = 2, /**< RF_Power_On_Hub_1 */ 
+    ImpinjHubFaultType_RF_Power_On_Hub_2 = 3, /**< RF_Power_On_Hub_2 */ 
+    ImpinjHubFaultType_RF_Power_On_Hub_3 = 4, /**< RF_Power_On_Hub_3 */ 
+    ImpinjHubFaultType_RF_Power_On_Hub_4 = 5, /**< RF_Power_On_Hub_4 */ 
+    ImpinjHubFaultType_No_Init = 6, /**< No_Init */ 
+    ImpinjHubFaultType_Serial_Overflow = 7, /**< Serial_Overflow */ 
+    ImpinjHubFaultType_Disconnected = 8, /**< Disconnected */  
 };
 
 extern const SEnumTableEntry
@@ -699,7 +846,10 @@ g_estImpinjHubFaultType[];
 
 enum EImpinjLocationReportType
 {
-ImpinjLocationReportType_Entry = 0, /**< Entry */ ImpinjLocationReportType_Update = 1, /**< Update */ ImpinjLocationReportType_Exit = 2, /**< Exit */  
+
+    ImpinjLocationReportType_Entry = 0, /**< Entry */ 
+    ImpinjLocationReportType_Update = 1, /**< Update */ 
+    ImpinjLocationReportType_Exit = 2, /**< Exit */  
 };
 
 extern const SEnumTableEntry
@@ -751,7 +901,10 @@ g_estImpinjLocationReportType[];
 
 enum EImpinjDirectionFieldOfView
 {
-ImpinjDirectionFieldOfView_ReaderSelected = 0, /**< ReaderSelected */ ImpinjDirectionFieldOfView_Wide = 1, /**< Wide */ ImpinjDirectionFieldOfView_Narrow = 2, /**< Narrow */  
+
+    ImpinjDirectionFieldOfView_ReaderSelected = 0, /**< ReaderSelected */ 
+    ImpinjDirectionFieldOfView_Wide = 1, /**< Wide */ 
+    ImpinjDirectionFieldOfView_Narrow = 2, /**< Narrow */  
 };
 
 extern const SEnumTableEntry
@@ -794,7 +947,9 @@ g_estImpinjDirectionFieldOfView[];
 
 enum EImpinjDirectionRFMode
 {
-ImpinjDirectionRFMode_HighSensitivity = 0, /**< HighSensitivity */ ImpinjDirectionRFMode_HighPerformance = 1, /**< HighPerformance */  
+
+    ImpinjDirectionRFMode_HighSensitivity = 0, /**< HighSensitivity */ 
+    ImpinjDirectionRFMode_HighPerformance = 1, /**< HighPerformance */  
 };
 
 extern const SEnumTableEntry
@@ -852,7 +1007,11 @@ g_estImpinjDirectionRFMode[];
 
 enum EImpinjDirectionDiagnosticReportLevel
 {
-ImpinjDirectionDiagnosticReportLevel_Off = 0, /**< Off */ ImpinjDirectionDiagnosticReportLevel_Basic = 1, /**< Basic */ ImpinjDirectionDiagnosticReportLevel_Extended = 2, /**< Extended */ ImpinjDirectionDiagnosticReportLevel_Debug = 3, /**< Debug */  
+
+    ImpinjDirectionDiagnosticReportLevel_Off = 0, /**< Off */ 
+    ImpinjDirectionDiagnosticReportLevel_Basic = 1, /**< Basic */ 
+    ImpinjDirectionDiagnosticReportLevel_Extended = 2, /**< Extended */ 
+    ImpinjDirectionDiagnosticReportLevel_Debug = 3, /**< Debug */  
 };
 
 extern const SEnumTableEntry
@@ -899,7 +1058,10 @@ g_estImpinjDirectionDiagnosticReportLevel[];
 
 enum EImpinjDirectionReportType
 {
-ImpinjDirectionReportType_Entry = 0, /**< Entry */ ImpinjDirectionReportType_Update = 1, /**< Update */ ImpinjDirectionReportType_Exit = 2, /**< Exit */  
+
+    ImpinjDirectionReportType_Entry = 0, /**< Entry */ 
+    ImpinjDirectionReportType_Update = 1, /**< Update */ 
+    ImpinjDirectionReportType_Exit = 2, /**< Exit */  
 };
 
 extern const SEnumTableEntry
@@ -946,7 +1108,10 @@ g_estImpinjDirectionReportType[];
 
 enum EImpinjDirectionTagPopulationStatus
 {
-ImpinjDirectionTagPopulationStatus_OK = 0, /**< OK */ ImpinjDirectionTagPopulationStatus_UserOverflow = 1, /**< UserOverflow */ ImpinjDirectionTagPopulationStatus_SystemOverflow = 2, /**< SystemOverflow */  
+
+    ImpinjDirectionTagPopulationStatus_OK = 0, /**< OK */ 
+    ImpinjDirectionTagPopulationStatus_UserOverflow = 1, /**< UserOverflow */ 
+    ImpinjDirectionTagPopulationStatus_SystemOverflow = 2, /**< SystemOverflow */  
 };
 
 extern const SEnumTableEntry
@@ -964,7 +1129,9 @@ g_estImpinjDirectionTagPopulationStatus[];
 
 enum EImpinjIntelligentAntennaMode
 {
-ImpinjIntelligentAntennaMode_Disabled = 0, /**< Disabled */ ImpinjIntelligentAntennaMode_Enabled = 1, /**< Enabled */  
+
+    ImpinjIntelligentAntennaMode_Disabled = 0, /**< Disabled */ 
+    ImpinjIntelligentAntennaMode_Enabled = 1, /**< Enabled */  
 };
 
 extern const SEnumTableEntry
@@ -984,7 +1151,11 @@ g_estImpinjIntelligentAntennaMode[];
 
 enum EImpinjAntennaPolarizationType
 {
-ImpinjAntennaPolarizationType_LinearHorizontal = 0, /**< LinearHorizontal */ ImpinjAntennaPolarizationType_LinearVertical = 1, /**< LinearVertical */ ImpinjAntennaPolarizationType_CircularRight = 2, /**< CircularRight */ ImpinjAntennaPolarizationType_CircularLeft = 3, /**< CircularLeft */  
+
+    ImpinjAntennaPolarizationType_LinearHorizontal = 0, /**< LinearHorizontal */ 
+    ImpinjAntennaPolarizationType_LinearVertical = 1, /**< LinearVertical */ 
+    ImpinjAntennaPolarizationType_CircularRight = 2, /**< CircularRight */ 
+    ImpinjAntennaPolarizationType_CircularLeft = 3, /**< CircularLeft */  
 };
 
 extern const SEnumTableEntry
@@ -1009,11 +1180,88 @@ g_estImpinjAntennaPolarizationType[];
 
 enum EImpinjMarginReadResultType
 {
-ImpinjMarginReadResultType_Success = 0, /**< Success */ ImpinjMarginReadResultType_Failure = 1, /**< Failure */ ImpinjMarginReadResultType_Insufficient_Power = 2, /**< Insufficient_Power */ ImpinjMarginReadResultType_Nonspecific_Tag_Error = 3, /**< Nonspecific_Tag_Error */ ImpinjMarginReadResultType_No_Response_From_Tag = 4, /**< No_Response_From_Tag */ ImpinjMarginReadResultType_Nonspecific_Reader_Error = 5, /**< Nonspecific_Reader_Error */ ImpinjMarginReadResultType_Incorrect_Password_Error = 6, /**< Incorrect_Password_Error */ ImpinjMarginReadResultType_Tag_Memory_Overrun_Error = 7, /**< Tag_Memory_Overrun_Error */ ImpinjMarginReadResultType_Tag_Memory_Locked_Error = 8, /**< Tag_Memory_Locked_Error */  
+
+    ImpinjMarginReadResultType_Success = 0, /**< Success */ 
+    ImpinjMarginReadResultType_Failure = 1, /**< Failure */ 
+    ImpinjMarginReadResultType_Insufficient_Power = 2, /**< Insufficient_Power */ 
+    ImpinjMarginReadResultType_Nonspecific_Tag_Error = 3, /**< Nonspecific_Tag_Error */ 
+    ImpinjMarginReadResultType_No_Response_From_Tag = 4, /**< No_Response_From_Tag */ 
+    ImpinjMarginReadResultType_Nonspecific_Reader_Error = 5, /**< Nonspecific_Reader_Error */ 
+    ImpinjMarginReadResultType_Incorrect_Password_Error = 6, /**< Incorrect_Password_Error */ 
+    ImpinjMarginReadResultType_Tag_Memory_Overrun_Error = 7, /**< Tag_Memory_Overrun_Error */ 
+    ImpinjMarginReadResultType_Tag_Memory_Locked_Error = 8, /**< Tag_Memory_Locked_Error */  
 };
 
 extern const SEnumTableEntry
 g_estImpinjMarginReadResultType[];
+
+
+/**
+ ** @brief  Global enumeration EImpinjAuthenticateResultType for LLRP enumerated field ImpinjAuthenticateResultType
+ **
+ 
+    
+    
+    
+    
+    
+    
+  
+ **/
+
+enum EImpinjAuthenticateResultType
+{
+
+    ImpinjAuthenticateResultType_Success = 0, /**< Success */ 
+    ImpinjAuthenticateResultType_Insufficient_Power = 1, /**< Insufficient_Power */ 
+    ImpinjAuthenticateResultType_Not_Supported_Error = 2, /**< Not_Supported_Error */ 
+    ImpinjAuthenticateResultType_Nonspecific_Tag_Error = 3, /**< Nonspecific_Tag_Error */ 
+    ImpinjAuthenticateResultType_Nonspecific_Reader_Error = 4, /**< Nonspecific_Reader_Error */ 
+    ImpinjAuthenticateResultType_No_Response_From_Tag = 5, /**< No_Response_From_Tag */  
+};
+
+extern const SEnumTableEntry
+g_estImpinjAuthenticateResultType[];
+
+
+/**
+ ** @brief  Global enumeration EImpinjTagFilterVerificationMode for LLRP enumerated field ImpinjTagFilterVerificationMode
+ **
+ 
+    
+    
+  
+ **/
+
+enum EImpinjTagFilterVerificationMode
+{
+
+    ImpinjTagFilterVerificationMode_Disabled = 0, /**< Disabled */ 
+    ImpinjTagFilterVerificationMode_Active = 1, /**< Active */  
+};
+
+extern const SEnumTableEntry
+g_estImpinjTagFilterVerificationMode[];
+
+
+/**
+ ** @brief  Global enumeration EImpinjTagPopulationEstimationMode for LLRP enumerated field ImpinjTagPopulationEstimationMode
+ **
+ 
+    
+    
+  
+ **/
+
+enum EImpinjTagPopulationEstimationMode
+{
+
+    ImpinjTagPopulationEstimationMode_Disabled = 0, /**< Disabled */ 
+    ImpinjTagPopulationEstimationMode_Enabled = 1, /**< Enabled */  
+};
+
+extern const SEnumTableEntry
+g_estImpinjTagPopulationEstimationMode[];
 
 
 /** 
@@ -1083,6 +1331,7 @@ class CIMPINJ_ENABLE_EXTENSIONS : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     std::list<CParameter *> m_listCustom;
@@ -1186,6 +1435,7 @@ class CIMPINJ_ENABLE_EXTENSIONS_RESPONSE : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CLLRPStatus * m_pLLRPStatus;
@@ -1343,6 +1593,7 @@ class CIMPINJ_SAVE_SETTINGS : public CMessage
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -1445,6 +1696,7 @@ class CIMPINJ_SAVE_SETTINGS_RESPONSE : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CLLRPStatus * m_pLLRPStatus;
@@ -1603,6 +1855,7 @@ class CImpinjRequestedData : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -1741,6 +1994,7 @@ class CImpinjSubRegulatoryRegion : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -1875,6 +2129,7 @@ class CImpinjInventorySearchMode : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -2040,6 +2295,7 @@ class CImpinjFixedFrequencyList : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -2205,6 +2461,7 @@ class CImpinjReducedPowerFrequencyList : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -2396,6 +2653,7 @@ class CImpinjLowDutyCycle : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -2455,7 +2713,7 @@ class CImpinjLowDutyCycle : public CParameter
   <HR>
 
     
-    
+
     
     
   
@@ -2503,6 +2761,7 @@ class CImpinjHubVersions : public CParameter
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     std::list<CImpinjArrayVersion *> m_listImpinjArrayVersion;
@@ -2814,6 +3073,7 @@ class CImpinjDetailedVersion : public CParameter
     }
 
 
+  
   protected:
     CImpinjHubVersions * m_pImpinjHubVersions;
 
@@ -2999,6 +3259,7 @@ class CImpinjFrequencyCapabilities : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -3052,7 +3313,7 @@ class CImpinjFrequencyCapabilities : public CParameter
 
       
         
-    <p>This custom parameter controls the GPI debounce timing. It is only available on Speedway Revolution readers. The GPIPortNum is the 1-based GPI number. Once a transition, rising or falling, is detected subsequent transitions are ignored for GPIDebounceTimerMSec milliseconds. GPIDebounceTimerMSec must be a multiple of 10ms. Setting GPIDebounceTimerMSec to zero effecitvely disables debounce. The debounced GPI affects triggered ROSpecs and GPIEvent reporting.</p> 
+    <p>This custom parameter controls the GPI debounce timing. The GPIPortNum is the 1-based GPI number. Once a transition, rising or falling, is detected subsequent transitions are ignored for GPIDebounceTimerMSec milliseconds. GPIDebounceTimerMSec must be a multiple of 10ms with a maximum value of 1000ms. Setting GPIDebounceTimerMSec to zero effectively disables debounce. The debounced GPI affects triggered ROSpecs and GPIEvent reporting.</p> 
  
       <SMALL><i>Copyright 2008 Impinj Inc.</i></SMALL> 
   <HR>
@@ -3161,6 +3422,7 @@ class CImpinjGPIDebounceConfiguration : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -3295,6 +3557,7 @@ class CImpinjReaderTemperature : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -3457,6 +3720,7 @@ class CImpinjLinkMonitorConfiguration : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -3592,6 +3856,7 @@ class CImpinjReportBufferConfiguration : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -3703,6 +3968,7 @@ class CImpinjAccessSpecConfiguration : public CParameter
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CImpinjBlockWriteWordCount * m_pImpinjBlockWriteWordCount;
@@ -3888,6 +4154,7 @@ class CImpinjBlockWriteWordCount : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -4131,6 +4398,7 @@ class CImpinjBlockPermalock : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -4292,6 +4560,7 @@ class CImpinjBlockPermalockOpSpecResult : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -4535,6 +4804,7 @@ class CImpinjGetBlockPermalockStatus : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -4723,6 +4993,7 @@ class CImpinjGetBlockPermalockStatusOpSpecResult : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -4966,6 +5237,7 @@ class CImpinjSetQTConfig : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -5127,6 +5399,7 @@ class CImpinjSetQTConfigOpSpecResult : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -5288,6 +5561,7 @@ class CImpinjGetQTConfig : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -5504,6 +5778,7 @@ class CImpinjGetQTConfigOpSpecResult : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -5569,7 +5844,7 @@ class CImpinjGetQTConfigOpSpecResult : public CParameter
     
     
     
-															
+    
     
     
   
@@ -5617,6 +5892,7 @@ class CImpinjTagReportContentSelector : public CParameter
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CImpinjEnableSerializedTID * m_pImpinjEnableSerializedTID;
@@ -5870,6 +6146,7 @@ class CImpinjEnableSerializedTID : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -6003,6 +6280,7 @@ class CImpinjEnableRFPhaseAngle : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -6136,6 +6414,7 @@ class CImpinjEnablePeakRSSI : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -6269,6 +6548,7 @@ class CImpinjEnableGPSCoordinates : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -6404,6 +6684,7 @@ class CImpinjSerializedTID : public CParameter
     }
 
 
+  
   protected:
     CImpinjTIDParity * m_pImpinjTIDParity;
 
@@ -6555,6 +6836,7 @@ class CImpinjRFPhaseAngle : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -6689,6 +6971,7 @@ class CImpinjPeakRSSI : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -6850,6 +7133,7 @@ class CImpinjGPSCoordinates : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -6984,6 +7268,7 @@ class CImpinjLoopSpec : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -7092,6 +7377,7 @@ class CImpinjGPSNMEASentences : public CParameter
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CImpinjGGASentence * m_pImpinjGGASentence;
@@ -7260,6 +7546,7 @@ class CImpinjGGASentence : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -7393,6 +7680,7 @@ class CImpinjRMCSentence : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -7526,6 +7814,7 @@ class CImpinjOpSpecRetryCount : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -7715,6 +8004,7 @@ class CImpinjAdvancedGPOConfiguration : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -7858,6 +8148,7 @@ class CImpinjEnableOptimizedRead : public CParameter
     }
 
 
+  
   protected:
     std::list<CC1G2Read *> m_listC1G2Read;
 
@@ -8032,6 +8323,7 @@ class CImpinjAccessSpecOrdering : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -8165,6 +8457,7 @@ class CImpinjEnableRFDopplerFrequency : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -8299,6 +8592,7 @@ class CImpinjRFDopplerFrequency : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -8467,6 +8761,7 @@ class CImpinjInventoryConfiguration : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -8600,6 +8895,7 @@ class CImpinjEnableTxPower : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -8734,6 +9030,7 @@ class CImpinjTxPower : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -8793,7 +9090,7 @@ class CImpinjTxPower : public CParameter
   <HR>
 
     
-    
+
     
     
     
@@ -8922,6 +9219,7 @@ class CImpinjArrayVersion : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -9168,6 +9466,7 @@ class CImpinjxArrayCapabilities : public CParameter
     }
 
 
+  
   protected:
     CImpinjxArrayDirectionCapabilities * m_pImpinjxArrayDirectionCapabilities;
 
@@ -9244,7 +9543,7 @@ class CImpinjxArrayCapabilities : public CParameter
   <HR>
 
     
-    
+
     
     
     
@@ -9374,6 +9673,7 @@ class CImpinjTiltConfiguration : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -9433,7 +9733,7 @@ class CImpinjTiltConfiguration : public CParameter
   <HR>
 
     
-    
+
     
     
     
@@ -9538,6 +9838,7 @@ class CImpinjBeaconConfiguration : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -9649,6 +9950,7 @@ class CImpinjAntennaConfiguration : public CParameter
 //@}
 
   
+  
   protected:
     CImpinjAntennaEventHysteresis * m_pImpinjAntennaEventHysteresis;
 
@@ -9748,7 +10050,7 @@ class CImpinjAntennaConfiguration : public CParameter
   <HR>
 
     
-    
+
     
     
     
@@ -9850,6 +10152,7 @@ class CImpinjAntennaEventHysteresis : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -9985,6 +10288,7 @@ class CImpinjAntennaEventConfiguration : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -10119,6 +10423,7 @@ class CImpinjAntennaAttemptEvent : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -10308,6 +10613,7 @@ class CImpinjHubConfiguration : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -10441,6 +10747,7 @@ class CImpinjDiagnosticReport : public CParameter
     }
 
 
+  
 };
 
 
@@ -10471,7 +10778,7 @@ class CImpinjDiagnosticReport : public CParameter
   <HR>
 
     
-	
+
     
     
     
@@ -10629,6 +10936,7 @@ class CImpinjPlacementConfiguration : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -10742,6 +11050,7 @@ class CImpinjLISpec : public CParameter
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CImpinjLocationConfig * m_pImpinjLocationConfig;
@@ -10868,7 +11177,7 @@ class CImpinjLISpec : public CParameter
   <HR>
 
     
-    
+
     
     
     
@@ -11001,6 +11310,7 @@ class CImpinjLocationConfig : public CParameter
     }
 
 
+  
   protected:
     CImpinjDisabledAntennas * m_pImpinjDisabledAntennas;
 
@@ -11106,7 +11416,7 @@ class CImpinjLocationConfig : public CParameter
   <HR>
 
     
-    
+
     
     
     
@@ -11213,6 +11523,7 @@ class CImpinjC1G2LocationConfig : public CParameter
     }
 
 
+  
   protected:
     std::list<CC1G2Filter *> m_listC1G2Filter;
 
@@ -11497,6 +11808,7 @@ class CImpinjLocationReporting : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -11663,6 +11975,7 @@ class CImpinjLocationConfidence : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -11731,7 +12044,7 @@ class CImpinjLocationConfidence : public CParameter
   <HR>
 
     
-    
+
     
     
     
@@ -11888,6 +12201,7 @@ class CImpinjLocationReportData : public CParameter
     }
 
 
+  
   protected:
     CImpinjLocationConfidence * m_pImpinjLocationConfidence;
 
@@ -12021,6 +12335,7 @@ class CImpinjDISpec : public CParameter
 //@}
 
   
+  
   protected:
     CImpinjDirectionSectors * m_pImpinjDirectionSectors;
 
@@ -12151,7 +12466,7 @@ class CImpinjDISpec : public CParameter
   <HR>
 
     
-    
+
     
     
   
@@ -12226,6 +12541,7 @@ class CImpinjDirectionSectors : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -12426,6 +12742,7 @@ class CImpinjDirectionConfig : public CParameter
     }
 
 
+  
   protected:
     CImpinjDirectionUserTagPopulationLimit * m_pImpinjDirectionUserTagPopulationLimit;
 
@@ -12575,6 +12892,7 @@ class CImpinjDirectionUserTagPopulationLimit : public CParameter
     }
 
 
+  
 };
 
 
@@ -12684,6 +13002,7 @@ class CImpinjC1G2DirectionConfig : public CParameter
     }
 
 
+  
   protected:
     CImpinjTransmitPower * m_pImpinjTransmitPower;
 
@@ -12854,6 +13173,7 @@ class CImpinjExtendedTagInformation : public CParameter
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     std::list<CEPCData *> m_listEPCData;
@@ -13187,6 +13507,7 @@ class CImpinjDirectionReporting : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -13474,6 +13795,7 @@ class CImpinjDirectionReportData : public CParameter
     }
 
 
+  
   protected:
     CImpinjDirectionDiagnosticData * m_pImpinjDirectionDiagnosticData;
 
@@ -13623,6 +13945,7 @@ class CImpinjDirectionDiagnosticData : public CParameter
     }
 
 
+  
 };
 
 
@@ -13745,6 +14068,7 @@ class CImpinjxArrayDirectionCapabilities : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -13880,6 +14204,7 @@ class CImpinjIntelligentAntennaManagement : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -14016,6 +14341,7 @@ class CImpinjTransmitPower : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -14152,6 +14478,7 @@ class CImpinjPolarizationControl : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -14259,6 +14586,7 @@ class CImpinjAntennaCapabilities : public CParameter
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     std::list<CImpinjAntennaPolarizationCapability *> m_listImpinjAntennaPolarizationCapability;
@@ -14458,6 +14786,7 @@ class CImpinjAntennaPolarizationCapability : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -14591,6 +14920,7 @@ class CImpinjDisabledAntennas : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -14725,6 +15055,7 @@ class CImpinjTIDParity : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -14995,6 +15326,7 @@ class CImpinjMarginRead : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -15156,6 +15488,7 @@ class CImpinjMarginReadOpSpecResult : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -15290,6 +15623,7 @@ class CImpinjBLEVersion : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -15423,6 +15757,7 @@ class CImpinjLocationAlgorithmControl : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -15621,6 +15956,991 @@ class CImpinjRFPowerSweep : public CParameter
     }
 
 
+  
+  protected:
+    std::list<CParameter *> m_listCustom;
+
+  public:
+     /** @brief  Returns the first element of the Custom sub-parameter list*/  
+    inline std::list<CParameter *>::iterator
+    beginCustom (void)
+    {
+        return m_listCustom.begin();
+    }
+
+     /** @brief  Returns the last element of the Custom sub-parameter list*/  
+    inline std::list<CParameter *>::iterator
+    endCustom (void)
+    {
+        return m_listCustom.end();
+    }
+
+     /** @brief  Clears the LLRP Custom sub-parameter list*/  
+    inline void
+    clearCustom (void)
+    {
+        clearSubParameterList ((tListOfParameters *) &m_listCustom);
+    }
+
+     /** @brief  Count of the LLRP Custom sub-parameter list*/  
+    inline int
+    countCustom (void)
+    {
+        return (int) (m_listCustom.size());
+    }
+
+    EResultCode
+     /** @brief  Add a Custom to the LLRP sub-parameter list*/  
+    addCustom (
+      CParameter * pValue);
+
+
+};
+
+
+/**
+ ** @brief  Class Definition CImpinjTruncatedReplyConfiguration for LLRP parameter ImpinjTruncatedReplyConfiguration
+ **
+ 
+    
+      
+<ul>
+  
+</ul>  
+
+      
+          
+    <p>This custom parameter controls the truncated reply feature. The presence of an ImpinjTruncatedReplyConfiguration within the C1G2InventoryCommand will enable truncated reply.</p> 
+ 
+          
+    <p> Gen2v2TagsOnly: If only Gen2v2 tags are in the field of view then setting the Gen2v2TagsOnly flag will perform an additional CRC check to further validate the integrity of the tag response.  If this flag is enabled non-Gen2v2 tags will be ignored.</p> 
+ 
+          
+    <p> EPCLength: The EPC Length, in 16-bit words, of all tags in the field of view.  Only tags with EPCs of this length can reply, tags with EPCs that are not this length will be ignored.</p> 
+ 
+          
+    <p> Pointer: Select a starting bit location in the EPC memory bank that will be used for the truncating select command.</p> 
+ 
+          
+    <p> TagMask: Specifies the mask that must match the EPC memory bank starting at Pointer.  The end of the mask defines the start location of EPC reported by the tag.  If the RO Spec contains C1G2Filters then the length of TagMask must be 0. Filter verification is disabled when the truncated reply TagMask is used.</p> 
+ 
+      <SMALL><i>Copyright 2019 Impinj Inc.</i></SMALL> 
+  <HR>
+
+    
+    
+    
+    
+    
+    
+    
+    
+  
+ **/
+
+class CImpinjTruncatedReplyConfiguration : public CParameter
+{
+  public:
+    CImpinjTruncatedReplyConfiguration (void);
+    ~CImpinjTruncatedReplyConfiguration (void);
+
+/** @name Internal Framework Functions */
+//@{
+
+    static const CFieldDescriptor * const
+    s_apFieldDescriptorTable[];
+
+    static const CTypeDescriptor
+    s_typeDescriptor;
+
+    void
+    decodeFields (
+      CDecoderStream *          pDecoderStream);
+
+    void
+    assimilateSubParameters (
+      CErrorDetails *           pError);
+
+    void
+    encode (
+      CEncoderStream *          pEncoderStream) const;
+
+  
+    llrp_bool_t
+    isAllowedIn (
+      const CTypeDescriptor *   pEnclosingElementType) const;
+  
+
+    static CElement *
+    s_construct (void);
+
+    static void
+    s_decodeFields (
+      CDecoderStream *          pDecoderStream,
+      CElement *                pElement);
+//@}
+
+  
+  protected:
+    llrp_u1_t m_Gen2v2TagsOnly;
+
+/** @name Internal Framework Functions */
+//@{
+  public:
+    static const CFieldDescriptor
+    s_fdGen2v2TagsOnly;
+//@}
+
+    /** @brief Get accessor functions for the LLRP Gen2v2TagsOnly field */
+    inline llrp_u1_t
+    getGen2v2TagsOnly (void)
+    {
+        return m_Gen2v2TagsOnly;
+    }
+
+    /** @brief Set accessor functions for the LLRP Gen2v2TagsOnly field */
+    inline void
+    setGen2v2TagsOnly (
+      llrp_u1_t value)
+    {
+        m_Gen2v2TagsOnly = value;
+    }
+
+
+  protected:
+    llrp_u8_t m_EPCLength;
+
+/** @name Internal Framework Functions */
+//@{
+  public:
+    static const CFieldDescriptor
+    s_fdEPCLength;
+//@}
+
+    /** @brief Get accessor functions for the LLRP EPCLength field */
+    inline llrp_u8_t
+    getEPCLength (void)
+    {
+        return m_EPCLength;
+    }
+
+    /** @brief Set accessor functions for the LLRP EPCLength field */
+    inline void
+    setEPCLength (
+      llrp_u8_t value)
+    {
+        m_EPCLength = value;
+    }
+
+
+  protected:
+    llrp_u16_t m_Pointer;
+
+/** @name Internal Framework Functions */
+//@{
+  public:
+    static const CFieldDescriptor
+    s_fdPointer;
+//@}
+
+    /** @brief Get accessor functions for the LLRP Pointer field */
+    inline llrp_u16_t
+    getPointer (void)
+    {
+        return m_Pointer;
+    }
+
+    /** @brief Set accessor functions for the LLRP Pointer field */
+    inline void
+    setPointer (
+      llrp_u16_t value)
+    {
+        m_Pointer = value;
+    }
+
+
+  protected:
+    llrp_u1v_t m_TagMask;
+
+/** @name Internal Framework Functions */
+//@{
+  public:
+    static const CFieldDescriptor
+    s_fdTagMask;
+//@}
+
+    /** @brief Get accessor functions for the LLRP TagMask field */
+    inline llrp_u1v_t
+    getTagMask (void)
+    {
+        return m_TagMask;
+    }
+
+    /** @brief Set accessor functions for the LLRP TagMask field */
+    inline void
+    setTagMask (
+      llrp_u1v_t value)
+    {
+        m_TagMask = value;
+    }
+
+
+  
+  protected:
+    std::list<CParameter *> m_listCustom;
+
+  public:
+     /** @brief  Returns the first element of the Custom sub-parameter list*/  
+    inline std::list<CParameter *>::iterator
+    beginCustom (void)
+    {
+        return m_listCustom.begin();
+    }
+
+     /** @brief  Returns the last element of the Custom sub-parameter list*/  
+    inline std::list<CParameter *>::iterator
+    endCustom (void)
+    {
+        return m_listCustom.end();
+    }
+
+     /** @brief  Clears the LLRP Custom sub-parameter list*/  
+    inline void
+    clearCustom (void)
+    {
+        clearSubParameterList ((tListOfParameters *) &m_listCustom);
+    }
+
+     /** @brief  Count of the LLRP Custom sub-parameter list*/  
+    inline int
+    countCustom (void)
+    {
+        return (int) (m_listCustom.size());
+    }
+
+    EResultCode
+     /** @brief  Add a Custom to the LLRP sub-parameter list*/  
+    addCustom (
+      CParameter * pValue);
+
+
+};
+
+
+/**
+ ** @brief  Class Definition CImpinjAuthenticate for LLRP parameter ImpinjAuthenticate
+ **
+ 
+    
+      
+<ul>
+  
+</ul>  
+
+      
+        
+    <p>This custom parameter is an OpSpec that performs a Gen2v2 Authenticate command.</p> 
+ 
+        
+    <p>AccessPassword: the password required to move the tag into the secured state if needed.</p> 
+ 
+        
+    <p>SendRep: must be set to 1 in the current implementation, for the tag to send the response in a reply.</p> 
+ 
+        
+    <p>IncRepLen: must be set to 0 in the current implementation, to omit length from the reply.</p> 
+ 
+        
+    <p>CSI: must be set to 01 in the current implementation, to set the crypto suite to use.</p> 
+ 
+        
+    <p>Message: to challenge the authentication engine. Must be 48-bits in the current implementation. The 6th bit determines the length of the expected response. If 0 the response is 64 bits, else the response is 128 bits.</p> 
+ 
+      <SMALL><i>Copyright 2020 Impinj Inc.</i></SMALL> 
+  <HR>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  
+ **/
+
+class CImpinjAuthenticate : public CParameter
+{
+  public:
+    CImpinjAuthenticate (void);
+    ~CImpinjAuthenticate (void);
+
+/** @name Internal Framework Functions */
+//@{
+
+    static const CFieldDescriptor * const
+    s_apFieldDescriptorTable[];
+
+    static const CTypeDescriptor
+    s_typeDescriptor;
+
+    void
+    decodeFields (
+      CDecoderStream *          pDecoderStream);
+
+    void
+    assimilateSubParameters (
+      CErrorDetails *           pError);
+
+    void
+    encode (
+      CEncoderStream *          pEncoderStream) const;
+
+  
+    llrp_bool_t
+    isAllowedIn (
+      const CTypeDescriptor *   pEnclosingElementType) const;
+  
+
+    static CElement *
+    s_construct (void);
+
+    static void
+    s_decodeFields (
+      CDecoderStream *          pDecoderStream,
+      CElement *                pElement);
+//@}
+
+  
+  protected:
+    llrp_u16_t m_OpSpecID;
+
+/** @name Internal Framework Functions */
+//@{
+  public:
+    static const CFieldDescriptor
+    s_fdOpSpecID;
+//@}
+
+    /** @brief Get accessor functions for the LLRP OpSpecID field */
+    inline llrp_u16_t
+    getOpSpecID (void)
+    {
+        return m_OpSpecID;
+    }
+
+    /** @brief Set accessor functions for the LLRP OpSpecID field */
+    inline void
+    setOpSpecID (
+      llrp_u16_t value)
+    {
+        m_OpSpecID = value;
+    }
+
+
+  protected:
+    llrp_u32_t m_AccessPassword;
+
+/** @name Internal Framework Functions */
+//@{
+  public:
+    static const CFieldDescriptor
+    s_fdAccessPassword;
+//@}
+
+    /** @brief Get accessor functions for the LLRP AccessPassword field */
+    inline llrp_u32_t
+    getAccessPassword (void)
+    {
+        return m_AccessPassword;
+    }
+
+    /** @brief Set accessor functions for the LLRP AccessPassword field */
+    inline void
+    setAccessPassword (
+      llrp_u32_t value)
+    {
+        m_AccessPassword = value;
+    }
+
+
+  protected:
+    llrp_u1_t m_SendRep;
+
+/** @name Internal Framework Functions */
+//@{
+  public:
+    static const CFieldDescriptor
+    s_fdSendRep;
+//@}
+
+    /** @brief Get accessor functions for the LLRP SendRep field */
+    inline llrp_u1_t
+    getSendRep (void)
+    {
+        return m_SendRep;
+    }
+
+    /** @brief Set accessor functions for the LLRP SendRep field */
+    inline void
+    setSendRep (
+      llrp_u1_t value)
+    {
+        m_SendRep = value;
+    }
+
+
+  protected:
+    llrp_u1_t m_IncRepLen;
+
+/** @name Internal Framework Functions */
+//@{
+  public:
+    static const CFieldDescriptor
+    s_fdIncRepLen;
+//@}
+
+    /** @brief Get accessor functions for the LLRP IncRepLen field */
+    inline llrp_u1_t
+    getIncRepLen (void)
+    {
+        return m_IncRepLen;
+    }
+
+    /** @brief Set accessor functions for the LLRP IncRepLen field */
+    inline void
+    setIncRepLen (
+      llrp_u1_t value)
+    {
+        m_IncRepLen = value;
+    }
+
+
+  protected:
+    llrp_u8_t m_CSI;
+
+/** @name Internal Framework Functions */
+//@{
+  public:
+    static const CFieldDescriptor
+    s_fdCSI;
+//@}
+
+    /** @brief Get accessor functions for the LLRP CSI field */
+    inline llrp_u8_t
+    getCSI (void)
+    {
+        return m_CSI;
+    }
+
+    /** @brief Set accessor functions for the LLRP CSI field */
+    inline void
+    setCSI (
+      llrp_u8_t value)
+    {
+        m_CSI = value;
+    }
+
+
+  protected:
+    llrp_u1v_t m_Message;
+
+/** @name Internal Framework Functions */
+//@{
+  public:
+    static const CFieldDescriptor
+    s_fdMessage;
+//@}
+
+    /** @brief Get accessor functions for the LLRP Message field */
+    inline llrp_u1v_t
+    getMessage (void)
+    {
+        return m_Message;
+    }
+
+    /** @brief Set accessor functions for the LLRP Message field */
+    inline void
+    setMessage (
+      llrp_u1v_t value)
+    {
+        m_Message = value;
+    }
+
+
+  
+  protected:
+    std::list<CParameter *> m_listCustom;
+
+  public:
+     /** @brief  Returns the first element of the Custom sub-parameter list*/  
+    inline std::list<CParameter *>::iterator
+    beginCustom (void)
+    {
+        return m_listCustom.begin();
+    }
+
+     /** @brief  Returns the last element of the Custom sub-parameter list*/  
+    inline std::list<CParameter *>::iterator
+    endCustom (void)
+    {
+        return m_listCustom.end();
+    }
+
+     /** @brief  Clears the LLRP Custom sub-parameter list*/  
+    inline void
+    clearCustom (void)
+    {
+        clearSubParameterList ((tListOfParameters *) &m_listCustom);
+    }
+
+     /** @brief  Count of the LLRP Custom sub-parameter list*/  
+    inline int
+    countCustom (void)
+    {
+        return (int) (m_listCustom.size());
+    }
+
+    EResultCode
+     /** @brief  Add a Custom to the LLRP sub-parameter list*/  
+    addCustom (
+      CParameter * pValue);
+
+
+};
+
+
+/**
+ ** @brief  Class Definition CImpinjAuthenticateOpSpecResult for LLRP parameter ImpinjAuthenticateOpSpecResult
+ **
+ 
+    
+      
+<ul>
+  
+</ul>  
+
+      
+        
+    <p>This custom parameter is the result of an ImpinjAuthenticate OpSpec.</p> 
+ 
+        
+    <p>Response: When Result is Success, this is the tag's response to the challenge issued to its authentication engine. The response is either 64 bits, or 128 bits if a short TID is included with it.</p> 
+ 
+      <SMALL><i>Copyright 2020 Impinj Inc.</i></SMALL> 
+  <HR>
+
+    
+    
+    
+    
+    
+    
+  
+ **/
+
+class CImpinjAuthenticateOpSpecResult : public CParameter
+{
+  public:
+    CImpinjAuthenticateOpSpecResult (void);
+    ~CImpinjAuthenticateOpSpecResult (void);
+
+/** @name Internal Framework Functions */
+//@{
+
+    static const CFieldDescriptor * const
+    s_apFieldDescriptorTable[];
+
+    static const CTypeDescriptor
+    s_typeDescriptor;
+
+    void
+    decodeFields (
+      CDecoderStream *          pDecoderStream);
+
+    void
+    assimilateSubParameters (
+      CErrorDetails *           pError);
+
+    void
+    encode (
+      CEncoderStream *          pEncoderStream) const;
+
+  
+    llrp_bool_t
+    isAllowedIn (
+      const CTypeDescriptor *   pEnclosingElementType) const;
+  
+
+    static CElement *
+    s_construct (void);
+
+    static void
+    s_decodeFields (
+      CDecoderStream *          pDecoderStream,
+      CElement *                pElement);
+//@}
+
+  
+  protected:
+    EImpinjAuthenticateResultType m_eResult;
+
+/** @name Internal Framework Functions */
+//@{
+  public:
+    static const CFieldDescriptor
+    s_fdResult;
+//@}
+
+    /** @brief Get accessor functions for the LLRP Result field */
+    inline EImpinjAuthenticateResultType
+    getResult (void)
+    {
+        return m_eResult;
+    }
+
+    /** @brief Set accessor functions for the LLRP Result field */
+    inline void
+    setResult (
+      EImpinjAuthenticateResultType value)
+    {
+        m_eResult = value;
+    }
+
+
+  protected:
+    llrp_u16_t m_OpSpecID;
+
+/** @name Internal Framework Functions */
+//@{
+  public:
+    static const CFieldDescriptor
+    s_fdOpSpecID;
+//@}
+
+    /** @brief Get accessor functions for the LLRP OpSpecID field */
+    inline llrp_u16_t
+    getOpSpecID (void)
+    {
+        return m_OpSpecID;
+    }
+
+    /** @brief Set accessor functions for the LLRP OpSpecID field */
+    inline void
+    setOpSpecID (
+      llrp_u16_t value)
+    {
+        m_OpSpecID = value;
+    }
+
+
+  protected:
+    llrp_u1v_t m_Response;
+
+/** @name Internal Framework Functions */
+//@{
+  public:
+    static const CFieldDescriptor
+    s_fdResponse;
+//@}
+
+    /** @brief Get accessor functions for the LLRP Response field */
+    inline llrp_u1v_t
+    getResponse (void)
+    {
+        return m_Response;
+    }
+
+    /** @brief Set accessor functions for the LLRP Response field */
+    inline void
+    setResponse (
+      llrp_u1v_t value)
+    {
+        m_Response = value;
+    }
+
+
+  
+  protected:
+    std::list<CParameter *> m_listCustom;
+
+  public:
+     /** @brief  Returns the first element of the Custom sub-parameter list*/  
+    inline std::list<CParameter *>::iterator
+    beginCustom (void)
+    {
+        return m_listCustom.begin();
+    }
+
+     /** @brief  Returns the last element of the Custom sub-parameter list*/  
+    inline std::list<CParameter *>::iterator
+    endCustom (void)
+    {
+        return m_listCustom.end();
+    }
+
+     /** @brief  Clears the LLRP Custom sub-parameter list*/  
+    inline void
+    clearCustom (void)
+    {
+        clearSubParameterList ((tListOfParameters *) &m_listCustom);
+    }
+
+     /** @brief  Count of the LLRP Custom sub-parameter list*/  
+    inline int
+    countCustom (void)
+    {
+        return (int) (m_listCustom.size());
+    }
+
+    EResultCode
+     /** @brief  Add a Custom to the LLRP sub-parameter list*/  
+    addCustom (
+      CParameter * pValue);
+
+
+};
+
+
+/**
+ ** @brief  Class Definition CImpinjTagFilterVerificationConfiguration for LLRP parameter ImpinjTagFilterVerificationConfiguration
+ **
+ 
+    
+      
+<ul>
+  
+</ul>  
+
+      
+          
+    <p>This custom parameter controls behavior of the tag filter verification feature. Tag filter verification may be employed to perform on-reader verification of the inventory filter match criteria, rejecting any tags singulated that may have missed the Select filter mask and erroneously participated in the subsequent inventory round.</p> 
+ 
+          
+    <p>TagFilterVerificationMode: Set to Active to enable tag filter verification, including automatic halting for memory bank read operations when required to validate the filter mask defined by the inventory Select configuration. Set to Disabled to bypass tag filter verification and rely solely on Select-based filtering by the tag.</p> 
+ 
+      <SMALL><i>Copyright 2021 Impinj Inc.</i></SMALL> 
+  <HR>
+
+    
+    
+    
+    
+  
+ **/
+
+class CImpinjTagFilterVerificationConfiguration : public CParameter
+{
+  public:
+    CImpinjTagFilterVerificationConfiguration (void);
+    ~CImpinjTagFilterVerificationConfiguration (void);
+
+/** @name Internal Framework Functions */
+//@{
+
+    static const CFieldDescriptor * const
+    s_apFieldDescriptorTable[];
+
+    static const CTypeDescriptor
+    s_typeDescriptor;
+
+    void
+    decodeFields (
+      CDecoderStream *          pDecoderStream);
+
+    void
+    assimilateSubParameters (
+      CErrorDetails *           pError);
+
+    void
+    encode (
+      CEncoderStream *          pEncoderStream) const;
+
+  
+    llrp_bool_t
+    isAllowedIn (
+      const CTypeDescriptor *   pEnclosingElementType) const;
+  
+
+    static CElement *
+    s_construct (void);
+
+    static void
+    s_decodeFields (
+      CDecoderStream *          pDecoderStream,
+      CElement *                pElement);
+//@}
+
+  
+  protected:
+    EImpinjTagFilterVerificationMode m_eTagFilterVerificationMode;
+
+/** @name Internal Framework Functions */
+//@{
+  public:
+    static const CFieldDescriptor
+    s_fdTagFilterVerificationMode;
+//@}
+
+    /** @brief Get accessor functions for the LLRP TagFilterVerificationMode field */
+    inline EImpinjTagFilterVerificationMode
+    getTagFilterVerificationMode (void)
+    {
+        return m_eTagFilterVerificationMode;
+    }
+
+    /** @brief Set accessor functions for the LLRP TagFilterVerificationMode field */
+    inline void
+    setTagFilterVerificationMode (
+      EImpinjTagFilterVerificationMode value)
+    {
+        m_eTagFilterVerificationMode = value;
+    }
+
+
+  
+  protected:
+    std::list<CParameter *> m_listCustom;
+
+  public:
+     /** @brief  Returns the first element of the Custom sub-parameter list*/  
+    inline std::list<CParameter *>::iterator
+    beginCustom (void)
+    {
+        return m_listCustom.begin();
+    }
+
+     /** @brief  Returns the last element of the Custom sub-parameter list*/  
+    inline std::list<CParameter *>::iterator
+    endCustom (void)
+    {
+        return m_listCustom.end();
+    }
+
+     /** @brief  Clears the LLRP Custom sub-parameter list*/  
+    inline void
+    clearCustom (void)
+    {
+        clearSubParameterList ((tListOfParameters *) &m_listCustom);
+    }
+
+     /** @brief  Count of the LLRP Custom sub-parameter list*/  
+    inline int
+    countCustom (void)
+    {
+        return (int) (m_listCustom.size());
+    }
+
+    EResultCode
+     /** @brief  Add a Custom to the LLRP sub-parameter list*/  
+    addCustom (
+      CParameter * pValue);
+
+
+};
+
+
+/**
+ ** @brief  Class Definition CImpinjEnableTagPopulationEstimationAlgorithm for LLRP parameter ImpinjEnableTagPopulationEstimationAlgorithm
+ **
+ 
+    
+      
+<ul>
+  
+</ul>  
+
+      
+        
+    <p>This custom parameter controls behavior of the tag population estimation algorithm.</p> 
+ 
+        
+    <p>TagPopulationEstimationMode: When Enabled, the reader will use an initial tag population estimate value calculated dynamically from the results of previous inventory rounds. When Disabled, the reader will use the TagPopulation value provided in the C1G2SingulationControl extension as the static initial tag population estimate at the beginning of each inventory round.</p> 
+ 
+      <SMALL><i>Copyright 2021 Impinj Inc.</i></SMALL> 
+  <HR>
+
+    
+
+    
+    
+    
+  
+ **/
+
+class CImpinjEnableTagPopulationEstimationAlgorithm : public CParameter
+{
+  public:
+    CImpinjEnableTagPopulationEstimationAlgorithm (void);
+    ~CImpinjEnableTagPopulationEstimationAlgorithm (void);
+
+/** @name Internal Framework Functions */
+//@{
+
+    static const CFieldDescriptor * const
+    s_apFieldDescriptorTable[];
+
+    static const CTypeDescriptor
+    s_typeDescriptor;
+
+    void
+    decodeFields (
+      CDecoderStream *          pDecoderStream);
+
+    void
+    assimilateSubParameters (
+      CErrorDetails *           pError);
+
+    void
+    encode (
+      CEncoderStream *          pEncoderStream) const;
+
+  
+    llrp_bool_t
+    isAllowedIn (
+      const CTypeDescriptor *   pEnclosingElementType) const;
+  
+
+    static CElement *
+    s_construct (void);
+
+    static void
+    s_decodeFields (
+      CDecoderStream *          pDecoderStream,
+      CElement *                pElement);
+//@}
+
+  
+  protected:
+    EImpinjTagPopulationEstimationMode m_eTagPopulationEstimationMode;
+
+/** @name Internal Framework Functions */
+//@{
+  public:
+    static const CFieldDescriptor
+    s_fdTagPopulationEstimationMode;
+//@}
+
+    /** @brief Get accessor functions for the LLRP TagPopulationEstimationMode field */
+    inline EImpinjTagPopulationEstimationMode
+    getTagPopulationEstimationMode (void)
+    {
+        return m_eTagPopulationEstimationMode;
+    }
+
+    /** @brief Set accessor functions for the LLRP TagPopulationEstimationMode field */
+    inline void
+    setTagPopulationEstimationMode (
+      EImpinjTagPopulationEstimationMode value)
+    {
+        m_eTagPopulationEstimationMode = value;
+    }
+
+
+  
   protected:
     std::list<CParameter *> m_listCustom;
 

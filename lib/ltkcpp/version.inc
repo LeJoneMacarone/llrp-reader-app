@@ -1,1 +1,1 @@
-#define VERSION_STR 10.34.0.0
+#define VERSION_STR 11.0.0.0

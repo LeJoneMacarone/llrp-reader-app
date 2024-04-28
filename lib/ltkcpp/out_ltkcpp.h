@@ -226,7 +226,9 @@ g_nsdescllrp;
 
 enum EAirProtocols
 {
-AirProtocols_Unspecified = 0, /**< Unspecified */ AirProtocols_EPCGlobalClass1Gen2 = 1, /**< EPCGlobalClass1Gen2 */  
+
+    AirProtocols_Unspecified = 0, /**< Unspecified */ 
+    AirProtocols_EPCGlobalClass1Gen2 = 1, /**< EPCGlobalClass1Gen2 */  
 };
 
 extern const SEnumTableEntry
@@ -258,7 +260,12 @@ g_estAirProtocols[];
 
 enum EGetReaderCapabilitiesRequestedData
 {
-GetReaderCapabilitiesRequestedData_All = 0, /**< All */ GetReaderCapabilitiesRequestedData_General_Device_Capabilities = 1, /**< General_Device_Capabilities */ GetReaderCapabilitiesRequestedData_LLRP_Capabilities = 2, /**< LLRP_Capabilities */ GetReaderCapabilitiesRequestedData_Regulatory_Capabilities = 3, /**< Regulatory_Capabilities */ GetReaderCapabilitiesRequestedData_LLRP_Air_Protocol_Capabilities = 4, /**< LLRP_Air_Protocol_Capabilities */  
+
+    GetReaderCapabilitiesRequestedData_All = 0, /**< All */ 
+    GetReaderCapabilitiesRequestedData_General_Device_Capabilities = 1, /**< General_Device_Capabilities */ 
+    GetReaderCapabilitiesRequestedData_LLRP_Capabilities = 2, /**< LLRP_Capabilities */ 
+    GetReaderCapabilitiesRequestedData_Regulatory_Capabilities = 3, /**< Regulatory_Capabilities */ 
+    GetReaderCapabilitiesRequestedData_LLRP_Air_Protocol_Capabilities = 4, /**< LLRP_Air_Protocol_Capabilities */  
 };
 
 extern const SEnumTableEntry
@@ -302,7 +309,17 @@ g_estGetReaderCapabilitiesRequestedData[];
 
 enum ECommunicationsStandard
 {
-CommunicationsStandard_Unspecified = 0, /**< Unspecified */ CommunicationsStandard_US_FCC_Part_15 = 1, /**< US_FCC_Part_15 */ CommunicationsStandard_ETSI_302_208 = 2, /**< ETSI_302_208 */ CommunicationsStandard_ETSI_300_220 = 3, /**< ETSI_300_220 */ CommunicationsStandard_Australia_LIPD_1W = 4, /**< Australia_LIPD_1W */ CommunicationsStandard_Australia_LIPD_4W = 5, /**< Australia_LIPD_4W */ CommunicationsStandard_Japan_ARIB_STD_T89 = 6, /**< Japan_ARIB_STD_T89 */ CommunicationsStandard_Hong_Kong_OFTA_1049 = 7, /**< Hong_Kong_OFTA_1049 */ CommunicationsStandard_Taiwan_DGT_LP0002 = 8, /**< Taiwan_DGT_LP0002 */ CommunicationsStandard_Korea_MIC_Article_5_2 = 9, /**< Korea_MIC_Article_5_2 */  
+
+    CommunicationsStandard_Unspecified = 0, /**< Unspecified */ 
+    CommunicationsStandard_US_FCC_Part_15 = 1, /**< US_FCC_Part_15 */ 
+    CommunicationsStandard_ETSI_302_208 = 2, /**< ETSI_302_208 */ 
+    CommunicationsStandard_ETSI_300_220 = 3, /**< ETSI_300_220 */ 
+    CommunicationsStandard_Australia_LIPD_1W = 4, /**< Australia_LIPD_1W */ 
+    CommunicationsStandard_Australia_LIPD_4W = 5, /**< Australia_LIPD_4W */ 
+    CommunicationsStandard_Japan_ARIB_STD_T89 = 6, /**< Japan_ARIB_STD_T89 */ 
+    CommunicationsStandard_Hong_Kong_OFTA_1049 = 7, /**< Hong_Kong_OFTA_1049 */ 
+    CommunicationsStandard_Taiwan_DGT_LP0002 = 8, /**< Taiwan_DGT_LP0002 */ 
+    CommunicationsStandard_Korea_MIC_Article_5_2 = 9, /**< Korea_MIC_Article_5_2 */  
 };
 
 extern const SEnumTableEntry
@@ -332,7 +349,10 @@ g_estCommunicationsStandard[];
 
 enum EROSpecState
 {
-ROSpecState_Disabled = 0, /**< Disabled */ ROSpecState_Inactive = 1, /**< Inactive */ ROSpecState_Active = 2, /**< Active */  
+
+    ROSpecState_Disabled = 0, /**< Disabled */ 
+    ROSpecState_Inactive = 1, /**< Inactive */ 
+    ROSpecState_Active = 2, /**< Active */  
 };
 
 extern const SEnumTableEntry
@@ -394,7 +414,11 @@ g_estROSpecState[];
 
 enum EROSpecStartTriggerType
 {
-ROSpecStartTriggerType_Null = 0, /**< Null */ ROSpecStartTriggerType_Immediate = 1, /**< Immediate */ ROSpecStartTriggerType_Periodic = 2, /**< Periodic */ ROSpecStartTriggerType_GPI = 3, /**< GPI */  
+
+    ROSpecStartTriggerType_Null = 0, /**< Null */ 
+    ROSpecStartTriggerType_Immediate = 1, /**< Immediate */ 
+    ROSpecStartTriggerType_Periodic = 2, /**< Periodic */ 
+    ROSpecStartTriggerType_GPI = 3, /**< GPI */  
 };
 
 extern const SEnumTableEntry
@@ -450,7 +474,10 @@ g_estROSpecStartTriggerType[];
 
 enum EROSpecStopTriggerType
 {
-ROSpecStopTriggerType_Null = 0, /**< Null */ ROSpecStopTriggerType_Duration = 1, /**< Duration */ ROSpecStopTriggerType_GPI_With_Timeout = 2, /**< GPI_With_Timeout */  
+
+    ROSpecStopTriggerType_Null = 0, /**< Null */ 
+    ROSpecStopTriggerType_Duration = 1, /**< Duration */ 
+    ROSpecStopTriggerType_GPI_With_Timeout = 2, /**< GPI_With_Timeout */  
 };
 
 extern const SEnumTableEntry
@@ -512,7 +539,11 @@ g_estROSpecStopTriggerType[];
 
 enum EAISpecStopTriggerType
 {
-AISpecStopTriggerType_Null = 0, /**< Null */ AISpecStopTriggerType_Duration = 1, /**< Duration */ AISpecStopTriggerType_GPI_With_Timeout = 2, /**< GPI_With_Timeout */ AISpecStopTriggerType_Tag_Observation = 3, /**< Tag_Observation */  
+
+    AISpecStopTriggerType_Null = 0, /**< Null */ 
+    AISpecStopTriggerType_Duration = 1, /**< Duration */ 
+    AISpecStopTriggerType_GPI_With_Timeout = 2, /**< GPI_With_Timeout */ 
+    AISpecStopTriggerType_Tag_Observation = 3, /**< Tag_Observation */  
 };
 
 extern const SEnumTableEntry
@@ -568,7 +599,10 @@ g_estAISpecStopTriggerType[];
 
 enum ETagObservationTriggerType
 {
-TagObservationTriggerType_Upon_Seeing_N_Tags_Or_Timeout = 0, /**< Upon_Seeing_N_Tags_Or_Timeout */ TagObservationTriggerType_Upon_Seeing_No_More_New_Tags_For_Tms_Or_Timeout = 1, /**< Upon_Seeing_No_More_New_Tags_For_Tms_Or_Timeout */ TagObservationTriggerType_N_Attempts_To_See_All_Tags_In_FOV_Or_Timeout = 2, /**< N_Attempts_To_See_All_Tags_In_FOV_Or_Timeout */  
+
+    TagObservationTriggerType_Upon_Seeing_N_Tags_Or_Timeout = 0, /**< Upon_Seeing_N_Tags_Or_Timeout */ 
+    TagObservationTriggerType_Upon_Seeing_No_More_New_Tags_For_Tms_Or_Timeout = 1, /**< Upon_Seeing_No_More_New_Tags_For_Tms_Or_Timeout */ 
+    TagObservationTriggerType_N_Attempts_To_See_All_Tags_In_FOV_Or_Timeout = 2, /**< N_Attempts_To_See_All_Tags_In_FOV_Or_Timeout */  
 };
 
 extern const SEnumTableEntry
@@ -598,7 +632,10 @@ g_estTagObservationTriggerType[];
 
 enum ERFSurveySpecStopTriggerType
 {
-RFSurveySpecStopTriggerType_Null = 0, /**< Null */ RFSurveySpecStopTriggerType_Duration = 1, /**< Duration */ RFSurveySpecStopTriggerType_N_Iterations_Through_Frequency_Range = 2, /**< N_Iterations_Through_Frequency_Range */  
+
+    RFSurveySpecStopTriggerType_Null = 0, /**< Null */ 
+    RFSurveySpecStopTriggerType_Duration = 1, /**< Duration */ 
+    RFSurveySpecStopTriggerType_N_Iterations_Through_Frequency_Range = 2, /**< N_Iterations_Through_Frequency_Range */  
 };
 
 extern const SEnumTableEntry
@@ -627,7 +664,9 @@ g_estRFSurveySpecStopTriggerType[];
 
 enum EAccessSpecState
 {
-AccessSpecState_Disabled = 0, /**< Disabled */ AccessSpecState_Active = 1, /**< Active */  
+
+    AccessSpecState_Disabled = 0, /**< Disabled */ 
+    AccessSpecState_Active = 1, /**< Active */  
 };
 
 extern const SEnumTableEntry
@@ -677,7 +716,9 @@ g_estAccessSpecState[];
 
 enum EAccessSpecStopTriggerType
 {
-AccessSpecStopTriggerType_Null = 0, /**< Null */ AccessSpecStopTriggerType_Operation_Count = 1, /**< Operation_Count */  
+
+    AccessSpecStopTriggerType_Null = 0, /**< Null */ 
+    AccessSpecStopTriggerType_Operation_Count = 1, /**< Operation_Count */  
 };
 
 extern const SEnumTableEntry
@@ -716,7 +757,19 @@ g_estAccessSpecStopTriggerType[];
 
 enum EGetReaderConfigRequestedData
 {
-GetReaderConfigRequestedData_All = 0, /**< All */ GetReaderConfigRequestedData_Identification = 1, /**< Identification */ GetReaderConfigRequestedData_AntennaProperties = 2, /**< AntennaProperties */ GetReaderConfigRequestedData_AntennaConfiguration = 3, /**< AntennaConfiguration */ GetReaderConfigRequestedData_ROReportSpec = 4, /**< ROReportSpec */ GetReaderConfigRequestedData_ReaderEventNotificationSpec = 5, /**< ReaderEventNotificationSpec */ GetReaderConfigRequestedData_AccessReportSpec = 6, /**< AccessReportSpec */ GetReaderConfigRequestedData_LLRPConfigurationStateValue = 7, /**< LLRPConfigurationStateValue */ GetReaderConfigRequestedData_KeepaliveSpec = 8, /**< KeepaliveSpec */ GetReaderConfigRequestedData_GPIPortCurrentState = 9, /**< GPIPortCurrentState */ GetReaderConfigRequestedData_GPOWriteData = 10, /**< GPOWriteData */ GetReaderConfigRequestedData_EventsAndReports = 11, /**< EventsAndReports */  
+
+    GetReaderConfigRequestedData_All = 0, /**< All */ 
+    GetReaderConfigRequestedData_Identification = 1, /**< Identification */ 
+    GetReaderConfigRequestedData_AntennaProperties = 2, /**< AntennaProperties */ 
+    GetReaderConfigRequestedData_AntennaConfiguration = 3, /**< AntennaConfiguration */ 
+    GetReaderConfigRequestedData_ROReportSpec = 4, /**< ROReportSpec */ 
+    GetReaderConfigRequestedData_ReaderEventNotificationSpec = 5, /**< ReaderEventNotificationSpec */ 
+    GetReaderConfigRequestedData_AccessReportSpec = 6, /**< AccessReportSpec */ 
+    GetReaderConfigRequestedData_LLRPConfigurationStateValue = 7, /**< LLRPConfigurationStateValue */ 
+    GetReaderConfigRequestedData_KeepaliveSpec = 8, /**< KeepaliveSpec */ 
+    GetReaderConfigRequestedData_GPIPortCurrentState = 9, /**< GPIPortCurrentState */ 
+    GetReaderConfigRequestedData_GPOWriteData = 10, /**< GPOWriteData */ 
+    GetReaderConfigRequestedData_EventsAndReports = 11, /**< EventsAndReports */  
 };
 
 extern const SEnumTableEntry
@@ -745,7 +798,9 @@ g_estGetReaderConfigRequestedData[];
 
 enum EIdentificationType
 {
-IdentificationType_MAC_Address = 0, /**< MAC_Address */ IdentificationType_EPC = 1, /**< EPC */  
+
+    IdentificationType_MAC_Address = 0, /**< MAC_Address */ 
+    IdentificationType_EPC = 1, /**< EPC */  
 };
 
 extern const SEnumTableEntry
@@ -797,7 +852,9 @@ g_estIdentificationType[];
 
 enum EKeepaliveTriggerType
 {
-KeepaliveTriggerType_Null = 0, /**< Null */ KeepaliveTriggerType_Periodic = 1, /**< Periodic */  
+
+    KeepaliveTriggerType_Null = 0, /**< Null */ 
+    KeepaliveTriggerType_Periodic = 1, /**< Periodic */  
 };
 
 extern const SEnumTableEntry
@@ -827,7 +884,10 @@ g_estKeepaliveTriggerType[];
 
 enum EGPIPortState
 {
-GPIPortState_Low = 0, /**< Low */ GPIPortState_High = 1, /**< High */ GPIPortState_Unknown = 2, /**< Unknown */  
+
+    GPIPortState_Low = 0, /**< Low */ 
+    GPIPortState_High = 1, /**< High */ 
+    GPIPortState_Unknown = 2, /**< Unknown */  
 };
 
 extern const SEnumTableEntry
@@ -857,7 +917,10 @@ g_estGPIPortState[];
 
 enum EROReportTriggerType
 {
-ROReportTriggerType_None = 0, /**< None */ ROReportTriggerType_Upon_N_Tags_Or_End_Of_AISpec = 1, /**< Upon_N_Tags_Or_End_Of_AISpec */ ROReportTriggerType_Upon_N_Tags_Or_End_Of_ROSpec = 2, /**< Upon_N_Tags_Or_End_Of_ROSpec */  
+
+    ROReportTriggerType_None = 0, /**< None */ 
+    ROReportTriggerType_Upon_N_Tags_Or_End_Of_AISpec = 1, /**< Upon_N_Tags_Or_End_Of_AISpec */ 
+    ROReportTriggerType_Upon_N_Tags_Or_End_Of_ROSpec = 2, /**< Upon_N_Tags_Or_End_Of_ROSpec */  
 };
 
 extern const SEnumTableEntry
@@ -886,7 +949,9 @@ g_estROReportTriggerType[];
 
 enum EAccessReportTriggerType
 {
-AccessReportTriggerType_Whenever_ROReport_Is_Generated = 0, /**< Whenever_ROReport_Is_Generated */ AccessReportTriggerType_End_Of_AccessSpec = 1, /**< End_Of_AccessSpec */  
+
+    AccessReportTriggerType_Whenever_ROReport_Is_Generated = 0, /**< Whenever_ROReport_Is_Generated */ 
+    AccessReportTriggerType_End_Of_AccessSpec = 1, /**< End_Of_AccessSpec */  
 };
 
 extern const SEnumTableEntry
@@ -922,7 +987,16 @@ g_estAccessReportTriggerType[];
 
 enum ENotificationEventType
 {
-NotificationEventType_Upon_Hopping_To_Next_Channel = 0, /**< Upon_Hopping_To_Next_Channel */ NotificationEventType_GPI_Event = 1, /**< GPI_Event */ NotificationEventType_ROSpec_Event = 2, /**< ROSpec_Event */ NotificationEventType_Report_Buffer_Fill_Warning = 3, /**< Report_Buffer_Fill_Warning */ NotificationEventType_Reader_Exception_Event = 4, /**< Reader_Exception_Event */ NotificationEventType_RFSurvey_Event = 5, /**< RFSurvey_Event */ NotificationEventType_AISpec_Event = 6, /**< AISpec_Event */ NotificationEventType_AISpec_Event_With_Details = 7, /**< AISpec_Event_With_Details */ NotificationEventType_Antenna_Event = 8, /**< Antenna_Event */  
+
+    NotificationEventType_Upon_Hopping_To_Next_Channel = 0, /**< Upon_Hopping_To_Next_Channel */ 
+    NotificationEventType_GPI_Event = 1, /**< GPI_Event */ 
+    NotificationEventType_ROSpec_Event = 2, /**< ROSpec_Event */ 
+    NotificationEventType_Report_Buffer_Fill_Warning = 3, /**< Report_Buffer_Fill_Warning */ 
+    NotificationEventType_Reader_Exception_Event = 4, /**< Reader_Exception_Event */ 
+    NotificationEventType_RFSurvey_Event = 5, /**< RFSurvey_Event */ 
+    NotificationEventType_AISpec_Event = 6, /**< AISpec_Event */ 
+    NotificationEventType_AISpec_Event_With_Details = 7, /**< AISpec_Event_With_Details */ 
+    NotificationEventType_Antenna_Event = 8, /**< Antenna_Event */  
 };
 
 extern const SEnumTableEntry
@@ -952,7 +1026,10 @@ g_estNotificationEventType[];
 
 enum EROSpecEventType
 {
-ROSpecEventType_Start_Of_ROSpec = 0, /**< Start_Of_ROSpec */ ROSpecEventType_End_Of_ROSpec = 1, /**< End_Of_ROSpec */ ROSpecEventType_Preemption_Of_ROSpec = 2, /**< Preemption_Of_ROSpec */  
+
+    ROSpecEventType_Start_Of_ROSpec = 0, /**< Start_Of_ROSpec */ 
+    ROSpecEventType_End_Of_ROSpec = 1, /**< End_Of_ROSpec */ 
+    ROSpecEventType_Preemption_Of_ROSpec = 2, /**< Preemption_Of_ROSpec */  
 };
 
 extern const SEnumTableEntry
@@ -981,7 +1058,9 @@ g_estROSpecEventType[];
 
 enum ERFSurveyEventType
 {
-RFSurveyEventType_Start_Of_RFSurvey = 0, /**< Start_Of_RFSurvey */ RFSurveyEventType_End_Of_RFSurvey = 1, /**< End_Of_RFSurvey */  
+
+    RFSurveyEventType_Start_Of_RFSurvey = 0, /**< Start_Of_RFSurvey */ 
+    RFSurveyEventType_End_Of_RFSurvey = 1, /**< End_Of_RFSurvey */  
 };
 
 extern const SEnumTableEntry
@@ -1009,7 +1088,8 @@ g_estRFSurveyEventType[];
 
 enum EAISpecEventType
 {
-AISpecEventType_End_Of_AISpec = 0, /**< End_Of_AISpec */  
+
+    AISpecEventType_End_Of_AISpec = 0, /**< End_Of_AISpec */  
 };
 
 extern const SEnumTableEntry
@@ -1039,7 +1119,9 @@ g_estAISpecEventType[];
 
 enum EAntennaEventType
 {
-AntennaEventType_Antenna_Disconnected = 0, /**< Antenna_Disconnected */ AntennaEventType_Antenna_Connected = 1, /**< Antenna_Connected */  
+
+    AntennaEventType_Antenna_Disconnected = 0, /**< Antenna_Disconnected */ 
+    AntennaEventType_Antenna_Connected = 1, /**< Antenna_Connected */  
 };
 
 extern const SEnumTableEntry
@@ -1075,7 +1157,12 @@ g_estAntennaEventType[];
 
 enum EConnectionAttemptStatusType
 {
-ConnectionAttemptStatusType_Success = 0, /**< Success */ ConnectionAttemptStatusType_Failed_A_Reader_Initiated_Connection_Already_Exists = 1, /**< Failed_A_Reader_Initiated_Connection_Already_Exists */ ConnectionAttemptStatusType_Failed_A_Client_Initiated_Connection_Already_Exists = 2, /**< Failed_A_Client_Initiated_Connection_Already_Exists */ ConnectionAttemptStatusType_Failed_Reason_Other_Than_A_Connection_Already_Exists = 3, /**< Failed_Reason_Other_Than_A_Connection_Already_Exists */ ConnectionAttemptStatusType_Another_Connection_Attempted = 4, /**< Another_Connection_Attempted */  
+
+    ConnectionAttemptStatusType_Success = 0, /**< Success */ 
+    ConnectionAttemptStatusType_Failed_A_Reader_Initiated_Connection_Already_Exists = 1, /**< Failed_A_Reader_Initiated_Connection_Already_Exists */ 
+    ConnectionAttemptStatusType_Failed_A_Client_Initiated_Connection_Already_Exists = 2, /**< Failed_A_Client_Initiated_Connection_Already_Exists */ 
+    ConnectionAttemptStatusType_Failed_Reason_Other_Than_A_Connection_Already_Exists = 3, /**< Failed_Reason_Other_Than_A_Connection_Already_Exists */ 
+    ConnectionAttemptStatusType_Another_Connection_Attempted = 4, /**< Another_Connection_Attempted */  
 };
 
 extern const SEnumTableEntry
@@ -1135,7 +1222,33 @@ g_estConnectionAttemptStatusType[];
 
 enum EStatusCode
 {
-StatusCode_M_Success = 0, /**< M_Success */ StatusCode_M_ParameterError = 100, /**< M_ParameterError */ StatusCode_M_FieldError = 101, /**< M_FieldError */ StatusCode_M_UnexpectedParameter = 102, /**< M_UnexpectedParameter */ StatusCode_M_MissingParameter = 103, /**< M_MissingParameter */ StatusCode_M_DuplicateParameter = 104, /**< M_DuplicateParameter */ StatusCode_M_OverflowParameter = 105, /**< M_OverflowParameter */ StatusCode_M_OverflowField = 106, /**< M_OverflowField */ StatusCode_M_UnknownParameter = 107, /**< M_UnknownParameter */ StatusCode_M_UnknownField = 108, /**< M_UnknownField */ StatusCode_M_UnsupportedMessage = 109, /**< M_UnsupportedMessage */ StatusCode_M_UnsupportedVersion = 110, /**< M_UnsupportedVersion */ StatusCode_M_UnsupportedParameter = 111, /**< M_UnsupportedParameter */ StatusCode_P_ParameterError = 200, /**< P_ParameterError */ StatusCode_P_FieldError = 201, /**< P_FieldError */ StatusCode_P_UnexpectedParameter = 202, /**< P_UnexpectedParameter */ StatusCode_P_MissingParameter = 203, /**< P_MissingParameter */ StatusCode_P_DuplicateParameter = 204, /**< P_DuplicateParameter */ StatusCode_P_OverflowParameter = 205, /**< P_OverflowParameter */ StatusCode_P_OverflowField = 206, /**< P_OverflowField */ StatusCode_P_UnknownParameter = 207, /**< P_UnknownParameter */ StatusCode_P_UnknownField = 208, /**< P_UnknownField */ StatusCode_P_UnsupportedParameter = 209, /**< P_UnsupportedParameter */ StatusCode_A_Invalid = 300, /**< A_Invalid */ StatusCode_A_OutOfRange = 301, /**< A_OutOfRange */ StatusCode_R_DeviceError = 401, /**< R_DeviceError */  
+
+    StatusCode_M_Success = 0, /**< M_Success */ 
+    StatusCode_M_ParameterError = 100, /**< M_ParameterError */ 
+    StatusCode_M_FieldError = 101, /**< M_FieldError */ 
+    StatusCode_M_UnexpectedParameter = 102, /**< M_UnexpectedParameter */ 
+    StatusCode_M_MissingParameter = 103, /**< M_MissingParameter */ 
+    StatusCode_M_DuplicateParameter = 104, /**< M_DuplicateParameter */ 
+    StatusCode_M_OverflowParameter = 105, /**< M_OverflowParameter */ 
+    StatusCode_M_OverflowField = 106, /**< M_OverflowField */ 
+    StatusCode_M_UnknownParameter = 107, /**< M_UnknownParameter */ 
+    StatusCode_M_UnknownField = 108, /**< M_UnknownField */ 
+    StatusCode_M_UnsupportedMessage = 109, /**< M_UnsupportedMessage */ 
+    StatusCode_M_UnsupportedVersion = 110, /**< M_UnsupportedVersion */ 
+    StatusCode_M_UnsupportedParameter = 111, /**< M_UnsupportedParameter */ 
+    StatusCode_P_ParameterError = 200, /**< P_ParameterError */ 
+    StatusCode_P_FieldError = 201, /**< P_FieldError */ 
+    StatusCode_P_UnexpectedParameter = 202, /**< P_UnexpectedParameter */ 
+    StatusCode_P_MissingParameter = 203, /**< P_MissingParameter */ 
+    StatusCode_P_DuplicateParameter = 204, /**< P_DuplicateParameter */ 
+    StatusCode_P_OverflowParameter = 205, /**< P_OverflowParameter */ 
+    StatusCode_P_OverflowField = 206, /**< P_OverflowField */ 
+    StatusCode_P_UnknownParameter = 207, /**< P_UnknownParameter */ 
+    StatusCode_P_UnknownField = 208, /**< P_UnknownField */ 
+    StatusCode_P_UnsupportedParameter = 209, /**< P_UnsupportedParameter */ 
+    StatusCode_A_Invalid = 300, /**< A_Invalid */ 
+    StatusCode_A_OutOfRange = 301, /**< A_OutOfRange */ 
+    StatusCode_R_DeviceError = 401, /**< R_DeviceError */  
 };
 
 extern const SEnumTableEntry
@@ -1164,7 +1277,9 @@ g_estStatusCode[];
 
 enum EC1G2DRValue
 {
-C1G2DRValue_DRV_8 = 0, /**< DRV_8 */ C1G2DRValue_DRV_64_3 = 1, /**< DRV_64_3 */  
+
+    C1G2DRValue_DRV_8 = 0, /**< DRV_8 */ 
+    C1G2DRValue_DRV_64_3 = 1, /**< DRV_64_3 */  
 };
 
 extern const SEnumTableEntry
@@ -1195,7 +1310,11 @@ g_estC1G2DRValue[];
 
 enum EC1G2MValue
 {
-C1G2MValue_MV_FM0 = 0, /**< MV_FM0 */ C1G2MValue_MV_2 = 1, /**< MV_2 */ C1G2MValue_MV_4 = 2, /**< MV_4 */ C1G2MValue_MV_8 = 3, /**< MV_8 */  
+
+    C1G2MValue_MV_FM0 = 0, /**< MV_FM0 */ 
+    C1G2MValue_MV_2 = 1, /**< MV_2 */ 
+    C1G2MValue_MV_4 = 2, /**< MV_4 */ 
+    C1G2MValue_MV_8 = 3, /**< MV_8 */  
 };
 
 extern const SEnumTableEntry
@@ -1225,7 +1344,10 @@ g_estC1G2MValue[];
 
 enum EC1G2ForwardLinkModulation
 {
-C1G2ForwardLinkModulation_PR_ASK = 0, /**< PR_ASK */ C1G2ForwardLinkModulation_SSB_ASK = 1, /**< SSB_ASK */ C1G2ForwardLinkModulation_DSB_ASK = 2, /**< DSB_ASK */  
+
+    C1G2ForwardLinkModulation_PR_ASK = 0, /**< PR_ASK */ 
+    C1G2ForwardLinkModulation_SSB_ASK = 1, /**< SSB_ASK */ 
+    C1G2ForwardLinkModulation_DSB_ASK = 2, /**< DSB_ASK */  
 };
 
 extern const SEnumTableEntry
@@ -1287,7 +1409,11 @@ g_estC1G2ForwardLinkModulation[];
 
 enum EC1G2SpectralMaskIndicator
 {
-C1G2SpectralMaskIndicator_Unknown = 0, /**< Unknown */ C1G2SpectralMaskIndicator_SI = 1, /**< SI */ C1G2SpectralMaskIndicator_MI = 2, /**< MI */ C1G2SpectralMaskIndicator_DI = 3, /**< DI */  
+
+    C1G2SpectralMaskIndicator_Unknown = 0, /**< Unknown */ 
+    C1G2SpectralMaskIndicator_SI = 1, /**< SI */ 
+    C1G2SpectralMaskIndicator_MI = 2, /**< MI */ 
+    C1G2SpectralMaskIndicator_DI = 3, /**< DI */  
 };
 
 extern const SEnumTableEntry
@@ -1317,7 +1443,10 @@ g_estC1G2SpectralMaskIndicator[];
 
 enum EC1G2TruncateAction
 {
-C1G2TruncateAction_Unspecified = 0, /**< Unspecified */ C1G2TruncateAction_Do_Not_Truncate = 1, /**< Do_Not_Truncate */ C1G2TruncateAction_Truncate = 2, /**< Truncate */  
+
+    C1G2TruncateAction_Unspecified = 0, /**< Unspecified */ 
+    C1G2TruncateAction_Do_Not_Truncate = 1, /**< Do_Not_Truncate */ 
+    C1G2TruncateAction_Truncate = 2, /**< Truncate */  
 };
 
 extern const SEnumTableEntry
@@ -1349,7 +1478,12 @@ g_estC1G2TruncateAction[];
 
 enum EC1G2StateAwareTarget
 {
-C1G2StateAwareTarget_SL = 0, /**< SL */ C1G2StateAwareTarget_Inventoried_State_For_Session_S0 = 1, /**< Inventoried_State_For_Session_S0 */ C1G2StateAwareTarget_Inventoried_State_For_Session_S1 = 2, /**< Inventoried_State_For_Session_S1 */ C1G2StateAwareTarget_Inventoried_State_For_Session_S2 = 3, /**< Inventoried_State_For_Session_S2 */ C1G2StateAwareTarget_Inventoried_State_For_Session_S3 = 4, /**< Inventoried_State_For_Session_S3 */  
+
+    C1G2StateAwareTarget_SL = 0, /**< SL */ 
+    C1G2StateAwareTarget_Inventoried_State_For_Session_S0 = 1, /**< Inventoried_State_For_Session_S0 */ 
+    C1G2StateAwareTarget_Inventoried_State_For_Session_S1 = 2, /**< Inventoried_State_For_Session_S1 */ 
+    C1G2StateAwareTarget_Inventoried_State_For_Session_S2 = 3, /**< Inventoried_State_For_Session_S2 */ 
+    C1G2StateAwareTarget_Inventoried_State_For_Session_S3 = 4, /**< Inventoried_State_For_Session_S3 */  
 };
 
 extern const SEnumTableEntry
@@ -1384,7 +1518,15 @@ g_estC1G2StateAwareTarget[];
 
 enum EC1G2StateAwareAction
 {
-C1G2StateAwareAction_AssertSLOrA_DeassertSLOrB = 0, /**< AssertSLOrA_DeassertSLOrB */ C1G2StateAwareAction_AssertSLOrA_Noop = 1, /**< AssertSLOrA_Noop */ C1G2StateAwareAction_Noop_DeassertSLOrB = 2, /**< Noop_DeassertSLOrB */ C1G2StateAwareAction_NegateSLOrABBA_Noop = 3, /**< NegateSLOrABBA_Noop */ C1G2StateAwareAction_DeassertSLOrB_AssertSLOrA = 4, /**< DeassertSLOrB_AssertSLOrA */ C1G2StateAwareAction_DeassertSLOrB_Noop = 5, /**< DeassertSLOrB_Noop */ C1G2StateAwareAction_Noop_AssertSLOrA = 6, /**< Noop_AssertSLOrA */ C1G2StateAwareAction_Noop_NegateSLOrABBA = 7, /**< Noop_NegateSLOrABBA */  
+
+    C1G2StateAwareAction_AssertSLOrA_DeassertSLOrB = 0, /**< AssertSLOrA_DeassertSLOrB */ 
+    C1G2StateAwareAction_AssertSLOrA_Noop = 1, /**< AssertSLOrA_Noop */ 
+    C1G2StateAwareAction_Noop_DeassertSLOrB = 2, /**< Noop_DeassertSLOrB */ 
+    C1G2StateAwareAction_NegateSLOrABBA_Noop = 3, /**< NegateSLOrABBA_Noop */ 
+    C1G2StateAwareAction_DeassertSLOrB_AssertSLOrA = 4, /**< DeassertSLOrB_AssertSLOrA */ 
+    C1G2StateAwareAction_DeassertSLOrB_Noop = 5, /**< DeassertSLOrB_Noop */ 
+    C1G2StateAwareAction_Noop_AssertSLOrA = 6, /**< Noop_AssertSLOrA */ 
+    C1G2StateAwareAction_Noop_NegateSLOrABBA = 7, /**< Noop_NegateSLOrABBA */  
 };
 
 extern const SEnumTableEntry
@@ -1417,7 +1559,13 @@ g_estC1G2StateAwareAction[];
 
 enum EC1G2StateUnawareAction
 {
-C1G2StateUnawareAction_Select_Unselect = 0, /**< Select_Unselect */ C1G2StateUnawareAction_Select_DoNothing = 1, /**< Select_DoNothing */ C1G2StateUnawareAction_DoNothing_Unselect = 2, /**< DoNothing_Unselect */ C1G2StateUnawareAction_Unselect_DoNothing = 3, /**< Unselect_DoNothing */ C1G2StateUnawareAction_Unselect_Select = 4, /**< Unselect_Select */ C1G2StateUnawareAction_DoNothing_Select = 5, /**< DoNothing_Select */  
+
+    C1G2StateUnawareAction_Select_Unselect = 0, /**< Select_Unselect */ 
+    C1G2StateUnawareAction_Select_DoNothing = 1, /**< Select_DoNothing */ 
+    C1G2StateUnawareAction_DoNothing_Unselect = 2, /**< DoNothing_Unselect */ 
+    C1G2StateUnawareAction_Unselect_DoNothing = 3, /**< Unselect_DoNothing */ 
+    C1G2StateUnawareAction_Unselect_Select = 4, /**< Unselect_Select */ 
+    C1G2StateUnawareAction_DoNothing_Select = 5, /**< DoNothing_Select */  
 };
 
 extern const SEnumTableEntry
@@ -1446,7 +1594,9 @@ g_estC1G2StateUnawareAction[];
 
 enum EC1G2TagInventoryStateAwareI
 {
-C1G2TagInventoryStateAwareI_State_A = 0, /**< State_A */ C1G2TagInventoryStateAwareI_State_B = 1, /**< State_B */  
+
+    C1G2TagInventoryStateAwareI_State_A = 0, /**< State_A */ 
+    C1G2TagInventoryStateAwareI_State_B = 1, /**< State_B */  
 };
 
 extern const SEnumTableEntry
@@ -1475,7 +1625,9 @@ g_estC1G2TagInventoryStateAwareI[];
 
 enum EC1G2TagInventoryStateAwareS
 {
-C1G2TagInventoryStateAwareS_SL = 0, /**< SL */ C1G2TagInventoryStateAwareS_Not_SL = 1, /**< Not_SL */  
+
+    C1G2TagInventoryStateAwareS_SL = 0, /**< SL */ 
+    C1G2TagInventoryStateAwareS_Not_SL = 1, /**< Not_SL */  
 };
 
 extern const SEnumTableEntry
@@ -1513,7 +1665,11 @@ g_estC1G2TagInventoryStateAwareS[];
 
 enum EC1G2LockPrivilege
 {
-C1G2LockPrivilege_Read_Write = 0, /**< Read_Write */ C1G2LockPrivilege_Perma_Lock = 1, /**< Perma_Lock */ C1G2LockPrivilege_Perma_Unlock = 2, /**< Perma_Unlock */ C1G2LockPrivilege_Unlock = 3, /**< Unlock */  
+
+    C1G2LockPrivilege_Read_Write = 0, /**< Read_Write */ 
+    C1G2LockPrivilege_Perma_Lock = 1, /**< Perma_Lock */ 
+    C1G2LockPrivilege_Perma_Unlock = 2, /**< Perma_Unlock */ 
+    C1G2LockPrivilege_Unlock = 3, /**< Unlock */  
 };
 
 extern const SEnumTableEntry
@@ -1545,7 +1701,12 @@ g_estC1G2LockPrivilege[];
 
 enum EC1G2LockDataField
 {
-C1G2LockDataField_Kill_Password = 0, /**< Kill_Password */ C1G2LockDataField_Access_Password = 1, /**< Access_Password */ C1G2LockDataField_EPC_Memory = 2, /**< EPC_Memory */ C1G2LockDataField_TID_Memory = 3, /**< TID_Memory */ C1G2LockDataField_User_Memory = 4, /**< User_Memory */  
+
+    C1G2LockDataField_Kill_Password = 0, /**< Kill_Password */ 
+    C1G2LockDataField_Access_Password = 1, /**< Access_Password */ 
+    C1G2LockDataField_EPC_Memory = 2, /**< EPC_Memory */ 
+    C1G2LockDataField_TID_Memory = 3, /**< TID_Memory */ 
+    C1G2LockDataField_User_Memory = 4, /**< User_Memory */  
 };
 
 extern const SEnumTableEntry
@@ -1576,7 +1737,11 @@ g_estC1G2LockDataField[];
 
 enum EC1G2ReadResultType
 {
-C1G2ReadResultType_Success = 0, /**< Success */ C1G2ReadResultType_Nonspecific_Tag_Error = 1, /**< Nonspecific_Tag_Error */ C1G2ReadResultType_No_Response_From_Tag = 2, /**< No_Response_From_Tag */ C1G2ReadResultType_Nonspecific_Reader_Error = 3, /**< Nonspecific_Reader_Error */  
+
+    C1G2ReadResultType_Success = 0, /**< Success */ 
+    C1G2ReadResultType_Nonspecific_Tag_Error = 1, /**< Nonspecific_Tag_Error */ 
+    C1G2ReadResultType_No_Response_From_Tag = 2, /**< No_Response_From_Tag */ 
+    C1G2ReadResultType_Nonspecific_Reader_Error = 3, /**< Nonspecific_Reader_Error */  
 };
 
 extern const SEnumTableEntry
@@ -1614,7 +1779,14 @@ g_estC1G2ReadResultType[];
 
 enum EC1G2WriteResultType
 {
-C1G2WriteResultType_Success = 0, /**< Success */ C1G2WriteResultType_Tag_Memory_Overrun_Error = 1, /**< Tag_Memory_Overrun_Error */ C1G2WriteResultType_Tag_Memory_Locked_Error = 2, /**< Tag_Memory_Locked_Error */ C1G2WriteResultType_Insufficient_Power = 3, /**< Insufficient_Power */ C1G2WriteResultType_Nonspecific_Tag_Error = 4, /**< Nonspecific_Tag_Error */ C1G2WriteResultType_No_Response_From_Tag = 5, /**< No_Response_From_Tag */ C1G2WriteResultType_Nonspecific_Reader_Error = 6, /**< Nonspecific_Reader_Error */  
+
+    C1G2WriteResultType_Success = 0, /**< Success */ 
+    C1G2WriteResultType_Tag_Memory_Overrun_Error = 1, /**< Tag_Memory_Overrun_Error */ 
+    C1G2WriteResultType_Tag_Memory_Locked_Error = 2, /**< Tag_Memory_Locked_Error */ 
+    C1G2WriteResultType_Insufficient_Power = 3, /**< Insufficient_Power */ 
+    C1G2WriteResultType_Nonspecific_Tag_Error = 4, /**< Nonspecific_Tag_Error */ 
+    C1G2WriteResultType_No_Response_From_Tag = 5, /**< No_Response_From_Tag */ 
+    C1G2WriteResultType_Nonspecific_Reader_Error = 6, /**< Nonspecific_Reader_Error */  
 };
 
 extern const SEnumTableEntry
@@ -1647,7 +1819,13 @@ g_estC1G2WriteResultType[];
 
 enum EC1G2KillResultType
 {
-C1G2KillResultType_Success = 0, /**< Success */ C1G2KillResultType_Zero_Kill_Password_Error = 1, /**< Zero_Kill_Password_Error */ C1G2KillResultType_Insufficient_Power = 2, /**< Insufficient_Power */ C1G2KillResultType_Nonspecific_Tag_Error = 3, /**< Nonspecific_Tag_Error */ C1G2KillResultType_No_Response_From_Tag = 4, /**< No_Response_From_Tag */ C1G2KillResultType_Nonspecific_Reader_Error = 5, /**< Nonspecific_Reader_Error */  
+
+    C1G2KillResultType_Success = 0, /**< Success */ 
+    C1G2KillResultType_Zero_Kill_Password_Error = 1, /**< Zero_Kill_Password_Error */ 
+    C1G2KillResultType_Insufficient_Power = 2, /**< Insufficient_Power */ 
+    C1G2KillResultType_Nonspecific_Tag_Error = 3, /**< Nonspecific_Tag_Error */ 
+    C1G2KillResultType_No_Response_From_Tag = 4, /**< No_Response_From_Tag */ 
+    C1G2KillResultType_Nonspecific_Reader_Error = 5, /**< Nonspecific_Reader_Error */  
 };
 
 extern const SEnumTableEntry
@@ -1679,7 +1857,12 @@ g_estC1G2KillResultType[];
 
 enum EC1G2LockResultType
 {
-C1G2LockResultType_Success = 0, /**< Success */ C1G2LockResultType_Insufficient_Power = 1, /**< Insufficient_Power */ C1G2LockResultType_Nonspecific_Tag_Error = 2, /**< Nonspecific_Tag_Error */ C1G2LockResultType_No_Response_From_Tag = 3, /**< No_Response_From_Tag */ C1G2LockResultType_Nonspecific_Reader_Error = 4, /**< Nonspecific_Reader_Error */  
+
+    C1G2LockResultType_Success = 0, /**< Success */ 
+    C1G2LockResultType_Insufficient_Power = 1, /**< Insufficient_Power */ 
+    C1G2LockResultType_Nonspecific_Tag_Error = 2, /**< Nonspecific_Tag_Error */ 
+    C1G2LockResultType_No_Response_From_Tag = 3, /**< No_Response_From_Tag */ 
+    C1G2LockResultType_Nonspecific_Reader_Error = 4, /**< Nonspecific_Reader_Error */  
 };
 
 extern const SEnumTableEntry
@@ -1713,7 +1896,14 @@ g_estC1G2LockResultType[];
 
 enum EC1G2BlockEraseResultType
 {
-C1G2BlockEraseResultType_Success = 0, /**< Success */ C1G2BlockEraseResultType_Tag_Memory_Overrun_Error = 1, /**< Tag_Memory_Overrun_Error */ C1G2BlockEraseResultType_Tag_Memory_Locked_Error = 2, /**< Tag_Memory_Locked_Error */ C1G2BlockEraseResultType_Insufficient_Power = 3, /**< Insufficient_Power */ C1G2BlockEraseResultType_Nonspecific_Tag_Error = 4, /**< Nonspecific_Tag_Error */ C1G2BlockEraseResultType_No_Response_From_Tag = 5, /**< No_Response_From_Tag */ C1G2BlockEraseResultType_Nonspecific_Reader_Error = 6, /**< Nonspecific_Reader_Error */  
+
+    C1G2BlockEraseResultType_Success = 0, /**< Success */ 
+    C1G2BlockEraseResultType_Tag_Memory_Overrun_Error = 1, /**< Tag_Memory_Overrun_Error */ 
+    C1G2BlockEraseResultType_Tag_Memory_Locked_Error = 2, /**< Tag_Memory_Locked_Error */ 
+    C1G2BlockEraseResultType_Insufficient_Power = 3, /**< Insufficient_Power */ 
+    C1G2BlockEraseResultType_Nonspecific_Tag_Error = 4, /**< Nonspecific_Tag_Error */ 
+    C1G2BlockEraseResultType_No_Response_From_Tag = 5, /**< No_Response_From_Tag */ 
+    C1G2BlockEraseResultType_Nonspecific_Reader_Error = 6, /**< Nonspecific_Reader_Error */  
 };
 
 extern const SEnumTableEntry
@@ -1751,7 +1941,14 @@ g_estC1G2BlockEraseResultType[];
 
 enum EC1G2BlockWriteResultType
 {
-C1G2BlockWriteResultType_Success = 0, /**< Success */ C1G2BlockWriteResultType_Tag_Memory_Overrun_Error = 1, /**< Tag_Memory_Overrun_Error */ C1G2BlockWriteResultType_Tag_Memory_Locked_Error = 2, /**< Tag_Memory_Locked_Error */ C1G2BlockWriteResultType_Insufficient_Power = 3, /**< Insufficient_Power */ C1G2BlockWriteResultType_Nonspecific_Tag_Error = 4, /**< Nonspecific_Tag_Error */ C1G2BlockWriteResultType_No_Response_From_Tag = 5, /**< No_Response_From_Tag */ C1G2BlockWriteResultType_Nonspecific_Reader_Error = 6, /**< Nonspecific_Reader_Error */  
+
+    C1G2BlockWriteResultType_Success = 0, /**< Success */ 
+    C1G2BlockWriteResultType_Tag_Memory_Overrun_Error = 1, /**< Tag_Memory_Overrun_Error */ 
+    C1G2BlockWriteResultType_Tag_Memory_Locked_Error = 2, /**< Tag_Memory_Locked_Error */ 
+    C1G2BlockWriteResultType_Insufficient_Power = 3, /**< Insufficient_Power */ 
+    C1G2BlockWriteResultType_Nonspecific_Tag_Error = 4, /**< Nonspecific_Tag_Error */ 
+    C1G2BlockWriteResultType_No_Response_From_Tag = 5, /**< No_Response_From_Tag */ 
+    C1G2BlockWriteResultType_Nonspecific_Reader_Error = 6, /**< Nonspecific_Reader_Error */  
 };
 
 extern const SEnumTableEntry
@@ -1920,6 +2117,7 @@ class CCUSTOM_MESSAGE : public CMessage
     }
 
 
+  
 };
 
 
@@ -2019,6 +2217,7 @@ class CGET_READER_CAPABILITIES : public CMessage
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -2133,6 +2332,7 @@ class CGET_READER_CAPABILITIES_RESPONSE : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CLLRPStatus * m_pLLRPStatus;
@@ -2338,6 +2538,7 @@ class CADD_ROSPEC : public CMessage
 //@}
 
   
+  
   protected:
     CROSpec * m_pROSpec;
 
@@ -2426,6 +2627,7 @@ class CADD_ROSPEC_RESPONSE : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CLLRPStatus * m_pLLRPStatus;
@@ -2545,6 +2747,7 @@ class CDELETE_ROSPEC : public CMessage
     }
 
 
+  
 };
 
 
@@ -2616,6 +2819,7 @@ class CDELETE_ROSPEC_RESPONSE : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CLLRPStatus * m_pLLRPStatus;
@@ -2735,6 +2939,7 @@ class CSTART_ROSPEC : public CMessage
     }
 
 
+  
 };
 
 
@@ -2806,6 +3011,7 @@ class CSTART_ROSPEC_RESPONSE : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CLLRPStatus * m_pLLRPStatus;
@@ -2925,6 +3131,7 @@ class CSTOP_ROSPEC : public CMessage
     }
 
 
+  
 };
 
 
@@ -2996,6 +3203,7 @@ class CSTOP_ROSPEC_RESPONSE : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CLLRPStatus * m_pLLRPStatus;
@@ -3115,6 +3323,7 @@ class CENABLE_ROSPEC : public CMessage
     }
 
 
+  
 };
 
 
@@ -3186,6 +3395,7 @@ class CENABLE_ROSPEC_RESPONSE : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CLLRPStatus * m_pLLRPStatus;
@@ -3305,6 +3515,7 @@ class CDISABLE_ROSPEC : public CMessage
     }
 
 
+  
 };
 
 
@@ -3376,6 +3587,7 @@ class CDISABLE_ROSPEC_RESPONSE : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CLLRPStatus * m_pLLRPStatus;
@@ -3465,6 +3677,7 @@ class CGET_ROSPECS : public CMessage
 //@}
 
   
+  
 };
 
 
@@ -3537,6 +3750,7 @@ class CGET_ROSPECS_RESPONSE : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CLLRPStatus * m_pLLRPStatus;
@@ -3674,6 +3888,7 @@ class CADD_ACCESSSPEC : public CMessage
 //@}
 
   
+  
   protected:
     CAccessSpec * m_pAccessSpec;
 
@@ -3762,6 +3977,7 @@ class CADD_ACCESSSPEC_RESPONSE : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CLLRPStatus * m_pLLRPStatus;
@@ -3881,6 +4097,7 @@ class CDELETE_ACCESSSPEC : public CMessage
     }
 
 
+  
 };
 
 
@@ -3952,6 +4169,7 @@ class CDELETE_ACCESSSPEC_RESPONSE : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CLLRPStatus * m_pLLRPStatus;
@@ -4071,6 +4289,7 @@ class CENABLE_ACCESSSPEC : public CMessage
     }
 
 
+  
 };
 
 
@@ -4142,6 +4361,7 @@ class CENABLE_ACCESSSPEC_RESPONSE : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CLLRPStatus * m_pLLRPStatus;
@@ -4261,6 +4481,7 @@ class CDISABLE_ACCESSSPEC : public CMessage
     }
 
 
+  
 };
 
 
@@ -4332,6 +4553,7 @@ class CDISABLE_ACCESSSPEC_RESPONSE : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CLLRPStatus * m_pLLRPStatus;
@@ -4421,6 +4643,7 @@ class CGET_ACCESSSPECS : public CMessage
 //@}
 
   
+  
 };
 
 
@@ -4493,6 +4716,7 @@ class CGET_ACCESSSPECS_RESPONSE : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CLLRPStatus * m_pLLRPStatus;
@@ -4621,6 +4845,7 @@ class CCLIENT_REQUEST_OP : public CMessage
 //@}
 
   
+  
   protected:
     CTagReportData * m_pTagReportData;
 
@@ -4709,6 +4934,7 @@ class CCLIENT_REQUEST_OP_RESPONSE : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CClientRequestResponse * m_pClientRequestResponse;
@@ -4907,6 +5133,7 @@ class CGET_READER_CONFIG : public CMessage
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listCustom;
 
@@ -5046,6 +5273,7 @@ class CGET_READER_CONFIG_RESPONSE : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CLLRPStatus * m_pLLRPStatus;
@@ -5490,6 +5718,7 @@ class CSET_READER_CONFIG : public CMessage
     }
 
 
+  
   protected:
     CReaderEventNotificationSpec * m_pReaderEventNotificationSpec;
 
@@ -5837,6 +6066,7 @@ class CSET_READER_CONFIG_RESPONSE : public CMessage
 //@}
 
   
+  
   protected:
     CLLRPStatus * m_pLLRPStatus;
 
@@ -5937,6 +6167,7 @@ class CCLOSE_CONNECTION : public CMessage
 //@}
 
   
+  
 };
 
 
@@ -6012,6 +6243,7 @@ class CCLOSE_CONNECTION_RESPONSE : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CLLRPStatus * m_pLLRPStatus;
@@ -6103,6 +6335,7 @@ class CGET_REPORT : public CMessage
 //@}
 
   
+  
 };
 
 
@@ -6176,6 +6409,7 @@ class CRO_ACCESS_REPORT : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     std::list<CTagReportData *> m_listTagReportData;
@@ -6362,6 +6596,7 @@ class CKEEPALIVE : public CMessage
 //@}
 
   
+  
 };
 
 
@@ -6435,6 +6670,7 @@ class CKEEPALIVE_ACK : public CMessage
 //@}
 
   
+  
 };
 
 
@@ -6506,6 +6742,7 @@ class CREADER_EVENT_NOTIFICATION : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CReaderEventNotificationData * m_pReaderEventNotificationData;
@@ -6594,6 +6831,7 @@ class CENABLE_EVENTS_AND_REPORTS : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
 };
 
@@ -6694,6 +6932,7 @@ class CERROR_MESSAGE : public CMessage
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CLLRPStatus * m_pLLRPStatus;
@@ -6822,6 +7061,7 @@ class CUTCTimestamp : public CParameter
     }
 
 
+  
 };
 
 
@@ -6924,6 +7164,7 @@ class CUptime : public CParameter
     }
 
 
+  
 };
 
 
@@ -7087,6 +7328,7 @@ class CCustom : public CParameter
     }
 
 
+  
 };
 
 
@@ -7325,6 +7567,7 @@ class CGeneralDeviceCapabilities : public CParameter
     }
 
 
+  
   protected:
     std::list<CReceiveSensitivityTableEntry *> m_listReceiveSensitivityTableEntry;
 
@@ -7584,6 +7827,7 @@ class CReceiveSensitivityTableEntry : public CParameter
     }
 
 
+  
 };
 
 
@@ -7741,6 +7985,7 @@ class CPerAntennaReceiveSensitivityRange : public CParameter
     }
 
 
+  
 };
 
 
@@ -7866,6 +8111,7 @@ class CPerAntennaAirProtocol : public CParameter
     }
 
 
+  
 };
 
 
@@ -7991,6 +8237,7 @@ class CGPIOCapabilities : public CParameter
     }
 
 
+  
 };
 
 
@@ -8404,6 +8651,7 @@ class CLLRPCapabilities : public CParameter
     }
 
 
+  
 };
 
 
@@ -8534,6 +8782,7 @@ class CRegulatoryCapabilities : public CParameter
     }
 
 
+  
   protected:
     CUHFBandCapabilities * m_pUHFBandCapabilities;
 
@@ -8662,6 +8911,7 @@ class CUHFBandCapabilities : public CParameter
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     std::list<CTransmitPowerLevelTableEntry *> m_listTransmitPowerLevelTableEntry;
@@ -8881,6 +9131,7 @@ class CTransmitPowerLevelTableEntry : public CParameter
     }
 
 
+  
 };
 
 
@@ -8982,6 +9233,7 @@ class CFrequencyInformation : public CParameter
     }
 
 
+  
   protected:
     std::list<CFrequencyHopTable *> m_listFrequencyHopTable;
 
@@ -9177,6 +9429,7 @@ class CFrequencyHopTable : public CParameter
     }
 
 
+  
 };
 
 
@@ -9275,6 +9528,7 @@ class CFixedFrequencyTable : public CParameter
     }
 
 
+  
 };
 
 
@@ -9430,6 +9684,7 @@ class CROSpec : public CParameter
     }
 
 
+  
   protected:
     CROBoundarySpec * m_pROBoundarySpec;
 
@@ -9575,6 +9830,7 @@ class CROBoundarySpec : public CParameter
 //@}
 
   
+  
   protected:
     CROSpecStartTrigger * m_pROSpecStartTrigger;
 
@@ -9709,6 +9965,7 @@ class CROSpecStartTrigger : public CParameter
     }
 
 
+  
   protected:
     CPeriodicTriggerValue * m_pPeriodicTriggerValue;
 
@@ -9880,6 +10137,7 @@ class CPeriodicTriggerValue : public CParameter
     }
 
 
+  
   protected:
     CUTCTimestamp * m_pUTCTimestamp;
 
@@ -10062,6 +10320,7 @@ class CGPITriggerValue : public CParameter
     }
 
 
+  
 };
 
 
@@ -10188,6 +10447,7 @@ class CROSpecStopTrigger : public CParameter
     }
 
 
+  
   protected:
     CGPITriggerValue * m_pGPITriggerValue;
 
@@ -10306,6 +10566,7 @@ class CAISpec : public CParameter
     }
 
 
+  
   protected:
     CAISpecStopTrigger * m_pAISpecStopTrigger;
 
@@ -10526,6 +10787,7 @@ class CAISpecStopTrigger : public CParameter
     }
 
 
+  
   protected:
     CGPITriggerValue * m_pGPITriggerValue;
 
@@ -10767,6 +11029,7 @@ class CTagObservationTrigger : public CParameter
     }
 
 
+  
 };
 
 
@@ -10894,6 +11157,7 @@ class CInventoryParameterSpec : public CParameter
     }
 
 
+  
   protected:
     std::list<CAntennaConfiguration *> m_listAntennaConfiguration;
 
@@ -11124,6 +11388,7 @@ class CRFSurveySpec : public CParameter
     }
 
 
+  
   protected:
     CRFSurveySpecStopTrigger * m_pRFSurveySpecStopTrigger;
 
@@ -11331,6 +11596,7 @@ class CRFSurveySpecStopTrigger : public CParameter
     }
 
 
+  
 };
 
 
@@ -11542,6 +11808,7 @@ class CAccessSpec : public CParameter
     }
 
 
+  
   protected:
     CAccessSpecStopTrigger * m_pAccessSpecStopTrigger;
 
@@ -11759,6 +12026,7 @@ class CAccessSpecStopTrigger : public CParameter
     }
 
 
+  
 };
 
 
@@ -11842,6 +12110,7 @@ class CAccessCommand : public CParameter
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CParameter * m_pAirProtocolTagSpec;
@@ -12037,6 +12306,7 @@ class CClientRequestOpSpec : public CParameter
     }
 
 
+  
 };
 
 
@@ -12137,6 +12407,7 @@ class CClientRequestResponse : public CParameter
     }
 
 
+  
   protected:
     CEPCData * m_pEPCData;
 
@@ -12324,6 +12595,7 @@ class CLLRPConfigurationStateValue : public CParameter
     }
 
 
+  
 };
 
 
@@ -12454,6 +12726,7 @@ class CIdentification : public CParameter
     }
 
 
+  
 };
 
 
@@ -12587,6 +12860,7 @@ class CGPOWriteData : public CParameter
     }
 
 
+  
 };
 
 
@@ -12712,6 +12986,7 @@ class CKeepaliveSpec : public CParameter
     }
 
 
+  
 };
 
 
@@ -12865,6 +13140,7 @@ class CAntennaProperties : public CParameter
     }
 
 
+  
 };
 
 
@@ -12966,6 +13242,7 @@ class CAntennaConfiguration : public CParameter
     }
 
 
+  
   protected:
     CRFReceiver * m_pRFReceiver;
 
@@ -13136,6 +13413,7 @@ class CRFReceiver : public CParameter
     }
 
 
+  
 };
 
 
@@ -13288,6 +13566,7 @@ class CRFTransmitter : public CParameter
     }
 
 
+  
 };
 
 
@@ -13451,6 +13730,7 @@ class CGPIPortCurrentState : public CParameter
     }
 
 
+  
 };
 
 
@@ -13550,6 +13830,7 @@ class CEventsAndReports : public CParameter
     }
 
 
+  
 };
 
 
@@ -13686,6 +13967,7 @@ class CROReportSpec : public CParameter
     }
 
 
+  
   protected:
     CTagReportContentSelector * m_pTagReportContentSelector;
 
@@ -14084,6 +14366,7 @@ class CTagReportContentSelector : public CParameter
     }
 
 
+  
   protected:
     std::list<CParameter *> m_listAirProtocolEPCMemorySelector;
 
@@ -14220,6 +14503,7 @@ class CAccessReportSpec : public CParameter
     }
 
 
+  
 };
 
 
@@ -14430,6 +14714,7 @@ class CTagReportData : public CParameter
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CParameter * m_pEPCParameter;
@@ -14864,6 +15149,7 @@ class CEPCData : public CParameter
     }
 
 
+  
 };
 
 
@@ -14962,6 +15248,7 @@ class CEPC_96 : public CParameter
     }
 
 
+  
 };
 
 
@@ -15060,6 +15347,7 @@ class CROSpecID : public CParameter
     }
 
 
+  
 };
 
 
@@ -15158,6 +15446,7 @@ class CSpecIndex : public CParameter
     }
 
 
+  
 };
 
 
@@ -15256,6 +15545,7 @@ class CInventoryParameterSpecID : public CParameter
     }
 
 
+  
 };
 
 
@@ -15354,6 +15644,7 @@ class CAntennaID : public CParameter
     }
 
 
+  
 };
 
 
@@ -15455,6 +15746,7 @@ class CPeakRSSI : public CParameter
     }
 
 
+  
 };
 
 
@@ -15553,6 +15845,7 @@ class CChannelIndex : public CParameter
     }
 
 
+  
 };
 
 
@@ -15659,6 +15952,7 @@ class CFirstSeenTimestampUTC : public CParameter
     }
 
 
+  
 };
 
 
@@ -15764,6 +16058,7 @@ class CFirstSeenTimestampUptime : public CParameter
     }
 
 
+  
 };
 
 
@@ -15865,6 +16160,7 @@ class CLastSeenTimestampUTC : public CParameter
     }
 
 
+  
 };
 
 
@@ -15966,6 +16262,7 @@ class CLastSeenTimestampUptime : public CParameter
     }
 
 
+  
 };
 
 
@@ -16066,6 +16363,7 @@ class CTagSeenCount : public CParameter
     }
 
 
+  
 };
 
 
@@ -16161,6 +16459,7 @@ class CClientRequestOpSpecResult : public CParameter
     }
 
 
+  
 };
 
 
@@ -16259,6 +16558,7 @@ class CAccessSpecID : public CParameter
     }
 
 
+  
 };
 
 
@@ -16333,6 +16633,7 @@ class CRFSurveyReportData : public CParameter
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CROSpecID * m_pROSpecID;
@@ -16648,6 +16949,7 @@ class CFrequencyRSSILevelEntry : public CParameter
     }
 
 
+  
   protected:
     CParameter * m_pTimestamp;
 
@@ -16736,6 +17038,7 @@ class CReaderEventNotificationSpec : public CParameter
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     std::list<CEventNotificationState *> m_listEventNotificationState;
@@ -16901,6 +17204,7 @@ class CEventNotificationState : public CParameter
     }
 
 
+  
 };
 
 
@@ -17051,6 +17355,7 @@ class CReaderEventNotificationData : public CParameter
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     CParameter * m_pTimestamp;
@@ -17422,6 +17727,7 @@ class CHoppingEvent : public CParameter
     }
 
 
+  
 };
 
 
@@ -17548,6 +17854,7 @@ class CGPIEvent : public CParameter
     }
 
 
+  
 };
 
 
@@ -17703,6 +18010,7 @@ class CROSpecEvent : public CParameter
     }
 
 
+  
 };
 
 
@@ -17808,6 +18116,7 @@ class CReportBufferLevelWarningEvent : public CParameter
     }
 
 
+  
 };
 
 
@@ -17883,6 +18192,7 @@ class CReportBufferOverflowErrorEvent : public CParameter
       CElement *                pElement);
 //@}
 
+  
   
 };
 
@@ -17989,6 +18299,7 @@ class CReaderExceptionEvent : public CParameter
     }
 
 
+  
   protected:
     CROSpecID * m_pROSpecID;
 
@@ -18227,6 +18538,7 @@ class COpSpecID : public CParameter
     }
 
 
+  
 };
 
 
@@ -18379,6 +18691,7 @@ class CRFSurveyEvent : public CParameter
     }
 
 
+  
 };
 
 
@@ -18534,6 +18847,7 @@ class CAISpecEvent : public CParameter
     }
 
 
+  
   protected:
     CParameter * m_pAirProtocolSingulationDetails;
 
@@ -18676,6 +18990,7 @@ class CAntennaEvent : public CParameter
     }
 
 
+  
 };
 
 
@@ -18774,6 +19089,7 @@ class CConnectionAttemptEvent : public CParameter
     }
 
 
+  
 };
 
 
@@ -18855,6 +19171,7 @@ class CConnectionCloseEvent : public CParameter
       CElement *                pElement);
 //@}
 
+  
   
 };
 
@@ -18976,6 +19293,7 @@ class CLLRPStatus : public CParameter
     }
 
 
+  
   protected:
     CFieldError * m_pFieldError;
 
@@ -19135,6 +19453,7 @@ class CFieldError : public CParameter
     }
 
 
+  
 };
 
 
@@ -19262,6 +19581,7 @@ class CParameterError : public CParameter
     }
 
 
+  
   protected:
     CFieldError * m_pFieldError;
 
@@ -19455,6 +19775,7 @@ class CC1G2LLRPCapabilities : public CParameter
     }
 
 
+  
 };
 
 
@@ -19526,6 +19847,7 @@ class CC1G2UHFRFModeTable : public CParameter
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     std::list<CC1G2UHFRFModeTableEntry *> m_listC1G2UHFRFModeTableEntry;
@@ -19934,6 +20256,7 @@ class CC1G2UHFRFModeTableEntry : public CParameter
     }
 
 
+  
 };
 
 
@@ -20042,6 +20365,7 @@ class CC1G2InventoryCommand : public CParameter
     }
 
 
+  
   protected:
     std::list<CC1G2Filter *> m_listC1G2Filter;
 
@@ -20278,6 +20602,7 @@ class CC1G2Filter : public CParameter
     }
 
 
+  
   protected:
     CC1G2TagInventoryMask * m_pC1G2TagInventoryMask;
 
@@ -20475,6 +20800,7 @@ class CC1G2TagInventoryMask : public CParameter
     }
 
 
+  
 };
 
 
@@ -20619,6 +20945,7 @@ class CC1G2TagInventoryStateAwareFilterAction : public CParameter
     }
 
 
+  
 };
 
 
@@ -20729,6 +21056,7 @@ class CC1G2TagInventoryStateUnawareFilterAction : public CParameter
     }
 
 
+  
 };
 
 
@@ -20857,6 +21185,7 @@ class CC1G2RFControl : public CParameter
     }
 
 
+  
 };
 
 
@@ -21061,6 +21390,7 @@ class CC1G2SingulationControl : public CParameter
     }
 
 
+  
   protected:
     CC1G2TagInventoryStateAwareSingulationAction * m_pC1G2TagInventoryStateAwareSingulationAction;
 
@@ -21204,6 +21534,7 @@ class CC1G2TagInventoryStateAwareSingulationAction : public CParameter
     }
 
 
+  
 };
 
 
@@ -21281,6 +21612,7 @@ class CC1G2TagSpec : public CParameter
       CElement *                pElement);
 //@}
 
+  
   
   protected:
     std::list<CC1G2TargetTag *> m_listC1G2TargetTag;
@@ -21527,6 +21859,7 @@ class CC1G2TargetTag : public CParameter
     }
 
 
+  
 };
 
 
@@ -21737,6 +22070,7 @@ class CC1G2Read : public CParameter
     }
 
 
+  
 };
 
 
@@ -21944,6 +22278,7 @@ class CC1G2Write : public CParameter
     }
 
 
+  
 };
 
 
@@ -22069,6 +22404,7 @@ class CC1G2Kill : public CParameter
     }
 
 
+  
 };
 
 
@@ -22198,6 +22534,7 @@ class CC1G2Lock : public CParameter
     }
 
 
+  
   protected:
     std::list<CC1G2LockPayload *> m_listC1G2LockPayload;
 
@@ -22361,6 +22698,7 @@ class CC1G2LockPayload : public CParameter
     }
 
 
+  
 };
 
 
@@ -22575,6 +22913,7 @@ class CC1G2BlockErase : public CParameter
     }
 
 
+  
 };
 
 
@@ -22789,6 +23128,7 @@ class CC1G2BlockWrite : public CParameter
     }
 
 
+  
 };
 
 
@@ -22915,6 +23255,7 @@ class CC1G2EPCMemorySelector : public CParameter
     }
 
 
+  
 };
 
 
@@ -23013,6 +23354,7 @@ class CC1G2_PC : public CParameter
     }
 
 
+  
 };
 
 
@@ -23111,6 +23453,7 @@ class CC1G2_CRC : public CParameter
     }
 
 
+  
 };
 
 
@@ -23229,6 +23572,7 @@ class CC1G2SingulationDetails : public CParameter
     }
 
 
+  
 };
 
 
@@ -23381,6 +23725,7 @@ class CC1G2ReadOpSpecResult : public CParameter
     }
 
 
+  
 };
 
 
@@ -23538,6 +23883,7 @@ class CC1G2WriteOpSpecResult : public CParameter
     }
 
 
+  
 };
 
 
@@ -23661,6 +24007,7 @@ class CC1G2KillOpSpecResult : public CParameter
     }
 
 
+  
 };
 
 
@@ -23786,6 +24133,7 @@ class CC1G2LockOpSpecResult : public CParameter
     }
 
 
+  
 };
 
 
@@ -23918,6 +24266,7 @@ class CC1G2BlockEraseOpSpecResult : public CParameter
     }
 
 
+  
 };
 
 
@@ -24077,6 +24426,7 @@ class CC1G2BlockWriteOpSpecResult : public CParameter
     }
 
 
+  
 };
 
 
