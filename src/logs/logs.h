@@ -39,3 +39,9 @@ void logger_log(logger_t * logger, const char * message);
  * Provides a timestamp before the message.
  */
 const char * add_timestamp(const char * message);
+
+/*
+ * Based on the singleton pattern, provides a unique shared logger instance
+ * if needed.
+ */
+logger_t * logger_instance();

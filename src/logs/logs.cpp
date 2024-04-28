@@ -58,3 +58,11 @@ void logger_log(logger_t * logger, const char * message) {
 		fprintf(logger->recorders[i].stream, "%s\n", newMessage);
 	}
 }
+
+logger_t * logger;
+
+logger_t * logger_instance() {
+	if (logger == NULL)
+		logger = (logger_t *) malloc(sizeof(logger_t));
+	return logger;
+}
