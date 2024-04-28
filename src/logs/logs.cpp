@@ -40,13 +40,13 @@ logger_t * logger_init(recorder_t * recorders, size_t size) {
 }
 
 void logger_add(logger_t * logger, recorder_t recorder) {
-	logger->size ++;	
+	logger->size ++;
 	
 	logger->recorders = (recorder_t *) realloc(
 		logger->recorders, 
 		logger->size * sizeof(recorder_t)
 	);
-	
+
 	logger->recorders[logger->size - 1] = recorder;
 }
 
@@ -62,7 +62,6 @@ void logger_log(logger_t * logger, const char * message) {
 logger_t * logger;
 
 logger_t * logger_instance() {
-	if (logger == NULL)
-		logger = (logger_t *) malloc(sizeof(logger_t));
+	if (logger == NULL) logger = logger_init(NULL, 0);
 	return logger;
 }
