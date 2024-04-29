@@ -50,12 +50,14 @@ void logger_add(logger_t * logger, recorder_t recorder) {
 	logger->recorders[logger->size - 1] = recorder;
 }
 
-void logger_log(logger_t * logger, const char * message) {
+const char * flag_str[] = { "INFO", "WARN", "ERROR", "DEBUG" };
+
+void logger_log(logger_t * logger, logflag_t flag, const char * message) {
 	for (size_t i = 0; i < logger->size; i ++) {
 		const char * newMessage = logger->recorders[i].callback == NULL ?
 			message : (const char *) logger->recorders[i].callback(message);
 		
-		fprintf(logger->recorders[i].stream, "%s\n", newMessage);
+		fprintf(logger->recorders[i].stream, "[%s] %s\n", flag_str[flag], newMessage);
 	}
 }
 
@@ -65,3 +67,6 @@ logger_t * logger_instance() {
 	if (logger == NULL) logger = logger_init(NULL, 0);
 	return logger;
 }
+
+
+

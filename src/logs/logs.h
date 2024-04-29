@@ -11,6 +11,13 @@ typedef struct {
 	recorder_t * recorders;
 } logger_t;
 
+typedef enum {
+	INFO,
+	WARN,
+	ERROR,
+	DEBUG
+} logflag_t;
+
 /*
  * Initializes a recorder struct. A recorder takes a stream to which messages 
  * will be sentand and a callback that will update the message before writing
@@ -33,7 +40,7 @@ void logger_add(logger_t * logger, recorder_t recorder);
  * The callback provided in each recorder is called before commiting the
  * message.
  */
-void logger_log(logger_t * logger, const char * message);
+void logger_log(logger_t * logger, logflag_t flag, const char * message);
 
 /*
  * Provides a timestamp before the message.

@@ -1,21 +1,21 @@
 #include "config/config.h"
 #include "internet/internet.h"
-#include <string>
+#include "logs/logs.h"
+#include "reader/reader.h"
 
 int main (int argc, char *argv[]) {
-	const char* configFile = argv[1];
+	FILE * logFile = fopen("logs/log.txt", "+a");
 
-	Configuration* config = fileToConfig(configFile);
-
-	if (!config) cerr << "fileToConfig: an error has occured while loading the configuration\n";
-		
-	cout << "server-url = " << config->serverURL << "\n";
-
- 	string buffer;
-
-	fetchData(config->serverURL, &buffer);
+	// configure log messages	
+	recorder_t * consoleRecorder = recorder_init(stdout, NULL),
+			   * fileRecorder = recorder_init(logFile, add_timestamp);
 	
-	cout << buffer << "\n";
+	logger_t * logger = logger_instance();
+	logger_add(logger, *consoleRecorder);
+	logger_add(logger, *fileRecorder);
 
-	// comment
+	logger_log(logger, INFO, "logging status ok, application starting");
+
+	// run reader client
+	readerClientRun(argv[1]);
 }
