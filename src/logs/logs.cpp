@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+
 #include "logs.h"
 
 const char * add_timestamp (const char * message) {
@@ -56,7 +57,6 @@ void logger_log(logger_t * logger, logflag_t flag, const char * message) {
 	for (size_t i = 0; i < logger->size; i ++) {
 		const char * newMessage = logger->recorders[i].callback == NULL ?
 			message : (const char *) logger->recorders[i].callback(message);
-		
 		fprintf(logger->recorders[i].stream, "[%s] %s\n", flag_str[flag], newMessage);
 	}
 }
