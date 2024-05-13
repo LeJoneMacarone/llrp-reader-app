@@ -1,57 +1,31 @@
 #include "reader-utils.h"
+#include "../logs/logs.h"
+
+#include <cstdio>
+#include <cstring>
 
 CMessage * transact(CConnection * connection, CMessage * request)
 {
-	// TODO: log the requested message
-
     CMessage * response = connection->transact(request, 5000);
-	
-	// TODO: change printfs to logs
+	logger_t * logger = logger_instance();
 
-    if (NULL == response)
-    {
-        const CErrorDetails *   pError = connection->getTransactError();
-
-        printf(
-			"ERROR: %s transact failed, %s\n",
-            request->m_pType->m_pName,
-            pError->m_pWhatStr ? pError->m_pWhatStr : "no reason given"
+    if (NULL == response) {
+		printf(
+			"[ERROR] transact failed for message %s\n",
+			request->m_pType->m_pName
 		);
-
-        if (NULL != pError->m_pRefType)
-        {
-            printf(
-				"ERROR: ... reference type %s\n",
-                pError->m_pRefType->m_pName
-			);
-        }
-
-        if (NULL != pError->m_pRefField)
-        {
-            printf(
-				"ERROR: ... reference field %s\n",
-                pError->m_pRefField->m_pName
-			);
-        }
-
         return NULL;
     }
 	
-	// TODO: log response message
-   
 	// in case of being an error message
     if (&CERROR_MESSAGE::s_typeDescriptor == response->m_pType)
     {
-        const CTypeDescriptor * pResponseType;
+        const char * responseType = request->m_pType->m_pResponseType->m_pName;
 
-        pResponseType = request->m_pType->m_pResponseType;
+       	printf("[ERROR] received ERROR_MESSAGE instead of %s\n", responseType);
 
-        printf(
-			"ERROR: Received ERROR_MESSAGE instead of %s\n",
-            pResponseType->m_pName
-		);
-        
 		delete response;
+
         response = NULL;
     }
 
@@ -59,33 +33,16 @@ CMessage * transact(CConnection * connection, CMessage * request)
 }
 
 int sendMessage(CConnection * connection, CMessage * message) {
-	// TODO: change printfs to logs;
+	logger_t * logger = logger_instance();
 
 	if (RC_OK != connection->sendMessage(message))
     {
-        const CErrorDetails * error = connection->getSendError();
+        //const CErrorDetails * error = connection->getSendError();
 
-        printf(
-			"ERROR: %s sendMessage failed, %s\n",
-            message->m_pType->m_pName,
-            error->m_pWhatStr ? error->m_pWhatStr : "no reason given"
+		printf(
+			"[ERROR] send messsage failed for message %s\n", 
+			message->m_pType->m_pName
 		);
-
-        if (NULL != error->m_pRefType)
-        {
-            printf(
-				"ERROR: ... reference type %s\n",
-                error->m_pRefType->m_pName
-			);
-        }
-
-        if (NULL != error->m_pRefField)
-        {
-            printf(
-				"ERROR: ... reference field %s\n",
-                error->m_pRefField->m_pName
-			);
-        }
 
         return -1;
     }
@@ -94,42 +51,24 @@ int sendMessage(CConnection * connection, CMessage * message) {
 }
 
 CMessage * recvMessage(CConnection * connection, int timeoutMS) {
-    // TODO: change printfs to logs
+	logger_t * logger = logger_instance();
 
 	CMessage * message = connection->recvMessage(timeoutMS);
 
-    if (NULL == message)
-    {
+    if (NULL == message) {
         const CErrorDetails * error = connection->getRecvError();
 
-        if (error->m_eResultCode != RC_RecvTimeout)
-        {
-        	printf(
-				"ERROR: recvMessage failed, %s\n",
+        if (error->m_eResultCode != RC_RecvTimeout) {
+			printf(
+				"[ERROR] receive message failed, %s\n",
 				error->m_pWhatStr ? error->m_pWhatStr : "no reason given"
-			);
-        }
-
-        if (NULL != error->m_pRefType)
-        {
-            printf(
-				"ERROR: ... reference type %s\n",
-                error->m_pRefType->m_pName
-			);
-        }
-
-        if (NULL != error->m_pRefField)
-        {
-            printf(
-				"ERROR: ... reference field %s\n",
-                error->m_pRefField->m_pName
 			);
         }
 
         return NULL;
     }
 
-	// TODO: log the connection message 
+	printf("[INFO] received message %s\n", message);
 
     return message;
 }
@@ -142,8 +81,7 @@ int checkLLRPStatus (CLLRPStatus * pLLRPStatus, const char * pWhatStr) {
      * diagnostic and suppose to catch LTKC mistakes).
      */
     
-    if(NULL == pLLRPStatus)
-    {
+    if(NULL == pLLRPStatus) {
         printf("ERROR: %s missing LLRP status\n", pWhatStr);
         return -1;
     }
