@@ -1,5 +1,7 @@
 #include "reader.h"
 
+#include "../logs/logs.h"
+
 #define KB 1024u
 #define seconds 1000
 
@@ -10,8 +12,6 @@ int getMessageID() {
 }
 
 CConnection* connectToReader(const char* hostname) {
- 	// TODO: change printfs to logs
-
 	// the registry is used for decoding messages
  	CTypeRegistry* typeRegistry = getTheTypeRegistry();
  	enrollCoreTypesIntoRegistry(typeRegistry);
@@ -20,43 +20,29 @@ CConnection* connectToReader(const char* hostname) {
 	// frame size for send/recv
  	CConnection* connection = new CConnection(typeRegistry, 32u*KB);
  
- 	if (NULL == connection) {
- 		printf("ERROR: new CConnection failed\n");
- 		return NULL;
- 	}
+ 	if (NULL == connection) return NULL;
 
  	// open the connection with the provided hostname
  	int status = connection->openConnectionToReader(hostname);
 
 	if (0 != status) {
- 		printf(
-			"ERROR: connection failed: %s (%i)\n", 
-			connection->getConnectError(), 
- 			status
- 		);
  		delete connection;
  		return NULL;
  	}
- 
+
  	return connection;
  }
 
 int checkConnectionStatus(CConnection * connection) {
-    // expect the message within 10 seconds
+    // TODO: pass the timeout as a parameter
+	// expect the message within 10 seconds
     CMessage * message = recvMessage(connection, 10 * seconds);
 	
     // make sure there's a message before proceding
-    if (NULL == message) {
-        // TODO: log that checkConnectionStatus failed
-        printf("ERROR: checkConnectionStatus failed\n");
-        delete message;
-        return -1;
-    }
+    if (NULL == message) return -1;
 
     // make sure the message it's a READER_EVENT_NOTIFICATION
     if (&CREADER_EVENT_NOTIFICATION::s_typeDescriptor != message -> m_pType) {
-        // TODO: log that checkConnectionStatus failed
-        printf("ERROR: checkConnectionStatus failed\n");
         delete message;
         return -1;
     }
@@ -69,8 +55,6 @@ int checkConnectionStatus(CConnection * connection) {
 
     // make sure there's data before proceding    
     if (NULL == data) {
-        // TODO: log that checkConnectionStatus failed
-        printf("ERROR: checkConnectionStatus failed\n");
         delete message;
         return -1;
     }
@@ -78,8 +62,6 @@ int checkConnectionStatus(CConnection * connection) {
     // the ConnectionAttemptEvent parameter must be present.
     CConnectionAttemptEvent * event = data->getConnectionAttemptEvent();
     if (NULL == event) {
-        // TODO: log that checkConnectionStatus failed
-        printf("ERROR: checkConnectionStatus failed\n");
         delete message;
         return -1;
     }
@@ -87,16 +69,11 @@ int checkConnectionStatus(CConnection * connection) {
     // the status in the ConnectionAttemptEvent parameter
     // must indicate connection success
     if (ConnectionAttemptStatusType_Success != event -> getStatus()) {
-        // TODO: log that checkConnectionStatus failed
-        printf("ERROR: checkConnectionStatus failed\n");
         delete message;
         return -1;
     }
     
     delete message;
-
-    // TODO: log connection status ok
-    printf("INFO: connection ok\n");
 
     return 0;
 }
@@ -112,10 +89,7 @@ int enableImpinjExtensions(CConnection * connection) {
     delete command;
 
     // make sure we received something
-    if (NULL == responseMessage) {
-        /* transact already tattled */
-        return -1;
-    }
+    if (NULL == responseMessage) return -1;
 
     CIMPINJ_ENABLE_EXTENSIONS_RESPONSE * response 
         = (CIMPINJ_ENABLE_EXTENSIONS_RESPONSE *) responseMessage;
@@ -125,19 +99,11 @@ int enableImpinjExtensions(CConnection * connection) {
         response->getLLRPStatus(), 
         "enableImpinjExtensions"
     )) {
-        /* checkLLRPStatus already tattled */
         delete responseMessage;
         return -1;
     }
 
     delete responseMessage;
-
-    /*
-     * Tattle progress, maybe
-     */
-
-    // TODO: log that extensions were enabled
-    printf("INFO: Impinj extensions enabled\n");
 
     return 0;
 }
@@ -155,10 +121,7 @@ int resetConfigurationToFactoryDefaults(CConnection * connection) {
     delete command;
 
     // make sure we received a message
-    if (NULL == responseMessage) {
-        /* transact already tattled */
-        return -1;
-    }
+    if (NULL == responseMessage) return -1;
 
     CSET_READER_CONFIG_RESPONSE * response 
         = (CSET_READER_CONFIG_RESPONSE * ) responseMessage;
@@ -175,12 +138,10 @@ int resetConfigurationToFactoryDefaults(CConnection * connection) {
 
     delete responseMessage;
     
-    // TODO: log success
-    printf("INFO: Connection success!\n");
-    
     return 0;
 }
 
+// TODO: add possibility to add the spec from a XML file
 int addROSpec(CConnection * connection) {
 	// initialize fields and parameters of the ROSpec, from the most internal 
 	// to the the most external
@@ -240,17 +201,12 @@ int addROSpec(CConnection * connection) {
 	
 	delete message;
 	
-	// TODO: log errors (i.e. NULL response)
-    if(NULL == response)
-        return -1;
+    if(NULL == response) return -1;
 
     if(0 != checkLLRPStatus(response->getLLRPStatus(), "addROSpec"))
         return -1;
 
     delete response;
-
-	// TODO: log the ROSpec was added
-    printf("INFO: ROSpec added\n");
 
     return 0;
 }
@@ -267,10 +223,7 @@ int enableROSpec(CConnection * connection) {
     delete command;
 
     // make sure we received a message
-    if (NULL == responseMessage) {
-        /* transact already tattled */
-        return -1;
-    }
+    if (NULL == responseMessage) return -1;
 
     CENABLE_ROSPEC_RESPONSE * response 
         = (CENABLE_ROSPEC_RESPONSE *) responseMessage;
@@ -280,15 +233,11 @@ int enableROSpec(CConnection * connection) {
         response -> getLLRPStatus(), 
         "enableROSpec"
     )) {
-        /* checkLLRPStatus already tattled */
         delete responseMessage;
         return -1;
     }
 
     delete responseMessage;
-
-    // TODO: log ROSpec enabled
-    printf("INFO: ROSpec enabled\n");
 
     return 0;
 }
@@ -305,29 +254,22 @@ int startROSpec(CConnection * connection) {
     delete command;
 
     // make sure we received the message
-    if (NULL == responseMessage) {
-        /* transact already tattled */
-        return -1;
-    }
+    if (NULL == responseMessage) return -1;
 
     CSTART_ROSPEC_RESPONSE * response
         = (CSTART_ROSPEC_RESPONSE * ) responseMessage;
 
-    
     // check the LLRPStatus parameter. 
     if (0 != checkLLRPStatus(
         response -> getLLRPStatus(), 
         "startROSpec"
     )) {
-        /* checkLLRPStatus already tattled */
         delete responseMessage;
         return -1;
     }
+
     delete responseMessage;
     
-    // TODO: log started ROSpec
-    printf("INFO: ROSpec started\n");
-
     return 0;
 }
 
@@ -337,16 +279,13 @@ int stopROSpec(CConnection * connection) {
     command -> setMessageID(getMessageID());
     command -> setROSpecID(1111);
 
-    // send/recv message
+   	// send/recv message
     CMessage * responseMessage = transact(connection, command);
 
     delete command;
 
     // make sure we received the message
-    if (NULL == responseMessage) {
-        /* transact already tattled */
-        return -1;
-    }
+    if (NULL == responseMessage) return -1;
 
     CSTOP_ROSPEC_RESPONSE * response
         = (CSTOP_ROSPEC_RESPONSE * ) responseMessage;
@@ -356,19 +295,16 @@ int stopROSpec(CConnection * connection) {
         response -> getLLRPStatus(), 
         "stopROSpec"
     )) {
-        /* checkLLRPStatus already tattled */
         delete responseMessage;
         return -1;
     }
     delete responseMessage;
-    
-    // TODO: log stopped ROSpec
-    printf("INFO: ROSpec stopped\n");
 
     return 0;
 }
 
-void awaitAndPrintReport(CConnection * connection, int timeout) {
+// FIXME: not stopping on the defined time
+void awaitAndPrintReport(CConnection * connection, int duration, int timeout) {
     int done = 0;
     time_t startTime = time(NULL);
     time_t tempTime;
@@ -377,35 +313,24 @@ void awaitAndPrintReport(CConnection * connection, int timeout) {
 
     // keep receiving messages until done or until something bad happens
     while (!done) {
-        /*
-         * Wait up to 1 second for a report.  Check
-         * That way, we can check the timestamp even if
-         * there are no reports coming in
-         */
-        CMessage * message = recvMessage(connection, 1 * seconds);
+        CMessage * message = recvMessage(connection, timeout);
 
         // validate the timestamp
         tempTime = time(NULL);
-        if (difftime(tempTime, startTime) > timeout) {
-            done = 1;
-        }
+        if (difftime(tempTime, startTime) > duration) done = 1;
 
         // make sure we received a message
-        if (NULL == message) {
-            continue;
-        }
+        if (NULL == message) continue;
 
         // handle messages by checking their types
         messageType = message->m_pType;
         if (&CRO_ACCESS_REPORT::s_typeDescriptor == messageType) {
-            
             CRO_ACCESS_REPORT * report = (CRO_ACCESS_REPORT * ) message;
+			// TODO: write report to a shared variable
             printTagReportData(report);
-
         // TODO: handle various types of messages (e.g. antenna events)
         } else {
-            // TODO: log that an unexpected message appeared
-            printf("Unexpected message\n");
+            printf("[WARN] Unexpected message\n");
         }
 
         delete message;
@@ -414,41 +339,75 @@ void awaitAndPrintReport(CConnection * connection, int timeout) {
 
 
 int readerClientRun(const char * pReaderHostName) {
-    CConnection * connection = connectToReader(pReaderHostName);
+	// logger_t * logger = logger_instance();
 
-    if (0 != checkConnectionStatus(connection)) return 1;
+	CConnection * connection = connectToReader(pReaderHostName);
+	
+	if (NULL == connection) {
+		printf("[ERROR] failed to estabilish connection\n");
+		return 0;
+	}
 
-    //if (0 != enableImpinjExtensions(connection)) return 2;
+    if (0 != checkConnectionStatus(connection)) {
+		printf("[ERROR] check connection status failed\n");
+		return 1;
+	}
 
-    if (0 != resetConfigurationToFactoryDefaults(connection)) return 3;
+	printf("[INFO] connection status ok\n");
+
+    if (0 != enableImpinjExtensions(connection))
+		printf("[WARN] couldn't enable Impinj extensions\n");
+	else printf("[INFO] Impinj extensions enabled\n");
+
+    // if (0 != resetConfigurationToFactoryDefaults(connection))
+		// printf("[WARN] couldn't reset to factory defaults\n");
+	// else printf("[INFO] reset done successfully\n");
 
     // OPTIONAL: getCapabilities(); getReaderConfig(); setReaderConfig();
 
-    if (0 != addROSpec(connection)) return 4;
+    if (0 != addROSpec(connection)) {
+		printf("[ERROR] failed adding ROSpec\n");
+		return 2;
+	}
 
-    if (0 != enableROSpec(connection)) return 5;
+	printf("[INFO] ROSpec added successfully\n");
 
-    if (0 != startROSpec(connection)) return 6;
+    if (0 != enableROSpec(connection)) {
+		printf("[ERROR] failed enabling ROSpec\n");
+		return 3;
+	}
 
-    awaitAndPrintReport(connection, 60);
+	printf("[INFO] ROSpec enabled successfully\n");
 
-    if (0 != stopROSpec(connection)) return 7;
+    if (0 != startROSpec(connection)) {
+		printf("[ERROR] failed starting ROSpec\n");
+		return 4;
+	}
 
-    // TODO: log cleaning up reader
-    printf("INFO: reseting reader to factory defauls...\n");
+	printf("[INFO] ROSpec started successfully\n");
 
-    resetConfigurationToFactoryDefaults(connection);
+	// FIXME: not stopping on defined time
+    awaitAndPrintReport(connection, 30 * seconds, 1 * seconds);
 
-    // TODO: log finish
-    printf("INFO: finish\n");
+    if (0 != stopROSpec(connection)) {
+		printf("[ERROR] failed stopping ROSpec\n");
+		return 2;
+	}
+
+	printf("[INFO] ROSpec stopped successfully\n");
+
+    // printf("[INFO] reseting reader to factory defauls...\n");
+    // if (0 != resetConfigurationToFactoryDefaults(connection))
+		// printf("[WARN] couldn't reset to factory defaults");
+	// else printf("[INFO] reset done successfully\n");
 
     connection->closeConnectionToReader();
     
     delete connection;
 
-    // delete typeRegistry;
-
     CXMLTextDecoder::cleanupParser();
+	
+	printf("[ERROR] finish\n");
 
     return 0;
 }

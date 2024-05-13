@@ -41,4 +41,4 @@ int stopROSpec(CConnection * connection);
 /*
  * TODO: add documentation
  */
-void awaitAndPrintReport(CConnection * connection, int timeout);
+void awaitAndPrintReport(CConnection * connection, int duration, int timeout);
