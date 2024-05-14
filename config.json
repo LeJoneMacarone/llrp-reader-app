@@ -1,3 +1,8 @@
 {
-	"server-url" : "https://pokeapi.co/api/v2/pokemon/greninja"
+	"server-url" : "https://pokeapi.co/api/v2/pokemon/greninja",
+	"enable-impinj-extensions" : true,
+	"reset-to-factory-defaults" : false,
+	"connection-timeout" : 10,
+	"report-timeout" : 1,
+	"inventory-duration" : 30
 }

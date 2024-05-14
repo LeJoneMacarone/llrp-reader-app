@@ -3,7 +3,7 @@
 /*
  * TODO: add documentation
  */
-int readerClientRun(const char * hostname);
+int readerClientRun(const char * hostname, int connectionTimeout);
 
 /*
  * Constructs and initializes a new connection with the reader, returning it's 
@@ -15,7 +15,7 @@ CConnection * connectToReader(const char* hostname);
 /*
  * TODO: add documentation
  */
-int checkConnectionStatus(CConnection * connection);
+int checkConnectionStatus(CConnection * connection, int timeout);
 
 /*
  * TODO: add documentation

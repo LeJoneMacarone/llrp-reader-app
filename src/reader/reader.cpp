@@ -33,10 +33,9 @@ CConnection* connectToReader(const char* hostname) {
  	return connection;
  }
 
-int checkConnectionStatus(CConnection * connection) {
-    // TODO: pass the timeout as a parameter
+int checkConnectionStatus(CConnection * connection, int timeout) {
 	// expect the message within 10 seconds
-    CMessage * message = recvMessage(connection, 10 * seconds);
+    CMessage * message = recvMessage(connection, timeout * seconds);
 	
     // make sure there's a message before proceding
     if (NULL == message) return -1;
@@ -327,8 +326,10 @@ void awaitAndPrintReport(CConnection * connection, int duration, int timeout) {
         if (&CRO_ACCESS_REPORT::s_typeDescriptor == messageType) {
             CRO_ACCESS_REPORT * report = (CRO_ACCESS_REPORT * ) message;
 			// TODO: write report to a shared variable
-            printTagReportData(report);
-        // TODO: handle various types of messages (e.g. antenna events)
+            
+			printTagReportData(report);
+        
+		// TODO: handle various types of messages (e.g. antenna events)
         } else {
             printf("[WARN] Unexpected message\n");
         }
@@ -338,7 +339,7 @@ void awaitAndPrintReport(CConnection * connection, int duration, int timeout) {
 }
 
 
-int readerClientRun(const char * pReaderHostName) {
+int readerClientRun(const char * pReaderHostName, int connectionTimeout) {
 	// logger_t * logger = logger_instance();
 
 	CConnection * connection = connectToReader(pReaderHostName);
@@ -348,7 +349,7 @@ int readerClientRun(const char * pReaderHostName) {
 		return 0;
 	}
 
-    if (0 != checkConnectionStatus(connection)) {
+    if (0 != checkConnectionStatus(connection, connectionTimeout)) {
 		printf("[ERROR] check connection status failed\n");
 		return 1;
 	}
