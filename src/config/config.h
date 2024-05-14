@@ -6,7 +6,13 @@
 using namespace std;
 
 typedef struct {
-	char * serverURL;
+	const char * server_url;
+	const char * reader_host;
+	int enable_impinj_extensions;
+	int reset_to_factory_defaults;
+	unsigned int inventory_duration;
+	unsigned int access_report_timeout;
+	unsigned int connection_attempt_timeout;
 } Configuration;
 
 /*
