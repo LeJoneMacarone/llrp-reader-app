@@ -82,7 +82,7 @@ int checkLLRPStatus (CLLRPStatus * pLLRPStatus, const char * pWhatStr) {
      */
     
     if(NULL == pLLRPStatus) {
-        printf("ERROR: %s missing LLRP status\n", pWhatStr);
+        printf("[ERROR] %s missing LLRP status\n", pWhatStr);
         return -1;
     }
 
@@ -101,20 +101,17 @@ int checkLLRPStatus (CLLRPStatus * pLLRPStatus, const char * pWhatStr) {
 
         if(0 == ErrorDesc.m_nValue)
         {
-            printf("ERROR: %s failed, no error description given\n",
+            printf("[ERROR] %s failed, no error description given\n",
                 pWhatStr);
         }
         else
         {
-            printf("ERROR: %s failed, %.*s\n",
+            printf("[ERROR] %s failed, %.*s\n",
                 pWhatStr, ErrorDesc.m_nValue, ErrorDesc.m_pValue);
         }
         return -2;
     }
 
-    /*
-     * Victory. Everything is fine.
-     */
     return 0;
 }
 
@@ -132,7 +129,7 @@ void printTagReportData(CRO_ACCESS_REPORT * accessReport) {
     }
 
     // TODO: log the number of entries
-    printf("INFO: number of entries: %i\n", nEntries);
+    printf("[INFO] number of entries: %i\n", nEntries);
 
     // print each entry
     for (
@@ -151,8 +148,7 @@ void printOneTagReportData(CTagReportData * pTagReportData) {
 
     formatOneEPC(epcParameter, buffer, 64);
 
-    // TODO: log the EPC
-    printf("EPC: %s\n", buffer);
+    printf("[INFO] EPC: %s\n", buffer);
 }
 
 void printXMLMessage(CMessage * message) {
@@ -160,8 +156,7 @@ void printXMLMessage(CMessage * message) {
 
     message->toXMLString(buffer, sizeof(buffer));
     
-    // TODO: log the content
-    printf("%s\n", buffer);
+    printf("[INFO] %s\n", buffer);
 }
 
 void formatOneEPC(CParameter *pEPCParameter, char *buf, int buflen) {

@@ -39,7 +39,7 @@ Configuration * stringToConfig(const char * string) {
 	json_bool = cJSON_GetObjectItem(json, "enable-impinj-extensions");
 	config->enable_impinj_extensions = cJSON_IsTrue(json_bool);
 	json_bool = cJSON_GetObjectItem(json, "reset-to-factory-defaults");
-	config->reset_to_factory_defaults = cJSON_IsTrue(json_bool); 
+	config->reset_to_factory_defaults = cJSON_IsTrue(json_bool);
 
 	return config;
 }
