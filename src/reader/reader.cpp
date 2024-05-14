@@ -314,11 +314,11 @@ void awaitAndPrintReport(CConnection * connection, int duration, int timeout) {
     while (!done) {
         CMessage * message = recvMessage(connection, timeout);
 
-        // validate the timestamp
+		// validate the timestamp
         tempTime = time(NULL);
         if (difftime(tempTime, startTime) > duration) done = 1;
-
-        // make sure we received a message
+        
+		// make sure we received a message
         if (NULL == message) continue;
 
         // handle messages by checking their types
@@ -338,11 +338,17 @@ void awaitAndPrintReport(CConnection * connection, int duration, int timeout) {
     }
 }
 
-
-int readerClientRun(const char * pReaderHostName, int connectionTimeout) {
+int readerClientRun(
+		const char * host, 
+		int enableImpinjExtensionsFlag,
+		int resetToFactoryDefaultsFlag,
+		int connectionTimeout,
+		int inventoryDuration,
+		int inventoryReportTimeout
+		) {
 	// logger_t * logger = logger_instance();
 
-	CConnection * connection = connectToReader(pReaderHostName);
+	CConnection * connection = connectToReader(host);
 	
 	if (NULL == connection) {
 		printf("[ERROR] failed to estabilish connection\n");
@@ -356,13 +362,17 @@ int readerClientRun(const char * pReaderHostName, int connectionTimeout) {
 
 	printf("[INFO] connection status ok\n");
 
-    if (0 != enableImpinjExtensions(connection))
-		printf("[WARN] couldn't enable Impinj extensions\n");
-	else printf("[INFO] Impinj extensions enabled\n");
+	if (enableImpinjExtensionsFlag) {
+		if (0 != enableImpinjExtensions(connection))
+			printf("[WARN] couldn't enable Impinj extensions\n");
+		else printf("[INFO] Impinj extensions enabled\n");
+	}
 
-    // if (0 != resetConfigurationToFactoryDefaults(connection))
-		// printf("[WARN] couldn't reset to factory defaults\n");
-	// else printf("[INFO] reset done successfully\n");
+	if (resetToFactoryDefaultsFlag) {
+		if (0 != resetConfigurationToFactoryDefaults(connection))
+			printf("[WARN] couldn't reset to factory defaults\n");
+		else printf("[INFO] reset done successfully\n");
+	}
 
     // OPTIONAL: getCapabilities(); getReaderConfig(); setReaderConfig();
 
@@ -387,8 +397,10 @@ int readerClientRun(const char * pReaderHostName, int connectionTimeout) {
 
 	printf("[INFO] ROSpec started successfully\n");
 
-	// FIXME: not stopping on defined time
-    awaitAndPrintReport(connection, 30 * seconds, 1 * seconds);
+    awaitAndPrintReport(
+			connection, 
+			inventoryDuration, 
+			inventoryReportTimeout * seconds);
 
     if (0 != stopROSpec(connection)) {
 		printf("[ERROR] failed stopping ROSpec\n");
@@ -397,10 +409,11 @@ int readerClientRun(const char * pReaderHostName, int connectionTimeout) {
 
 	printf("[INFO] ROSpec stopped successfully\n");
 
-    // printf("[INFO] reseting reader to factory defauls...\n");
-    // if (0 != resetConfigurationToFactoryDefaults(connection))
-		// printf("[WARN] couldn't reset to factory defaults");
-	// else printf("[INFO] reset done successfully\n");
+	if (resetToFactoryDefaultsFlag) {
+		if (0 != resetConfigurationToFactoryDefaults(connection))
+			printf("[WARN] couldn't reset to factory defaults\n");
+		else printf("[INFO] reset done successfully\n");
+	}
 
     connection->closeConnectionToReader();
     

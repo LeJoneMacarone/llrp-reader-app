@@ -3,7 +3,14 @@
 /*
  * TODO: add documentation
  */
-int readerClientRun(const char * hostname, int connectionTimeout);
+int readerClientRun(
+		const char * host, 
+		int enableImpinjExtensionsFlag,
+		int resetToFactoryDefaultsFlag,
+		int connectionTimeout,
+		int inventoryDuration,
+		int inventoryReportTimeout
+);
 
 /*
  * Constructs and initializes a new connection with the reader, returning it's 

@@ -13,5 +13,5 @@ int main (int argc, char *argv[]) {
 	logger_log(logger, INFO, "logging status ok, application starting");
 
 	// run reader client
-	readerClientRun(argv[1], 1);
+	readerClientRun(argv[1], 0, 0, 5, 10, 1);
 }
