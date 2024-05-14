@@ -1,8 +1,9 @@
 {
 	"server-url" : "https://pokeapi.co/api/v2/pokemon/greninja",
+	"reader-host" : "192.168.1.64",
 	"enable-impinj-extensions" : true,
 	"reset-to-factory-defaults" : false,
-	"connection-timeout" : 10,
-	"report-timeout" : 1,
-	"inventory-duration" : 30
+	"connection-attempt-timeout" : 5,
+	"access-report-timeout" : 1,
+	"inventory-duration" : 10
 }
