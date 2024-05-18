@@ -23,12 +23,9 @@ Configuration * stringToConfig(const char * string) {
 	cJSON * json = cJSON_Parse(string);
 
 	Configuration * config = new Configuration();
-
-	// TODO: separate to a different config
+	
 	config->server_url 
 		= cJSON_GetObjectItem(json, "server-url")->valuestring;
-	
-	// TODO: separate to a different struct
 	config->reader_host 
 		= cJSON_GetObjectItem(json, "reader-host")->valuestring;
 	config->inventory_duration 

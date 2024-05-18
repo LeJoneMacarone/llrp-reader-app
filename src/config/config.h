@@ -23,7 +23,7 @@ void printConfig(const char * filePath);
 /*
  * Converts a JSON string to a configuration object.
  */
-Configuration* stringToConfig(const char * string);
+Configuration * stringToConfig(const char * string);
 
 /*
  * Converts a JSON file to a configuration object. Returns NULL on error.
