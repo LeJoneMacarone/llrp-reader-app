@@ -1,31 +1,13 @@
-#include "config.h"
-#include <cstdio>
+#include "reader-client-config.h"
 
-void printConfig(const char * filePath) {
-	char * buffer;
-	int size = readFile(filePath, &buffer);
-		
-	if (size < 0) return;
+#include "../cJSON/cJSON.h"
+#include "../files/files.h"
 
-	cJSON * json = cJSON_Parse(buffer);
-
-	cJSON * iterator = json->child;
-
-	while (iterator) {
-		cout << iterator->string << " = " << iterator->valuestring << "\n";
-		iterator = iterator->next;
-	}
-
-	cJSON_free(json);
-}
-
-Configuration * stringToConfig(const char * string) {
+ReaderClientConfig * stringToConfig(const char * string) {
 	cJSON * json = cJSON_Parse(string);
 
-	Configuration * config = new Configuration();
+	ReaderClientConfig * config = new ReaderClientConfig();
 	
-	config->server_url 
-		= cJSON_GetObjectItem(json, "server-url")->valuestring;
 	config->reader_host 
 		= cJSON_GetObjectItem(json, "reader-host")->valuestring;
 	config->inventory_duration 
@@ -45,7 +27,7 @@ Configuration * stringToConfig(const char * string) {
 	return config;
 }
 
-Configuration * fileToConfig(const char * filePath) {
+ReaderClientConfig * fileToConfig(const char * filePath) {
 	char * buffer;
 
 	int size = readFile(filePath, &buffer);

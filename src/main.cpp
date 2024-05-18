@@ -3,6 +3,6 @@
 #include "reader/reader.h"
 
 int main (int argc, char *argv[]) {
-	Configuration * config = fileToConfig(argv[1]);
+	ReaderClientConfig * config = fileToConfig(argv[1]);
 	readerClientRun(config);
 }

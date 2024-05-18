@@ -1,10 +1,13 @@
-#include "../config/config.h"
-#include "reader-utils.h"
+#include "../config/reader-client-config.h"
+
+#include "../../lib/ltkcpp/ltkcpp.h"
+
+using namespace LLRP;
 
 /*
  * TODO: add documentation
  */
-int readerClientRun(Configuration * config);
+int readerClientRun(ReaderClientConfig * config);
 
 /*
  * Constructs and initializes a new connection with the reader, returning it's 

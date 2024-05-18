@@ -1,4 +1,5 @@
 #include "reader.h"
+#include "reader-utils.h"
 
 #define KB 1024u
 #define seconds 1000
@@ -340,7 +341,7 @@ void receiveAccessReports(
     }
 }
 
-int readerClientRun(Configuration * config) {
+int readerClientRun(ReaderClientConfig * config) {
 	CConnection * connection = connectToReader(config->reader_host);
 	
 	if (NULL == connection) {
