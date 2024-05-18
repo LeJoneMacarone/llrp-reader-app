@@ -1,7 +1,5 @@
 #include "reader.h"
 
-#include "../logs/logs.h"
-
 #define KB 1024u
 #define seconds 1000
 
@@ -302,8 +300,11 @@ int stopROSpec(CConnection * connection) {
     return 0;
 }
 
-// FIXME: not stopping on the defined time
-void awaitAndPrintReport(CConnection * connection, int duration, int timeout) {
+void awaitAndPrintReport(
+		CConnection * connection, 
+		int duration, 
+		int timeout
+	) {
     int done = 0;
     time_t startTime = time(NULL);
     time_t tempTime;
@@ -338,37 +339,28 @@ void awaitAndPrintReport(CConnection * connection, int duration, int timeout) {
     }
 }
 
-int readerClientRun(
-		const char * host, 
-		int enableImpinjExtensionsFlag,
-		int resetToFactoryDefaultsFlag,
-		int connectionTimeout,
-		int inventoryDuration,
-		int inventoryReportTimeout
-		) {
-	// logger_t * logger = logger_instance();
-
-	CConnection * connection = connectToReader(host);
+int readerClientRun(Configuration * config) {
+	CConnection * connection = connectToReader(config->reader_host);
 	
 	if (NULL == connection) {
 		printf("[ERROR] failed to estabilish connection\n");
 		return 0;
 	}
 
-    if (0 != checkConnectionStatus(connection, connectionTimeout)) {
+    if (0 != checkConnectionStatus(connection, config->connection_attempt_timeout)) {
 		printf("[ERROR] check connection status failed\n");
 		return 1;
 	}
 
 	printf("[INFO] connection status ok\n");
 
-	if (enableImpinjExtensionsFlag) {
+	if (config->enable_impinj_extensions) {
 		if (0 != enableImpinjExtensions(connection))
 			printf("[WARN] couldn't enable Impinj extensions\n");
 		else printf("[INFO] Impinj extensions enabled\n");
 	}
 
-	if (resetToFactoryDefaultsFlag) {
+	if (config->reset_to_factory_defaults) {
 		if (0 != resetConfigurationToFactoryDefaults(connection))
 			printf("[WARN] couldn't reset to factory defaults\n");
 		else printf("[INFO] reset done successfully\n");
@@ -399,8 +391,9 @@ int readerClientRun(
 
     awaitAndPrintReport(
 			connection, 
-			inventoryDuration, 
-			inventoryReportTimeout * seconds);
+			config->inventory_duration, 
+			config->access_report_timeout
+	);
 
     if (0 != stopROSpec(connection)) {
 		printf("[ERROR] failed stopping ROSpec\n");
@@ -409,7 +402,7 @@ int readerClientRun(
 
 	printf("[INFO] ROSpec stopped successfully\n");
 
-	if (resetToFactoryDefaultsFlag) {
+	if (config->reset_to_factory_defaults) {
 		if (0 != resetConfigurationToFactoryDefaults(connection))
 			printf("[WARN] couldn't reset to factory defaults\n");
 		else printf("[INFO] reset done successfully\n");
