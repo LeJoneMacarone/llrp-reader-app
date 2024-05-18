@@ -300,10 +300,11 @@ int stopROSpec(CConnection * connection) {
     return 0;
 }
 
-void awaitAndPrintReport(
+void receiveAccessReports(
 		CConnection * connection, 
 		int duration, 
-		int timeout
+		int timeout,
+		void (* accessReportHandler) (CRO_ACCESS_REPORT *)
 	) {
     int done = 0;
     time_t startTime = time(NULL);
@@ -328,7 +329,7 @@ void awaitAndPrintReport(
             CRO_ACCESS_REPORT * report = (CRO_ACCESS_REPORT * ) message;
 			// TODO: write report to a shared variable
             
-			printTagReportData(report);
+			accessReportHandler(report);
         
 		// TODO: handle various types of messages (e.g. antenna events)
         } else {
@@ -389,10 +390,11 @@ int readerClientRun(Configuration * config) {
 
 	printf("[INFO] ROSpec started successfully\n");
 
-    awaitAndPrintReport(
+    receiveAccessReports(
 			connection, 
 			config->inventory_duration, 
-			config->access_report_timeout
+			config->access_report_timeout,
+			printTagReportData
 	);
 
     if (0 != stopROSpec(connection)) {
