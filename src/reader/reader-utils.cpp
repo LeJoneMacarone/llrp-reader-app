@@ -1,13 +1,8 @@
 #include "reader-utils.h"
-#include "../logs/logs.h"
-
-#include <cstdio>
-#include <cstring>
 
 CMessage * transact(CConnection * connection, CMessage * request)
 {
     CMessage * response = connection->transact(request, 5000);
-	logger_t * logger = logger_instance();
 
     if (NULL == response) {
 		printf(
@@ -18,8 +13,7 @@ CMessage * transact(CConnection * connection, CMessage * request)
     }
 	
 	// in case of being an error message
-    if (&CERROR_MESSAGE::s_typeDescriptor == response->m_pType)
-    {
+    if (&CERROR_MESSAGE::s_typeDescriptor == response->m_pType) {
         const char * responseType = request->m_pType->m_pResponseType->m_pName;
 
        	printf("[ERROR] received ERROR_MESSAGE instead of %s\n", responseType);
@@ -33,8 +27,6 @@ CMessage * transact(CConnection * connection, CMessage * request)
 }
 
 int sendMessage(CConnection * connection, CMessage * message) {
-	logger_t * logger = logger_instance();
-
 	if (RC_OK != connection->sendMessage(message))
     {
         //const CErrorDetails * error = connection->getSendError();
@@ -51,8 +43,6 @@ int sendMessage(CConnection * connection, CMessage * message) {
 }
 
 CMessage * recvMessage(CConnection * connection, int timeoutMS) {
-	logger_t * logger = logger_instance();
-
 	CMessage * message = connection->recvMessage(timeoutMS);
 
     if (NULL == message) {
@@ -68,7 +58,7 @@ CMessage * recvMessage(CConnection * connection, int timeoutMS) {
         return NULL;
     }
 
-	printf("[INFO] received message %s\n", message);
+	printf("[INFO] received message %s\n", message->m_pType->m_pName);
 
     return message;
 }
@@ -118,8 +108,8 @@ int checkLLRPStatus (CLLRPStatus * pLLRPStatus, const char * pWhatStr) {
 void printTagReportData(CRO_ACCESS_REPORT * accessReport) {
     std::list < CTagReportData * > ::iterator current;
     unsigned int nEntries = 0;
-
-    // count the number of entries
+    
+	// count the number of entries
     for (
         current = accessReport->beginTagReportData(); 
         current != accessReport->endTagReportData(); 
@@ -128,7 +118,6 @@ void printTagReportData(CRO_ACCESS_REPORT * accessReport) {
         nEntries++;
     }
 
-    // TODO: log the number of entries
     printf("[INFO] number of entries: %i\n", nEntries);
 
     // print each entry
