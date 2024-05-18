@@ -27,19 +27,14 @@ CMessage * transact(CConnection * connection, CMessage * request)
 }
 
 int sendMessage(CConnection * connection, CMessage * message) {
-	if (RC_OK != connection->sendMessage(message))
-    {
-        //const CErrorDetails * error = connection->getSendError();
+	if (RC_OK == connection->sendMessage(message)) return 0;
 
-		printf(
-			"[ERROR] send messsage failed for message %s\n", 
-			message->m_pType->m_pName
-		);
+	printf(
+		"[ERROR] send messsage failed for message %s\n", 
+		message->m_pType->m_pName
+	);
 
-        return -1;
-    }
-
-    return 0;
+    return -1;
 }
 
 CMessage * recvMessage(CConnection * connection, int timeoutMS) {
@@ -67,11 +62,9 @@ int checkLLRPStatus (CLLRPStatus * pLLRPStatus, const char * pWhatStr) {
     /*
      * The LLRPStatus parameter is mandatory in all responses.
      * If it is missing there should have been a decode error.
-     * This just makes sure (remember, this program is a
-     * diagnostic and suppose to catch LTKC mistakes).
      */
     
-    if(NULL == pLLRPStatus) {
+    if (NULL == pLLRPStatus) {
         printf("[ERROR] %s missing LLRP status\n", pWhatStr);
         return -1;
     }
@@ -85,19 +78,20 @@ int checkLLRPStatus (CLLRPStatus * pLLRPStatus, const char * pWhatStr) {
      */
     if(StatusCode_M_Success != pLLRPStatus->getStatusCode())
     {
-        llrp_utf8v_t            ErrorDesc;
+        llrp_utf8v_t ErrorDesc = pLLRPStatus->getErrorDescription();
 
-        ErrorDesc = pLLRPStatus->getErrorDescription();
-
-        if(0 == ErrorDesc.m_nValue)
-        {
-            printf("[ERROR] %s failed, no error description given\n",
-                pWhatStr);
-        }
-        else
-        {
-            printf("[ERROR] %s failed, %.*s\n",
-                pWhatStr, ErrorDesc.m_nValue, ErrorDesc.m_pValue);
+        if (0 == ErrorDesc.m_nValue) {
+			printf(
+				"[ERROR] %s failed, no error description given\n", 
+				pWhatStr
+			);
+		} else {
+            printf(
+				"[ERROR] %s failed, %.*s\n",
+				pWhatStr, 
+				ErrorDesc.m_nValue, 
+				ErrorDesc.m_pValue
+			);
         }
         return -2;
     }
@@ -106,7 +100,7 @@ int checkLLRPStatus (CLLRPStatus * pLLRPStatus, const char * pWhatStr) {
 }
 
 void printTagReportData(CRO_ACCESS_REPORT * accessReport) {
-    std::list < CTagReportData * > ::iterator current;
+    std::list<CTagReportData *>::iterator current;
     unsigned int nEntries = 0;
     
 	// count the number of entries
