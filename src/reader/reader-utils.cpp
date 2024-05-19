@@ -40,16 +40,17 @@ void saveAccessReport(CRO_ACCESS_REPORT * report) {
 		data++
 	) {
 
-#ifdef USE_READER_TIMESTAMPS
-		uint64_t timestamp = (*data)->getFirstSeenTimestampUTC()->getMicroseconds(); 
-#else
-		time_t timestamp = time(NULL);
-#endif
+		#ifdef USE_READER_TIMESTAMPS
+			uint64_t timestamp = (*data)->getFirstSeenTimestampUTC()->getMicroseconds(); 
+		#else
+			time_t timestamp = time(NULL);
+		#endif
 
 		// TODO: implement saving the EPC data in memory
 		char string[64];
 		CParameter * parameter = (*data)->getEPCParameter();
 		formatOneEPC(parameter, string, 64);
+		
 		printf("[INFO] Timestamp: %lu EPC: %s\n", timestamp, string);
 	}
 }
