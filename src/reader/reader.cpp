@@ -1,5 +1,10 @@
 #include "reader.h"
 #include "reader-utils.h"
+#include "reader-messages.h"
+
+#include "../../lib/ltkcpp/impinj_ltkcpp.h"
+
+#include <stdio.h>
 
 #define KB 1024u
 #define seconds 1000
@@ -364,27 +369,27 @@ int readerClientRun(ReaderClientConfig * config) {
 
 	if (config->reset_to_factory_defaults) {
 		if (0 != resetConfigurationToFactoryDefaults(connection))
-			printf("[WARN] couldn't reset to factory defaults\n");
-		else printf("[INFO] reset done successfully\n");
+			printf("[WARN] couldn't reset config to factory defaults\n");
+		else printf("[INFO] config reseted to factory defaults\n");
 	}
 
     // OPTIONAL: getCapabilities(); getReaderConfig(); setReaderConfig();
 
-    if (0 != addROSpec(connection)) {
+	if (0 != addROSpec(connection)) {
 		printf("[ERROR] failed adding ROSpec\n");
 		return 2;
 	}
 
 	printf("[INFO] ROSpec added successfully\n");
 
-    if (0 != enableROSpec(connection)) {
+	if (0 != enableROSpec(connection)) {
 		printf("[ERROR] failed enabling ROSpec\n");
 		return 3;
 	}
 
 	printf("[INFO] ROSpec enabled successfully\n");
 
-    if (0 != startROSpec(connection)) {
+	if (0 != startROSpec(connection)) {
 		printf("[ERROR] failed starting ROSpec\n");
 		return 4;
 	}
@@ -398,7 +403,7 @@ int readerClientRun(ReaderClientConfig * config) {
 			printTagReportData
 	);
 
-    if (0 != stopROSpec(connection)) {
+	if (0 != stopROSpec(connection)) {
 		printf("[ERROR] failed stopping ROSpec\n");
 		return 2;
 	}
@@ -417,7 +422,7 @@ int readerClientRun(ReaderClientConfig * config) {
 
     CXMLTextDecoder::cleanupParser();
 	
-	printf("[ERROR] finish\n");
+	printf("[INFO] finish\n");
 
     return 0;
 }
