@@ -1,7 +1,6 @@
 #include "reader-utils.h"
 #include "readings.h"
 
-#include <bits/types/struct_timeval.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
@@ -10,7 +9,7 @@
 using namespace std;
 
 void printTagReportData(CRO_ACCESS_REPORT * accessReport) {
-    std::list<CTagReportData *>::iterator current;
+    list<CTagReportData *>::iterator current;
     unsigned int nEntries = 0;
     
 	// count the number of entries
@@ -49,23 +48,26 @@ void saveAccessReport(CRO_ACCESS_REPORT * report) {
 			time_t timestamp = time(NULL);
 		#endif
 		
-		// TODO: implement saving the EPC data in memory
 		char rfid[64];
 		CParameter * parameter = (*data)->getEPCParameter();
 		formatOneEPC(parameter, rfid, 64);
+	
+		uint16_t id = (*data)->getAntennaID()
+			? (*data)->getAntennaID()->getAntennaID() : 0;
 		
+		int8_t rssi = (*data)->getPeakRSSI()
+			? (*data)->getPeakRSSI()->getPeakRSSI() : 0;
+
 		Reading * reading = reading_create(
-			"2020",
-			"golemu", 
-			"localhost", 
-			(*data)->getAntennaID()->getAntennaID(), 
-			rfid, 
-			(*data)->getPeakRSSI()->getPeakRSSI(), 
+			"2020", "golemu", "localhost", 
+			id, 
+			rfid,
+			rssi, 
 			"123 - Pedro Alves", 
 			0
 		);
-
-		printf("[INFO] Timestamp: %lu EPC: %s\n", timestamp, rfid);
+		
+		printf("[INFO] Reading: %s\n", reading_toJsonString(reading));
 	}
 }
 

@@ -400,7 +400,7 @@ int readerClientRun(ReaderClientConfig * config) {
 			connection, 
 			config->inventory_duration, 
 			config->access_report_timeout,
-			printTagReportData
+			saveAccessReport
 	);
 
 	if (0 != stopROSpec(connection)) {

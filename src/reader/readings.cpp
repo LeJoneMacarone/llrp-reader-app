@@ -15,12 +15,14 @@ Reading * reading_create(
 	int crossing
 ) {
 	Reading * reading = (Reading *) malloc(sizeof(Reading));
-	
-	reading->time = (char*) time;
-	sprintf(reading->source, "%s @ %s #%i", reader_name, host, antenna);
+
+	reading->time = (char *) time;
 	reading->rfid = (char *) rfid;
-	reading->rssi = rssi;
 	reading->athlete = (char *) athlete;
+
+	asprintf(&(reading->source), "%s @ %s #%u", reader_name, host, antenna);
+
+	reading->rssi = rssi;
 	reading->crossing = crossing;
 
 	return reading;
