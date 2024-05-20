@@ -1,6 +1,9 @@
 #include "reader-utils.h"
+#include "readings.h"
 
+#include <bits/types/struct_timeval.h>
 #include <stdio.h>
+#include <string.h>
 #include <stdint.h>
 #include <list>
 
@@ -45,13 +48,24 @@ void saveAccessReport(CRO_ACCESS_REPORT * report) {
 		#else
 			time_t timestamp = time(NULL);
 		#endif
-
-		// TODO: implement saving the EPC data in memory
-		char string[64];
-		CParameter * parameter = (*data)->getEPCParameter();
-		formatOneEPC(parameter, string, 64);
 		
-		printf("[INFO] Timestamp: %lu EPC: %s\n", timestamp, string);
+		// TODO: implement saving the EPC data in memory
+		char rfid[64];
+		CParameter * parameter = (*data)->getEPCParameter();
+		formatOneEPC(parameter, rfid, 64);
+		
+		Reading * reading = reading_create(
+			"2020",
+			"golemu", 
+			"localhost", 
+			(*data)->getAntennaID()->getAntennaID(), 
+			rfid, 
+			(*data)->getPeakRSSI()->getPeakRSSI(), 
+			"123 - Pedro Alves", 
+			0
+		);
+
+		printf("[INFO] Timestamp: %lu EPC: %s\n", timestamp, rfid);
 	}
 }
 
