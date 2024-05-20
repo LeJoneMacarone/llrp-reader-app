@@ -17,3 +17,5 @@ Reading * reading_create(
 	const char * athlete,
 	int crossing
 );
+
+char * reading_toJsonString(Reading * reading);

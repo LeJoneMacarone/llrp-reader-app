@@ -25,3 +25,22 @@ Reading * reading_create(
 
 	return reading;
 }
+
+char * reading_toJsonString(Reading * reading) {
+	cJSON * json = cJSON_CreateObject();
+
+	cJSON_AddStringToObject(json, "time", reading->time);
+	cJSON_AddStringToObject(json, "source", reading->source);
+	cJSON_AddStringToObject(json, "rfid", reading->rfid);
+	cJSON_AddNumberToObject(json, "rssi", reading->rssi);
+	cJSON_AddStringToObject(json, "athlete", reading->time);
+	
+	reading->crossing 
+		? cJSON_AddTrueToObject(json, "crossing") 
+		: cJSON_AddFalseToObject(json, "crossing");
+
+	char * string = cJSON_Print(json);
+	cJSON_free(json);
+
+	return string;
+}
