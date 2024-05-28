@@ -4,6 +4,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <list>
+
+using namespace std;
+
+list<Reading> readings;
+
 Reading * reading_create(
 	const char * time,
 	const char * reader_name,
@@ -35,7 +41,7 @@ char * reading_toJsonString(Reading * reading) {
 	cJSON_AddStringToObject(json, "source", reading->source);
 	cJSON_AddStringToObject(json, "rfid", reading->rfid);
 	cJSON_AddNumberToObject(json, "rssi", reading->rssi);
-	cJSON_AddStringToObject(json, "athlete", reading->time);
+	cJSON_AddStringToObject(json, "athlete", reading->athlete);
 	
 	reading->crossing 
 		? cJSON_AddTrueToObject(json, "crossing") 
@@ -46,3 +52,20 @@ char * reading_toJsonString(Reading * reading) {
 
 	return string;
 }
+
+void readings_add(Reading reading) {
+	readings.push_front(reading);
+}
+
+void readings_print(){
+	list<Reading>::iterator it;
+
+	for (
+		it = readings.begin();
+		it != readings.end();
+		++it
+	) {
+		printf("[INFO] %s\n", reading_toJsonString(&(*it)));
+	}
+}
+
