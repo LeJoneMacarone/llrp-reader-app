@@ -52,7 +52,7 @@ void saveAccessReport(CRO_ACCESS_REPORT * report) {
 		CParameter * parameter = (*data)->getEPCParameter();
 		formatOneEPC(parameter, rfid, 64);
 	
-		uint16_t id = (*data)->getAntennaID()
+		uint16_t antenna = (*data)->getAntennaID()
 			? (*data)->getAntennaID()->getAntennaID() : 0;
 		
 		int8_t rssi = (*data)->getPeakRSSI()
@@ -60,14 +60,14 @@ void saveAccessReport(CRO_ACCESS_REPORT * report) {
 
 		Reading * reading = reading_create(
 			"2020", "golemu", "localhost", 
-			id, 
+			antenna, 
 			rfid,
 			rssi, 
 			"123 - Pedro Alves", 
 			0
 		);
-		
-		printf("[INFO] Reading: %s\n", reading_toJsonString(reading));
+
+		readings_add(*reading);
 	}
 }
 
