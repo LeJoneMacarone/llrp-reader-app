@@ -14,7 +14,7 @@ CMessage * transact(CConnection * connection, CMessage * request)
         return NULL;
     }
 	
-	// in case of being an error message
+	// In case of being an error message
     if (&CERROR_MESSAGE::s_typeDescriptor == response->m_pType) {
         const char * responseType = request->m_pType->m_pResponseType->m_pName;
 
@@ -61,23 +61,15 @@ CMessage * recvMessage(CConnection * connection, int timeoutMS) {
 }
 
 int checkLLRPStatus (CLLRPStatus * pLLRPStatus, const char * pWhatStr) {
-    /*
-     * The LLRPStatus parameter is mandatory in all responses.
-     * If it is missing there should have been a decode error.
-     */
-    
+    // The LLRPStatus parameter is mandatory in all responses.
+    // If it is missing there should have been a decode error.
     if (NULL == pLLRPStatus) {
         printf("[ERROR] %s missing LLRP status\n", pWhatStr);
         return -1;
     }
 
-    /*
-     * Make sure the status is M_Success.
-     * If it isn't, print the error string if one.
-     * This does not try to pretty-print the status
-     * code. To get that, run this program with -vv
-     * and examine the XML output.
-     */
+    // Make sure the status is M_Success.
+    // If it isn't, print the error string if one.
     if(StatusCode_M_Success != pLLRPStatus->getStatusCode())
     {
         llrp_utf8v_t ErrorDesc = pLLRPStatus->getErrorDescription();
