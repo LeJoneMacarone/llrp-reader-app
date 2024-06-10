@@ -333,10 +333,7 @@ void receiveAccessReports(
         messageType = message->m_pType;
         if (&CRO_ACCESS_REPORT::s_typeDescriptor == messageType) {
             CRO_ACCESS_REPORT * report = (CRO_ACCESS_REPORT * ) message;
-			// TODO: write report to a shared variable
-            
 			accessReportHandler(report);
-        
 		// TODO: handle various types of messages (e.g. antenna events)
         } else {
             printf("[WARN] Unexpected message\n");
