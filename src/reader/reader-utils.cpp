@@ -48,10 +48,12 @@ void saveAccessReport(CRO_ACCESS_REPORT * report) {
 			time_t timestamp = time(NULL);
 		#endif
 		
-		char rfid[64];
+		char * rfid = (char *) malloc(sizeof(char) * 64);
 		CParameter * parameter = (*data)->getEPCParameter();
 		formatOneEPC(parameter, rfid, 64);
-	
+
+		printf("[INFO] EPC: %s\n", rfid);
+
 		uint16_t antenna = (*data)->getAntennaID()
 			? (*data)->getAntennaID()->getAntennaID() : 0;
 		
