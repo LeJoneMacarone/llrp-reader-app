@@ -10,18 +10,11 @@ using namespace std;
 
 void printTagReportData(CRO_ACCESS_REPORT * accessReport) {
     list<CTagReportData *>::iterator current;
-    unsigned int nEntries = 0;
-    
-	// count the number of entries
-    for (
-        current = accessReport->beginTagReportData(); 
-        current != accessReport->endTagReportData(); 
-        current++
-    ) {
-        nEntries++;
-    }
 
-    printf("[INFO] number of entries: %i\n", nEntries);
+    printf(
+			"[INFO] number of entries: %i\n", 
+			accessReport->countTagReportData()
+	);
 
     // print each entry
     for (
