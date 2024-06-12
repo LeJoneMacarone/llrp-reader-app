@@ -16,7 +16,10 @@ CMessage * transact(CConnection * connection, CMessage * request)
 	
 	// In case of being an error message
     if (&CERROR_MESSAGE::s_typeDescriptor == response->m_pType) {
-        const char * responseType = request->m_pType->m_pResponseType->m_pName;
+        const char * responseType = request
+			->m_pType
+			->m_pResponseType
+			->m_pName;
 
        	printf("[ERROR] received ERROR_MESSAGE instead of %s\n", responseType);
 

@@ -115,8 +115,8 @@ int resetConfigurationToFactoryDefaults(CConnection * connection) {
     // compose the command message
     CSET_READER_CONFIG * command;
     command = new CSET_READER_CONFIG();
-    command -> setMessageID(getMessageID());
-    command -> setResetToFactoryDefault(1);
+    command->setMessageID(getMessageID());
+    command->setResetToFactoryDefault(1);
 
     // send/recv message
     CMessage * responseMessage = transact(connection, command);
@@ -144,7 +144,7 @@ int resetConfigurationToFactoryDefaults(CConnection * connection) {
     return 0;
 }
 
-// TODO: add possibility to add the spec from a XML file
+// TODO: add possibility to add the spec from a LTK-XML file
 int addROSpec(CConnection * connection) {
 	// initialize fields and parameters of the ROSpec, from the most internal 
 	// to the the most external

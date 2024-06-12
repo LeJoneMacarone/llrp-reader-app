@@ -36,7 +36,9 @@ void saveAccessReport(CRO_ACCESS_REPORT * report) {
 	) {
 
 		#ifdef USE_READER_TIMESTAMPS
-			uint64_t timestamp = (*data)->getFirstSeenTimestampUTC()->getMicroseconds(); 
+			uint64_t timestamp = (*data)
+				->getFirstSeenTimestampUTC()
+				->getMicroseconds();
 		#else
 			time_t timestamp = time(NULL);
 		#endif
@@ -53,14 +55,7 @@ void saveAccessReport(CRO_ACCESS_REPORT * report) {
 		int8_t rssi = (*data)->getPeakRSSI()
 			? (*data)->getPeakRSSI()->getPeakRSSI() : 0;
 
-		Reading * reading = reading_create(
-			"2020", "golemu", "localhost", 
-			antenna, 
-			rfid,
-			rssi, 
-			"123 - Pedro Alves", 
-			0
-		);
+		Reading * reading = reading_create("2020", antenna, rfid, rssi);
 		
 		readings_add(*reading);
 	}
