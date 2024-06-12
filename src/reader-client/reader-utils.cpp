@@ -1,5 +1,5 @@
 #include "reader-utils.h"
-#include "../data/readings.h"
+#include "../data-processing/readings.h"
 
 #include <stdio.h>
 #include <string.h>
