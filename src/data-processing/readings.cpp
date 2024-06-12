@@ -7,6 +7,9 @@
 #define READINGS_BUFFER_SIZE 256
 Reading * readings[READINGS_BUFFER_SIZE];
 
+#define CROSSINGS_BUFFER_SIZE 256
+const char * crossings[CROSSINGS_BUFFER_SIZE];
+
 Reading * reading_create(
 	const char * time,
 	unsigned int antenna,
@@ -36,11 +39,17 @@ char * reading_toJsonString(Reading * reading) {
 	return string;
 }
 
-// TODO: implement locks for producer-consumer 
+int insertIndex = 0,
+	removeIndex = 0;
+
 void readings_add(Reading * reading) {
-	int i = 0;
-	while (readings[i] != NULL) i = (i + 1) % READINGS_BUFFER_SIZE;
-	readings[i] = reading;
+	readings[insertIndex] = reading;
+	insertIndex = (insertIndex + 1) % READINGS_BUFFER_SIZE;
+}
+
+void readings_take() {
+	readings[removeIndex] = NULL;
+	removeIndex = (removeIndex + 1) % READINGS_BUFFER_SIZE;
 }
 
 void readings_print(){
@@ -49,4 +58,3 @@ void readings_print(){
 		printf("[INFO] Reading[%i] = %s\n", i, reading_toJsonString(readings[i]));
 	}
 }
-
