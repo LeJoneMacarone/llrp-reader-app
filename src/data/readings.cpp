@@ -4,11 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <list>
-
-using namespace std;
-
-list<Reading> readings;
+#define READINGS_BUFFER_SIZE 256
+Reading * readings[READINGS_BUFFER_SIZE];
 
 Reading * reading_create(
 	const char * time,
@@ -39,19 +36,16 @@ char * reading_toJsonString(Reading * reading) {
 	return string;
 }
 
-void readings_add(Reading reading) {
-	readings.push_front(reading);
+// TODO: implement locks for producer-consumer 
+void readings_add(Reading * reading) {
+	int i = 0;
+	while (readings[i] != NULL) i = (i + 1) % READINGS_BUFFER_SIZE;
+	readings[i] = reading;
 }
 
 void readings_print(){
-	list<Reading>::iterator it;
-
-	for (
-		it = readings.begin();
-		it != readings.end();
-		++it
-	) {
-		printf("[INFO] %s\n", reading_toJsonString(&(*it)));
+	for (int i = 0; i < READINGS_BUFFER_SIZE; i++) {
+		printf("[INFO] Reading[%i] = %s", i, reading_toJsonString(readings[i]));
 	}
 }
 
