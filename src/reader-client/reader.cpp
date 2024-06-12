@@ -1,6 +1,7 @@
 #include "reader.h"
 #include "reader-utils.h"
 #include "reader-messages.h"
+#include "../data-processing/readings.h"
 
 #include "../../lib/ltkcpp/impinj_ltkcpp.h"
 
@@ -419,6 +420,8 @@ int readerClientRun(ReaderClientConfig * config) {
 
     CXMLTextDecoder::cleanupParser();
 	
+	readings_print();
+
 	printf("[INFO] finish\n");
 
     return 0;

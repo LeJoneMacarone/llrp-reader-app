@@ -5,8 +5,9 @@
 #include <string.h>
 #include <stdint.h>
 #include <list>
-
 using namespace std;
+
+#define USE_READER_TIMESTAMPS
 
 void printTagReportData(CRO_ACCESS_REPORT * accessReport) {
     list<CTagReportData *>::iterator current;
@@ -28,7 +29,12 @@ void printTagReportData(CRO_ACCESS_REPORT * accessReport) {
 
 void saveAccessReport(CRO_ACCESS_REPORT * report) {
 	list<CTagReportData *>::iterator data;
-	
+
+    printf(
+		"[INFO] number of entries: %i\n", 
+		report->countTagReportData()
+	);
+
 	for (
 		data = report->beginTagReportData();
 		data != report->endTagReportData();
@@ -57,7 +63,7 @@ void saveAccessReport(CRO_ACCESS_REPORT * report) {
 
 		Reading * reading = reading_create("2020", antenna, rfid, rssi);
 		
-		readings_add(*reading);
+		readings_add(reading);
 	}
 }
 
