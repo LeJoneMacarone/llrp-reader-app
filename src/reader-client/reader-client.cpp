@@ -78,7 +78,6 @@ void * readerClientRun(void * args) {
 
     CXMLTextDecoder::cleanupParser();
 	
-
 	printf("[INFO] reader client finished\n");
 
 	return NULL;
