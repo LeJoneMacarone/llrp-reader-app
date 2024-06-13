@@ -2,6 +2,12 @@
 
 #include <stdio.h>
 
+int messageID = 0;
+
+int getMessageID() {
+    return messageID++;
+}
+
 CMessage * transact(CConnection * connection, CMessage * request)
 {
     CMessage * response = connection->transact(request, 5000);
@@ -96,3 +102,8 @@ int checkLLRPStatus (CLLRPStatus * pLLRPStatus, const char * pWhatStr) {
     return 0;
 }
 
+void printXMLMessage(CMessage * message) {
+    char buffer[100 * 1024];
+    message->toXMLString(buffer, sizeof(buffer));
+    printf("[INFO] %s\n", buffer);
+}

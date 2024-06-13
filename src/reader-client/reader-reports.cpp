@@ -1,31 +1,10 @@
-#include "reader-utils.h"
-#include "../data-processing/readings.h"
+#include "reader-reports.h"
+#include "reader-messages.h"
+#include "../data-processing/readings-buffer.h"
 
 #include <stdio.h>
-#include <string.h>
-#include <stdint.h>
 #include <list>
 using namespace std;
-
-#define USE_READER_TIMESTAMPS
-
-void printTagReportData(CRO_ACCESS_REPORT * accessReport) {
-    list<CTagReportData *>::iterator current;
-
-    printf(
-			"[INFO] number of entries: %i\n", 
-			accessReport->countTagReportData()
-	);
-
-    // print each entry
-    for (
-        current = accessReport->beginTagReportData(); 
-        current != accessReport->endTagReportData(); 
-        current++
-    ) {
-        printOneTagReportData(*current);
-    }
-}
 
 void saveAccessReport(CRO_ACCESS_REPORT * report) {
 	list<CTagReportData *>::iterator data;
@@ -67,27 +46,6 @@ void saveAccessReport(CRO_ACCESS_REPORT * report) {
 	}
 }
 
-void printOneTagReportData(CTagReportData * pTagReportData) {
-    char buffer[64];
-
-    CParameter * epcParameter = pTagReportData->getEPCParameter();
-
-    formatOneEPC(epcParameter, buffer, 64);
-
-	uint64_t timestamp = pTagReportData->getFirstSeenTimestampUTC() 
-		? pTagReportData->getFirstSeenTimestampUTC()->getMicroseconds()	: 0; 
-
-	printf("[INFO] [%lu] EPC: %s\n", timestamp, buffer);
-}
-
-void printXMLMessage(CMessage * message) {
-    char buffer[100 * 1024];
-
-    message->toXMLString(buffer, sizeof(buffer));
-    
-    printf("[INFO] %s\n", buffer);
-}
-
 void formatOneEPC(CParameter *pEPCParameter, char *buf, int buflen) {
     char * p = buf;
     int bufsize = buflen;
@@ -126,16 +84,12 @@ void formatOneEPC(CParameter *pEPCParameter, char *buf, int buflen) {
                     p += written;
                 }
             }
-        }
-        else
-        {
+        } else {
             written = snprintf(p, bufsize, "%s", "---unknown-epc-data-type---");
             bufsize -= written;
             p += written;
         }
-    }
-    else
-    {
+    } else {
         written = snprintf(p, bufsize, "%s", "--null epc---");
         bufsize -= written;
         p += written;
@@ -143,3 +97,41 @@ void formatOneEPC(CParameter *pEPCParameter, char *buf, int buflen) {
 
     buf[buflen-1] = '\0';
 }
+
+void receiveAccessReports(
+		CConnection * connection, 
+		int duration, 
+		int timeout,
+		void (* accessReportHandler) (CRO_ACCESS_REPORT *)
+	) {
+    int done = 0;
+    time_t startTime = time(NULL);
+    time_t tempTime;
+    
+    const CTypeDescriptor * messageType;
+
+    // keep receiving messages until done or until something bad happens
+    while (!done) {
+        CMessage * message = recvMessage(connection, timeout);
+
+		// validate the timestamp
+        tempTime = time(NULL);
+        if (difftime(tempTime, startTime) > duration) done = 1;
+        
+		// make sure we received a message
+        if (NULL == message) continue;
+
+        // handle messages by checking their types
+        messageType = message->m_pType;
+        if (&CRO_ACCESS_REPORT::s_typeDescriptor == messageType) {
+            CRO_ACCESS_REPORT * report = (CRO_ACCESS_REPORT * ) message;
+			accessReportHandler(report);
+		// TODO: handle various types of messages (e.g. antenna events)
+        } else {
+            printf("[WARN] Unexpected message\n");
+        }
+
+        delete message;
+    }
+}
+
