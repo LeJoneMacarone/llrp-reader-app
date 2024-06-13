@@ -1,7 +1,7 @@
 #include "internet/internet.h"
 #include "logs/logs.h"
 #include "reader-client/reader.h"
-#include "data-processing/readings.h"
+#include "data-processing/data-processing.h"
 
 #include <unistd.h> 
 #include <pthread.h>
@@ -17,5 +17,4 @@ int main (int argc, char *argv[]) {
 	setReaderClientDone();
 
 	pthread_join(dataProcessing, NULL);
-	readings_print();
 }

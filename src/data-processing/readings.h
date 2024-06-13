@@ -13,11 +13,3 @@ Reading * reading_create(
 );
 
 char * reading_toJsonString(Reading * reading);
-
-void readings_add(Reading * reading);
-
-void readings_print();
-
-void * dataProcessingRun(void * args);
-
-void setReaderClientDone();
