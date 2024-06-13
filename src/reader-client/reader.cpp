@@ -344,17 +344,16 @@ void receiveAccessReports(
     }
 }
 
-int readerClientRun(ReaderClientConfig * config) {
+void * readerClientRun(void * args) {
+	ReaderClientConfig * config = (ReaderClientConfig *) args;
 	CConnection * connection = connectToReader(config->reader_host);
 	
 	if (NULL == connection) {
 		printf("[ERROR] failed to estabilish connection\n");
-		return 0;
 	}
 
     if (0 != checkConnectionStatus(connection, config->connection_attempt_timeout)) {
 		printf("[ERROR] check connection status failed\n");
-		return 1;
 	}
 
 	printf("[INFO] connection status ok\n");
@@ -375,21 +374,18 @@ int readerClientRun(ReaderClientConfig * config) {
 
 	if (0 != addROSpec(connection)) {
 		printf("[ERROR] failed adding ROSpec\n");
-		return 2;
 	}
 
 	printf("[INFO] ROSpec added successfully\n");
 
 	if (0 != enableROSpec(connection)) {
 		printf("[ERROR] failed enabling ROSpec\n");
-		return 3;
 	}
 
 	printf("[INFO] ROSpec enabled successfully\n");
 
 	if (0 != startROSpec(connection)) {
 		printf("[ERROR] failed starting ROSpec\n");
-		return 4;
 	}
 
 	printf("[INFO] ROSpec started successfully\n");
@@ -403,7 +399,6 @@ int readerClientRun(ReaderClientConfig * config) {
 
 	if (0 != stopROSpec(connection)) {
 		printf("[ERROR] failed stopping ROSpec\n");
-		return 2;
 	}
 
 	printf("[INFO] ROSpec stopped successfully\n");
@@ -420,10 +415,8 @@ int readerClientRun(ReaderClientConfig * config) {
 
     CXMLTextDecoder::cleanupParser();
 	
-	readings_print();
+	printf("[INFO] reader client finished\n");
 
-	printf("[INFO] finish\n");
-
-    return 0;
+	return NULL;
 }
 

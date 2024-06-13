@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 #define READINGS_BUFFER_SIZE 256
-Reading * readings[READINGS_BUFFER_SIZE];
+static Reading * readings[READINGS_BUFFER_SIZE];
 
 #define CROSSINGS_BUFFER_SIZE 256
 const char * crossings[CROSSINGS_BUFFER_SIZE];
@@ -40,21 +40,46 @@ char * reading_toJsonString(Reading * reading) {
 }
 
 int insertIndex = 0,
-	removeIndex = 0;
+	removeIndex = 0,
+	readingsCount = 0;
 
 void readings_add(Reading * reading) {
 	readings[insertIndex] = reading;
 	insertIndex = (insertIndex + 1) % READINGS_BUFFER_SIZE;
+	readingsCount++;
 }
 
-void readings_take() {
+Reading * readings_take() {
+	Reading * reading = readings[removeIndex];
 	readings[removeIndex] = NULL;
 	removeIndex = (removeIndex + 1) % READINGS_BUFFER_SIZE;
+	readingsCount--;
+	return reading;
 }
 
 void readings_print(){
+	if (readingsCount == 0) {
+		printf("[INFO] readings buffer empty\n");
+		return;
+	}
+
 	for (int i = 0; i < READINGS_BUFFER_SIZE; i++) {
 		if (readings[i] == NULL) continue;
 		printf("[INFO] Reading[%i] = %s\n", i, reading_toJsonString(readings[i]));
 	}
+}
+
+int readerClientDone = 0;
+
+void setReaderClientDone() {
+	readerClientDone = 1;
+}
+
+void * dataProcessingRun(void * args) {
+	int i = 0;
+	while (!readerClientDone || readingsCount > 0) {
+		Reading * reading = readings_take();
+	}
+	printf("[INFO] data processing finished\n");
+	return NULL;
 }

@@ -7,7 +7,7 @@ using namespace LLRP;
 /*
  * TODO: add documentation
  */
-int readerClientRun(ReaderClientConfig * config);
+void * readerClientRun(void * config);
 
 /*
  * Constructs and initializes a new connection with the reader, returning it's 
