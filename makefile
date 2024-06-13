@@ -16,7 +16,7 @@ SUFFIX := _x86_64
 LIBS := $(filter %$(SUFFIX).a, $(LIB_FILES))
 LIB_FLAGS := -l xml2 -l z -l dl -l ssl -l crypto -l curl
 
-.PHONY: build clean
+.PHONY: build clean run
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/*/%.cpp
 	$(CC) $(C_FLAGS) -c $^ -o $@
@@ -28,6 +28,9 @@ $(BIN_FILES): $(OBJ_FILES)
 	$(CC) $(C_FLAGS) $^ $(LIBS) $(LIB_FLAGS) -o $@ 
 
 build: $(BIN_FILES)
+
+run: build
+	./bin/main config.json
 
 clean:
 	rm -rf $(BUILD_DIR)/*
