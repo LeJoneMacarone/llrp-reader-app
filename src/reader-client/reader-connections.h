@@ -11,6 +11,6 @@ CConnection * connectToReader(const char* hostname);
 /*
  * Checks the status of a connection to ensure it is properly established, by 
  * receiving and validating a READER_EVENT_NOTIFICATION message within a 
- * specified timeout period.
+ * specified timeout period. Returns 0 if successfull or -1 in case of error.
  */
 int checkConnectionStatus(CConnection * connection, int timeout);

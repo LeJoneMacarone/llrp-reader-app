@@ -9,7 +9,8 @@ using namespace LLRP;
  */
 int enableImpinjExtensions(CConnection * connection);
 
-/*
- * TODO: add documentation
+/**
+ * Resets the reader configuration to factory defaults, by sending a command 
+ * to the reader. It verifies the response to ensure the reset was successful.
  */
 int resetConfigurationToFactoryDefaults(CConnection * connection);

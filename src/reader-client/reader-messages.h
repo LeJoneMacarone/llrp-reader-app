@@ -2,11 +2,6 @@
 using namespace LLRP;
 
 /*
- * TODO: add documentation
- */
-int getMessageID();
-
-/*
  * Equivalent to sending a message to the reader and receiving it's response.
  * Returns the message or NULL in case of an error. 
  */
@@ -25,11 +20,19 @@ int sendMessage (CConnection * connection, CMessage * message);
 CMessage * recvMessage(CConnection * connection, int timeoutMS);
 
 /*
- * TODO: add documentation
+ * Checks the LLRP status parameter in a response to ensure the operation was 
+ * successful. If the status indicates failure, it prints an error message 
+ * and description. Returns 0 if successfull, -1 if the status parameter is 
+ * missing or -2 if the status indicates failure.
  */
 int checkLLRPStatus (CLLRPStatus * pLLRPStatus, const char * pWhatStr);
 
 /*
- * TODO: add documentation
+ * Called for getting a new ID to construct a new LLRP message. 
+ */
+int getMessageID();
+
+/*
+ * Prints the XML representation of a message.
  */
 void printXMLMessage(CMessage * message);

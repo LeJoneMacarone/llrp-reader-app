@@ -61,10 +61,10 @@ int addROSpec(CConnection * connection) {
 	
 	delete message;
 	
-    if(NULL == response) return -1;
+    if (NULL == response) return -1;
 
-    if(0 != checkLLRPStatus(response->getLLRPStatus(), "addROSpec"))
-        return -1;
+    if (0 != checkLLRPStatus(response->getLLRPStatus(), "addROSpec"))
+    	return -1;
 
     delete response;
 
