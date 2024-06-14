@@ -2,9 +2,22 @@
 #include "reader-messages.h"
 #include "../data-processing/readings-buffer.h"
 
+#include <bits/types/struct_timeval.h>
+#include <cstdint>
+#include <ctime>
 #include <stdio.h>
+#include <sys/time.h>
 #include <list>
 using namespace std;
+
+uint64_t getCurrenTimeInMicroseconds() {
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+
+	uint64_t microseconds 
+		= (uint64_t) tv.tv_sec * 1000000 + (uint64_t) tv.tv_usec;
+    return microseconds;
+}
 
 void saveAccessReport(CRO_ACCESS_REPORT * report) {
 	list<CTagReportData *>::iterator data;
@@ -20,19 +33,15 @@ void saveAccessReport(CRO_ACCESS_REPORT * report) {
 		data++
 	) {
 
-		#ifdef USE_READER_TIMESTAMPS
-			uint64_t timestamp = (*data)
-				->getFirstSeenTimestampUTC()
-				->getMicroseconds();
-		#else
-			time_t timestamp = time(NULL);
-		#endif
+		uint64_t readerTime = (*data)
+			->getFirstSeenTimestampUTC()
+			->getMicroseconds();
 		
+		uint64_t localTime = getCurrenTimeInMicroseconds();
+
 		char * rfid = (char *) malloc(sizeof(char) * 64);
 		CParameter * parameter = (*data)->getEPCParameter();
 		formatOneEPC(parameter, rfid, 64);
-
-		printf("[INFO] EPC: %s\n", rfid);
 
 		uint16_t antenna = (*data)->getAntennaID()
 			? (*data)->getAntennaID()->getAntennaID() : 0;
@@ -40,8 +49,13 @@ void saveAccessReport(CRO_ACCESS_REPORT * report) {
 		int8_t rssi = (*data)->getPeakRSSI()
 			? (*data)->getPeakRSSI()->getPeakRSSI() : 0;
 
-		Reading * reading = reading_create("2020", antenna, rfid, rssi);
+		Reading * reading = reading_create(
+			readerTime, localTime, 
+			antenna, rfid, rssi
+		);
 		
+		printf("[INFO] EPC: %s\n", rfid);
+
 		readings_add(reading);
 	}
 }
@@ -60,6 +74,7 @@ void formatOneEPC(CParameter *pEPCParameter, char *buf, int buflen) {
 		
         const CTypeDescriptor * type;
         type = pEPCParameter->m_pType;
+
         if (&CEPC_96::s_typeDescriptor == type) {
             CEPC_96 * pEPC_96;
 

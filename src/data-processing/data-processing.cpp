@@ -29,10 +29,7 @@ void crossings_print(){
 
 	for (int i = 0; i < CROSSINGS_BUFFER_SIZE; i++) {
 		if (crossings[i] == NULL) continue;
-		printf(
-			"[INFO] Crossing[%i] = %s\n", 
-			i, reading_toJsonString(crossings[i])
-		);
+		printf("[INFO] Crossing[%i] = %s\n", i, reading_toJSON(crossings[i]));
 	}
 }
 
@@ -44,13 +41,16 @@ void setReaderClientDone() {
 
 void * dataProcessingRun(void * args) {
 	printf("[INFO] data processing started\n");
+	
 	while (!readerClientDone || readings_count() > 0) {
 		Reading * reading = readings_take();
 		if (reading && !crossings_contains(reading->rfid)) 
 			crossings_add(reading);
 	}
+	
 	printf("[INFO] data processing finished\n");
 	readings_print();
 	crossings_print();
+
 	return NULL;
 }

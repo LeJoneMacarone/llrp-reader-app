@@ -58,6 +58,6 @@ void readings_print(){
 
 	for (int i = 0; i < READINGS_BUFFER_SIZE; i++) {
 		if (readings[i] == NULL) continue;
-		printf("[INFO] Reading[%i] = %s\n", i, reading_toJsonString(readings[i]));
+		printf("[INFO] Reading[%i] = %s\n", i, reading_toJSON(readings[i]));
 	}
 }
