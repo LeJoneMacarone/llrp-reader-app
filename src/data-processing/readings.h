@@ -1,3 +1,6 @@
+#ifndef READINGS
+#define READINGS
+
 #include <stdint.h>
 
 typedef struct {
@@ -17,3 +20,5 @@ Reading * reading_create(
 );
 
 char * reading_toJSON(Reading * reading);
+
+#endif // READINGS 

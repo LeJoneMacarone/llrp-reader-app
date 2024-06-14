@@ -4,7 +4,6 @@
 #include "reader-operations.h"
 #include "reader-reports.h"
 #include "../config/reader-client-config.h"
-#include "../data-processing/readings.h"
 #include <stdio.h>
 
 void * readerClientRun(void * args) {
