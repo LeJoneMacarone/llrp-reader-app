@@ -16,8 +16,10 @@ void crossings_add(Reading * reading) {
 }
 
 int crossings_contains(const char * rfid) {
-	for (int i = 0; i < crossingsCount; i++) {
-		if (strcmp(crossings[i]->rfid, rfid) == 0) return 1;
+	for (int i = 0; i < CROSSINGS_BUFFER_SIZE; i++) {
+		if (crossings[i] == NULL) continue;
+		int cmp = strcmp(crossings[i]->rfid, rfid);
+		if (cmp == 0) return 1;
 	}
 	return 0;
 }
