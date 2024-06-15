@@ -7,22 +7,7 @@
 #include <time.h>
 #include <sys/time.h>
 
-char * timestampToString(uint64_t timestamp) {
-    const uint64_t MICROSECONDS_IN_SECOND = 1000000;
-
-    time_t seconds = timestamp / MICROSECONDS_IN_SECOND;
-    suseconds_t microseconds = timestamp % MICROSECONDS_IN_SECOND;
-
-    struct tm * date = localtime(&seconds);
-
-	int size = 20;
-	char dateString[size];
-    strftime(dateString, 20, "%Y-%m-%d %H:%M:%S", date);
-	
-	char * result;
-	asprintf(&result, "%s.%06ld", dateString, microseconds);
-	return result;
-}
+#define MICROSECONDS_IN_SECOND 1000000
 
 Reading * reading_create(
 	uint64_t reader_time,
@@ -43,7 +28,29 @@ Reading * reading_create(
 	return reading;
 }
 
-char * reading_toJSON(Reading * reading) {
+char * reading_toString(Reading * reading) {
+	cJSON * json = reading_toJSON(reading);
+	char * string = cJSON_Print(json);
+	cJSON_free(json);
+	return string;
+}
+
+char * timestampToString(uint64_t timestamp) {
+    time_t seconds = timestamp / MICROSECONDS_IN_SECOND;
+    suseconds_t microseconds = timestamp % MICROSECONDS_IN_SECOND;
+
+    struct tm * date = localtime(&seconds);
+
+	int size = 20;
+	char dateString[size];
+    strftime(dateString, 20, "%Y-%m-%d %H:%M:%S", date);
+	
+	char * result;
+	asprintf(&result, "%s.%06ld", dateString, microseconds);
+	return result;
+}
+
+cJSON * reading_toJSON(Reading * reading) {
 	cJSON * json = cJSON_CreateObject();
 
 	char * readerTimeString = timestampToString(reading->reader_time);
@@ -54,12 +61,9 @@ char * reading_toJSON(Reading * reading) {
 	cJSON_AddStringToObject(json, "rfid", reading->rfid);
 	cJSON_AddNumberToObject(json, "rssi", reading->rssi);
 	cJSON_AddNumberToObject(json, "antenna", reading->antenna);
-	
-	char * string = cJSON_Print(json);
-	
-	cJSON_free(json);
+
 	free(readerTimeString);
 	free(localTimeString);
 
-	return string;
+	return json;
 }

@@ -1,6 +1,7 @@
 #ifndef READINGS
 #define READINGS
 
+#include "../cJSON/cJSON.h"
 #include <stdint.h>
 
 typedef struct {
@@ -19,6 +20,8 @@ Reading * reading_create(
 	int rssi
 );
 
-char * reading_toJSON(Reading * reading);
+cJSON * reading_toJSON(Reading * reading);
+
+char * reading_toString(Reading * reading);
 
 #endif // READINGS 
