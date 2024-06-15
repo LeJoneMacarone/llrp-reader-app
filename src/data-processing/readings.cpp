@@ -1,13 +1,8 @@
 #include "readings.h"
+#include "timestamps.h"
 #include "../cJSON/cJSON.h"
 
-#include <stdio.h>
-#include <stdint.h>
 #include <stdlib.h>
-#include <time.h>
-#include <sys/time.h>
-
-#define MICROSECONDS_IN_SECOND 1000000
 
 Reading * reading_create(
 	uint64_t reader_time,
@@ -33,21 +28,6 @@ char * reading_toString(Reading * reading) {
 	char * string = cJSON_Print(json);
 	cJSON_free(json);
 	return string;
-}
-
-char * timestampToString(uint64_t timestamp) {
-    time_t seconds = timestamp / MICROSECONDS_IN_SECOND;
-    suseconds_t microseconds = timestamp % MICROSECONDS_IN_SECOND;
-
-    struct tm * date = localtime(&seconds);
-
-	int size = 20;
-	char dateString[size];
-    strftime(dateString, 20, "%Y-%m-%d %H:%M:%S", date);
-	
-	char * result;
-	asprintf(&result, "%s.%06ld", dateString, microseconds);
-	return result;
 }
 
 cJSON * reading_toJSON(Reading * reading) {
