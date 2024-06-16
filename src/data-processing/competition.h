@@ -17,5 +17,7 @@ typedef struct {
 } Competition;
 
 Competition * competition_fromJSON(cJSON * json);
-	
+
+void competition_addAthlete(Competition * competition, Athlete * athlete);
+
 #endif  // COMPETITION_H
