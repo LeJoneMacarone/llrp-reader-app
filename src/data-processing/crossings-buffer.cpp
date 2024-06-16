@@ -21,8 +21,8 @@ void crossings_add(Crossing * crossing) {
 
 int crossings_contains(const char * rfid) {
 	for (int i = 0; i < CROSSINGS_BUFFER_SIZE; i++) {
-		if (crossings[i] == NULL) continue;
-		if (strcmp(crossings[i]->reading->rfid, rfid) == 0) return 1;
+		if (crossings[i] && strcmp(crossings[i]->reading->rfid, rfid) == 0)
+			return 1;
 	}
 	return 0;
 }
@@ -32,11 +32,11 @@ void crossings_addFromReading(Reading * reading) {
 	
 	for(Competition * competition : *competitions) {
 		for(Athlete * athlete : *(competition->athletes)) {
-			if (strcmp(athlete->rfid, reading->rfid) != 0) continue;
-			printf("debug rfid: %s\n", athlete->rfid);
-			Crossing * crossing 
-				= crossing_create(athlete, competition, reading);
-			crossings_add(crossing);
+			if (strcmp(athlete->rfid, reading->rfid) == 0) { 
+				Crossing * crossing 
+					= crossing_create(athlete, competition, reading);
+				crossings_add(crossing);
+			}
 		}
 	}
 }
