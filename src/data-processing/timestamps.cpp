@@ -40,7 +40,8 @@ uint64_t stringToTimestamp(const char * string) {
     time_t seconds = mktime(&tm);
 
     // Calculate the timestamp in microseconds
-    uint64_t timestamp = (uint64_t) seconds * MICROSECONDS_IN_SECONDS + microseconds;
+    uint64_t timestamp 
+		= (uint64_t) seconds * MICROSECONDS_IN_SECONDS + microseconds;
 
     return timestamp;
 }
