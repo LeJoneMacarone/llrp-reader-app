@@ -3,13 +3,17 @@
 
 #include "athlete.h"
 #include "../cJSON/cJSON.h"
+
 #include <stdint.h>
+#include <list>
+using namespace std;
 
 typedef struct {
     char * name;
     uint64_t start;
     uint64_t end;
     char * color;
+	list<Athlete *> * athletes;
 } Competition;
 
 Competition * competition_fromJSON(cJSON * json);
