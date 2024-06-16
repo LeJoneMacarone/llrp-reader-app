@@ -1,6 +1,8 @@
 #ifndef ATHLETE_H
 #define ATHLETE_H
 
+#include "../cJSON/cJSON.h"
+
 typedef struct {
 	unsigned long id;
 	char * rfid;
@@ -20,5 +22,7 @@ Athlete * athlete_create(
 	const char * category, 
 	const char * gender
 );
+
+Athlete * athlete_fromJSON(cJSON * json);
 
 #endif // ATHLETE_H
