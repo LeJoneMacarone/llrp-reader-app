@@ -9,7 +9,7 @@ sem_t full, empty;
 pthread_mutex_t mutex;
 
 #define READINGS_BUFFER_SIZE 256
-static Reading * readings[READINGS_BUFFER_SIZE];
+Reading * readings[READINGS_BUFFER_SIZE];
 
 int insertIndex = 0,
 	removeIndex = 0,
