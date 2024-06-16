@@ -16,9 +16,13 @@ void * dataProcessingRun(void * args) {
 
 	while (!readerClientDone || readings_count() > 0) {
 		Reading * reading = readings_take();
-		if (reading && !crossings_contains(reading->rfid)) 
-			crossings_addFromReading(reading);
+		if (reading == NULL) continue;
+		Reading copy = *reading;
+
+		if (!crossings_contains(copy.rfid)) 
+			crossings_addFromReading(&copy);
 	}
+	
 	printf("[INFO] data processing finished\n");
 
 	readings_print();
