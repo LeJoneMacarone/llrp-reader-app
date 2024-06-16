@@ -1,7 +1,24 @@
+#include "athlete.h"
+#include "competition.h"
 #include "readings.h"
+#include "timestamps.h"
 
-void crossings_add(Reading * reading);
+typedef struct {
+	Athlete * athlete;
+	Competition * competition;
+	Reading * reading;
+	char * status;
+	int status_sent;
+	unsigned int row;
+} Crossing;
 
-int crossings_contains(const char * rfid);
 
-void crossings_print();
+Crossing * crossing_create(
+	Athlete * athlete,
+	Competition * competition,
+	Reading * reading
+);
+
+cJSON * crossing_toJSON(Crossing * crossing);
+
+char * crossing_toString(Crossing * crossing);

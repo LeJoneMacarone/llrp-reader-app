@@ -1,34 +1,63 @@
 #include "crossings.h"
+#include "../cJSON/cJSON.h"
+#include "../files/files.h"
 
 #include <stdio.h>
 #include <string.h>
 
-#define CROSSINGS_BUFFER_SIZE 256
-Reading * crossings[CROSSINGS_BUFFER_SIZE];
+int rowCount;
 
-int crossingsInsertIndex = 0,
-	crossingsCount = 0;
+Crossing * crossing_create(
+	Athlete * athlete,
+	Competition * competition,
+	Reading * reading
+) {
+	Crossing * crossing = (Crossing *) malloc(sizeof(Crossing));
+	
+	crossing->athlete = athlete,
+	crossing->competition = competition,
+	crossing->reading = reading;
 
-void crossings_add(Reading * reading) {
-	crossings[crossingsInsertIndex] = reading;
-	crossingsInsertIndex = (crossingsInsertIndex + 1) % CROSSINGS_BUFFER_SIZE;
-	crossingsCount++;
+	crossing->status = strdup("EP");
+	crossing->status_sent = 0;
+	crossing->row = rowCount++;
+
+	return NULL;
 }
 
-int crossings_contains(const char * rfid) {
-	for (int i = 0; i < CROSSINGS_BUFFER_SIZE; i++) {
-		if (crossings[i] == NULL) continue;
-		int cmp = strcmp(crossings[i]->rfid, rfid);
-		if (cmp == 0) return 1;
-	}
-	return 0;
+cJSON * crossing_toJSON(Crossing * crossing) {
+	cJSON * json = cJSON_CreateObject();
+
+	cJSON_AddNumberToObject(json, "id", crossing->athlete->id);
+	cJSON_AddStringToObject(json, "name", crossing->athlete->name);
+	cJSON_AddStringToObject(json, "country", crossing->athlete->country); 
+	cJSON_AddStringToObject(json, "club", crossing->athlete->club);
+	cJSON_AddStringToObject(json, "category", crossing->athlete->category);
+	cJSON_AddStringToObject(json, "gender", crossing->athlete->gender);
+	
+	cJSON_AddStringToObject(json, "competition_name", crossing->competition->name);
+	cJSON_AddStringToObject(json, "competition_color", crossing->competition->color);
+	
+	char * competitionStart = timestampToString(crossing->competition->start);
+	cJSON_AddStringToObject(json, "competition_start", competitionStart);
+	
+	uint64_t timeDifference = crossing->reading->reader_time - crossing->competition->start;
+	char * competitionTime = timestampToString(timeDifference);
+	cJSON_AddStringToObject(json, "competition_time", competitionTime);
+	
+	cJSON_AddStringToObject(json, "status", "EP");
+	crossing->status_sent 
+		? cJSON_AddTrueToObject(json, "status_sent")
+		: cJSON_AddFalseToObject(json, "status_sent");
+	cJSON_AddNumberToObject(json, "row", crossing->row);
+
+	return json;
 }
 
-void crossings_print(){
-	printf("[INFO] crossings count: %i\n", crossingsCount);
-
-	for (int i = 0; i < CROSSINGS_BUFFER_SIZE; i++) {
-		if (crossings[i] == NULL) continue;
-		printf("[INFO] Crossing[%i] = %s\n", i, reading_toJSON(crossings[i]));
-	}
+char * crossing_toString(Crossing * crossing) {
+	cJSON * json = crossing_toJSON(crossing);
+	char * string = cJSON_Print(json);
+	cJSON_free(json);
+	return string;
 }
+
