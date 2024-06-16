@@ -1,4 +1,5 @@
 #include "crossings-buffer.h"
+#include "event.h"
 #include "readings.h"
 
 #include <stdio.h>
@@ -7,13 +8,13 @@
 #define USE_READER_TIMESTAMPS
 
 #define CROSSINGS_BUFFER_SIZE 256
-Reading * crossings[CROSSINGS_BUFFER_SIZE];
+Crossing * crossings[CROSSINGS_BUFFER_SIZE];
 
 int crossingsInsertIndex = 0,
 	crossingsCount = 0;
 
-void crossings_add(Reading * reading) {
-	crossings[crossingsInsertIndex] = reading;
+void crossings_add(Crossing * crossing) {
+	crossings[crossingsInsertIndex] = crossing;
 	crossingsInsertIndex = (crossingsInsertIndex + 1) % CROSSINGS_BUFFER_SIZE;
 	crossingsCount++;
 }
@@ -21,10 +22,23 @@ void crossings_add(Reading * reading) {
 int crossings_contains(const char * rfid) {
 	for (int i = 0; i < CROSSINGS_BUFFER_SIZE; i++) {
 		if (crossings[i] == NULL) continue;
-		int cmp = strcmp(crossings[i]->rfid, rfid);
-		if (cmp == 0) return 1;
+		if (strcmp(crossings[i]->reading->rfid, rfid) == 0) return 1;
 	}
 	return 0;
+}
+
+void crossings_addFromReading(Reading * reading) {
+	list <Competition *> * competitions = getCompetitions();
+	
+	for(Competition * competition : *competitions) {
+		for(Athlete * athlete : *(competition->athletes)) {
+			if (strcmp(athlete->rfid, reading->rfid) != 0) continue;
+			printf("debug rfid: %s\n", athlete->rfid);
+			Crossing * crossing 
+				= crossing_create(athlete, competition, reading);
+			crossings_add(crossing);
+		}
+	}
 }
 
 void crossings_print(){
@@ -32,7 +46,7 @@ void crossings_print(){
 
 	for (int i = 0; i < CROSSINGS_BUFFER_SIZE; i++) {
 		if (crossings[i] == NULL) continue;
-		printf("[INFO] Crossing[%i] = %s\n", i, reading_toString(crossings[i]));
+		printf("[INFO] Crossing[%i] = %s\n", i, crossing_toString(crossings[i]));
 	}
 }
 
