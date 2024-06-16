@@ -2,7 +2,6 @@
 #include "../cJSON/cJSON.h"
 #include "../files/files.h"
 
-#include <stdio.h>
 #include <string.h>
 
 int rowCount;
@@ -22,7 +21,7 @@ Crossing * crossing_create(
 	crossing->status_sent = 0;
 	crossing->row = rowCount++;
 
-	return NULL;
+	return crossing;
 }
 
 cJSON * crossing_toJSON(Crossing * crossing) {
@@ -57,7 +56,7 @@ cJSON * crossing_toJSON(Crossing * crossing) {
 char * crossing_toString(Crossing * crossing) {
 	cJSON * json = crossing_toJSON(crossing);
 	char * string = cJSON_Print(json);
-	cJSON_free(json);
+	cJSON_Delete(json);
 	return string;
 }
 
