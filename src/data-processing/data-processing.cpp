@@ -1,5 +1,6 @@
 #include "crossings-buffer.h"
 #include "readings-buffer.h"
+#include "event.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -12,13 +13,12 @@ void setReaderClientDone() {
 
 void * dataProcessingRun(void * args) {
 	printf("[INFO] data processing started\n");
-	
+
 	while (!readerClientDone || readings_count() > 0) {
 		Reading * reading = readings_take();
 		if (reading && !crossings_contains(reading->rfid)) 
-			crossings_add(reading);
+			crossings_addFromReading(reading);
 	}
-	
 	printf("[INFO] data processing finished\n");
 
 	readings_print();
