@@ -23,16 +23,12 @@ Competition * competition_create(
     return competition;
 }
 
-void competition_addAthlete(Competition * competition, Athlete * athlete) {
-	competition->athletes->push_front(athlete);
-}
-
 Competition * competition_fromJSON(cJSON * json) {
 	char * name = cJSON_GetObjectItem(json, "short_name")->valuestring;
 	char * color = cJSON_GetObjectItem(json, "color")->valuestring;
-	char * startString = cJSON_GetObjectItem(json, "start")->valuestring;
-	char * endString = cJSON_GetObjectItem(json, "start")->valuestring;
 
+	char * startString = cJSON_GetObjectItem(json, "start")->valuestring;
+	char * endString = cJSON_GetObjectItem(json, "end")->valuestring;
 	uint64_t start = stringToTimestamp(startString);
 	uint64_t end = stringToTimestamp(endString);
 
@@ -46,4 +42,8 @@ Competition * competition_fromJSON(cJSON * json) {
 	}
 
 	return competition;
+}
+
+void competition_addAthlete(Competition * competition, Athlete * athlete) {
+	competition->athletes->push_front(athlete);
 }
