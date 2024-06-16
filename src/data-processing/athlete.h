@@ -25,4 +25,6 @@ Athlete * athlete_create(
 
 Athlete * athlete_fromJSON(cJSON * json);
 
+char * athlete_toString(Athlete * athlete);
+
 #endif // ATHLETE_H

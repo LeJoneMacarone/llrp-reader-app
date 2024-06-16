@@ -1,5 +1,6 @@
 #include "athlete.h"
 
+#include "stdio.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -36,3 +37,16 @@ Athlete * athlete_fromJSON(cJSON * json) {
 	
 	return athlete_create(id, rfid, name, country, club, category, gender);
 }
+
+char * athlete_toString(Athlete * athlete){
+	char * string; 
+	asprintf(
+		&string, "%lu %s %s %s %s %s %s\n", 
+		athlete->id, athlete->name,
+		athlete->gender, athlete->country,
+		athlete->club, athlete->rfid,
+		athlete->category
+	);
+	return string;
+}
+
