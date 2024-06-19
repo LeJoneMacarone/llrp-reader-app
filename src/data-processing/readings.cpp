@@ -2,6 +2,7 @@
 #include "timestamps.h"
 #include "../cJSON/cJSON.h"
 
+#include <string.h>
 #include <stdlib.h>
 
 Reading * reading_create(
@@ -15,8 +16,7 @@ Reading * reading_create(
 
 	reading->reader_time = reader_time;
 	reading->local_time = local_time;
-
-	reading->rfid = (char *) rfid;
+	reading->rfid =  strdup(rfid);
 	reading->rssi = rssi;
 	reading->antenna = antenna;
 
@@ -37,7 +37,7 @@ cJSON * reading_toJSON(Reading * reading) {
 	char * localTimeString = timestampToString(reading->local_time);
 	cJSON_AddStringToObject(json, "reader-time", readerTimeString);
 	cJSON_AddStringToObject(json, "local-time", localTimeString);
-	
+
 	cJSON_AddStringToObject(json, "rfid", reading->rfid);
 	cJSON_AddNumberToObject(json, "rssi", reading->rssi);
 	cJSON_AddNumberToObject(json, "antenna", reading->antenna);

@@ -1,5 +1,5 @@
-#ifndef READINGS
-#define READINGS
+#ifndef READINGS_H
+#define READINGS_H
 
 #include "../cJSON/cJSON.h"
 #include <stdint.h>
