@@ -20,6 +20,8 @@ Reading * reading_create(
 	int rssi
 );
 
+void reading_free(Reading * reading);
+
 cJSON * reading_toJSON(Reading * reading);
 
 char * reading_toString(Reading * reading);

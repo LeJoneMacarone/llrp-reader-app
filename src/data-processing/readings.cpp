@@ -2,6 +2,7 @@
 #include "timestamps.h"
 #include "../cJSON/cJSON.h"
 
+#include <cstdlib>
 #include <string.h>
 #include <stdlib.h>
 
@@ -21,6 +22,11 @@ Reading * reading_create(
 	reading->antenna = antenna;
 
 	return reading;
+}
+
+void reading_free(Reading * reading) {
+	free(reading->rfid);
+	free(reading);
 }
 
 char * reading_toString(Reading * reading) {
