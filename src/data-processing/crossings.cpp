@@ -24,6 +24,11 @@ Crossing * crossing_create(
 	return crossing;
 }
 
+void crossing_free(Crossing * crossing) {
+	free(crossing->status);
+	free(crossing);
+}
+
 cJSON * crossing_toJSON(Crossing * crossing) {
 	cJSON * json = cJSON_CreateObject();
 

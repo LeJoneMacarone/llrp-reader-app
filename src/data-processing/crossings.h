@@ -19,6 +19,8 @@ Crossing * crossing_create(
 	Reading * reading
 );
 
+void crossing_free(Crossing * crossing);
+
 cJSON * crossing_toJSON(Crossing * crossing);
 
 char * crossing_toString(Crossing * crossing);
