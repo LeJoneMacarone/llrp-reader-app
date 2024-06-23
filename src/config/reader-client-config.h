@@ -15,14 +15,14 @@ typedef struct {
 /*
  * Converts a JSON string to a reader client configuration object.
  */
-ReaderClientConfig * stringToConfig(const char * string);
+ReaderClientConfig * readerClientConfigFromString(const char * string);
 
 /*
  * Extracts the configuration from a JSON file. Returns NULL on error.
  */
-ReaderClientConfig * fileToConfig(const char * filePath); 
+ReaderClientConfig * readerClientConfigFromFile(const char * filePath); 
 
 /*
  * Frees the memory allocated to the config pointed by the given pointer.
  */
-void configFree(ReaderClientConfig * config);
+void readerClientConfigFree(ReaderClientConfig * config);

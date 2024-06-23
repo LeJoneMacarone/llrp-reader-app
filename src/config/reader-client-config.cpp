@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-ReaderClientConfig * stringToConfig(const char * string) {
+ReaderClientConfig * readerClientConfigFromString(const char * string) {
 	cJSON * json = cJSON_Parse(string);
 	cJSON * parameter;
 
@@ -40,17 +40,17 @@ ReaderClientConfig * stringToConfig(const char * string) {
 	return config;
 }
 
-ReaderClientConfig * fileToConfig(const char * filePath) {
+ReaderClientConfig * readerClientConfigFromFile(const char * filePath) {
 	char * buffer;
 
 	int size = readFile(filePath, &buffer);
 	
 	if (size < 0) return NULL;
 	
-	return stringToConfig(buffer);	
+	return readerClientConfigFromString(buffer);	
 }
 
-void configFree(ReaderClientConfig * config) {
+void readerClientConfigFree(ReaderClientConfig * config) {
 	free(config->reader_host);
 	free(config->logs_destination);
 	free(config->export_destination);
