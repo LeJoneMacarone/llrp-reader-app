@@ -13,11 +13,11 @@ DataProcessingConfig * dataProcessConfigFromString(const char * string) {
 	DataProcessingConfig * config; 
 	config = (DataProcessingConfig *) malloc(sizeof(DataProcessingConfig));
 	
-	parameter = cJSON_GetObjectItem(json, "reader-client-logs");
+	parameter = cJSON_GetObjectItem(json, "data-processing-logs");
 	config->logs_destination = strdup(parameter->valuestring);
 
 	parameter = cJSON_GetObjectItem(json, "crossings-export-destination");
-	config->logs_destination = strdup(parameter->valuestring);
+	config->export_destination = strdup(parameter->valuestring);
 
 	return config;
 }
