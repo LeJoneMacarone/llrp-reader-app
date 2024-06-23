@@ -1,8 +1,10 @@
 /*
- * Holds the necessary data for the reader client's execution routine.
+ * Holds the necessary data for the reader client's main execution routine.
  */
 typedef struct {
 	char * reader_host;
+	char * logs_destination;
+	char * export_destination;
 	int enable_impinj_extensions;
 	int reset_to_factory_defaults;
 	unsigned int inventory_duration;
@@ -11,12 +13,12 @@ typedef struct {
 } ReaderClientConfig;
 
 /*
- * Converts a JSON string to a configuration object.
+ * Converts a JSON string to a reader client configuration object.
  */
 ReaderClientConfig * stringToConfig(const char * string);
 
 /*
- * Converts a JSON file to a configuration object. Returns NULL on error.
+ * Extracts the configuration from a JSON file. Returns NULL on error.
  */
 ReaderClientConfig * fileToConfig(const char * filePath); 
 

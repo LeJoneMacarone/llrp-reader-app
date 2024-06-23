@@ -10,10 +10,17 @@ ReaderClientConfig * stringToConfig(const char * string) {
 	cJSON * json = cJSON_Parse(string);
 	cJSON * parameter;
 
-	ReaderClientConfig * config = new ReaderClientConfig();
+	ReaderClientConfig * config; 
+	config = (ReaderClientConfig *) malloc(sizeof(ReaderClientConfig));
 	
 	parameter = cJSON_GetObjectItem(json, "reader-host");
 	config->reader_host = parameter->valuestring;
+
+	parameter = cJSON_GetObjectItem(json, "reader-client-logs");
+	config->logs_destination = parameter->valuestring;
+
+	parameter = cJSON_GetObjectItem(json, "readings-export-destination");
+	config->logs_destination = parameter->valuestring;
 
 	parameter = cJSON_GetObjectItem(json, "inventory-duration");
 	config->inventory_duration = parameter->valueint;
@@ -45,5 +52,7 @@ ReaderClientConfig * fileToConfig(const char * filePath) {
 
 void configFree(ReaderClientConfig * config) {
 	free(config->reader_host);
+	free(config->logs_destination);
+	free(config->export_destination);
 	free(config);
 }
