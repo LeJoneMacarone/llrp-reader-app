@@ -3,8 +3,8 @@
 #include "../data-processing/readings-buffer.h"
 
 #include <bits/types/struct_timeval.h>
-#include <cstdint>
-#include <ctime>
+#include <stdint.h>
+#include <time.h>
 #include <stdio.h>
 #include <sys/time.h>
 #include <list>
@@ -17,47 +17,6 @@ uint64_t getCurrenTimeInMicroseconds() {
 	uint64_t microseconds 
 		= (uint64_t) tv.tv_sec * 1000000 + (uint64_t) tv.tv_usec;
     return microseconds;
-}
-
-void saveAccessReport(CRO_ACCESS_REPORT * report) {
-	list<CTagReportData *>::iterator data;
-
-    printf(
-		"[INFO] number of entries: %i\n", 
-		report->countTagReportData()
-	);
-
-	for (
-		data = report->beginTagReportData();
-		data != report->endTagReportData();
-		data++
-	) {
-
-		uint64_t readerTime = (*data)
-			->getFirstSeenTimestampUTC()
-			->getMicroseconds();
-		
-		uint64_t localTime = getCurrenTimeInMicroseconds();
-
-		char * rfid = (char *) malloc(sizeof(char) * 64);
-		CParameter * parameter = (*data)->getEPCParameter();
-		formatOneEPC(parameter, rfid, 64);
-
-		uint16_t antenna = (*data)->getAntennaID()
-			? (*data)->getAntennaID()->getAntennaID() : 0;
-		
-		int8_t rssi = (*data)->getPeakRSSI()
-			? (*data)->getPeakRSSI()->getPeakRSSI() : 0;
-
-		Reading * reading = reading_create(
-			readerTime, localTime, 
-			antenna, rfid, rssi
-		);
-		
-		printf("[INFO] EPC: %s\n", rfid);
-
-		readings_add(reading);
-	}
 }
 
 void formatOneEPC(CParameter *pEPCParameter, char *buf, int buflen) {
@@ -113,6 +72,45 @@ void formatOneEPC(CParameter *pEPCParameter, char *buf, int buflen) {
     buf[buflen-1] = '\0';
 }
 
+void addReadingsFromReport(CRO_ACCESS_REPORT * report) {
+	list<CTagReportData *>::iterator data;
+
+    printf(
+		"[INFO] number of entries: %i\n", 
+		report->countTagReportData()
+	);
+
+	for (
+		data = report->beginTagReportData();
+		data != report->endTagReportData();
+		data++
+	) {
+
+		uint64_t readerTime = (*data)
+			->getFirstSeenTimestampUTC()
+			->getMicroseconds();
+		
+		uint64_t localTime = getCurrenTimeInMicroseconds();
+
+		char * rfid = (char *) malloc(sizeof(char) * 64);
+		CParameter * parameter = (*data)->getEPCParameter();
+		formatOneEPC(parameter, rfid, 64);
+
+		uint16_t antenna = (*data)->getAntennaID()
+			? (*data)->getAntennaID()->getAntennaID() : 0;
+		
+		int8_t rssi = (*data)->getPeakRSSI()
+			? (*data)->getPeakRSSI()->getPeakRSSI() : 0;
+
+		Reading * reading = reading_create(
+			readerTime, localTime, 
+			antenna, rfid, rssi
+		);
+		
+		readings_add(reading);
+	}
+}
+
 void receiveAccessReports(
 		CConnection * connection, 
 		int duration, 
@@ -136,8 +134,9 @@ void receiveAccessReports(
 		// make sure we received a message
         if (NULL == message) continue;
 
-        // handle messages by checking their types
         messageType = message->m_pType;
+
+        // handle messages by checking their types
         if (&CRO_ACCESS_REPORT::s_typeDescriptor == messageType) {
             CRO_ACCESS_REPORT * report = (CRO_ACCESS_REPORT * ) message;
 			accessReportHandler(report);

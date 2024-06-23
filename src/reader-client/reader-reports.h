@@ -11,7 +11,7 @@ void formatOneEPC(CParameter *pEPCParameter, char *buf, int buflen);
  * Extracts, processes and stores (in the readings buffer) the access report 
  * data obtained from a RO_ACCESS_REPORT object.
  */
-void saveAccessReport(CRO_ACCESS_REPORT * report);
+void addReadingsFromReport(CRO_ACCESS_REPORT * report);
 
 /*
  * Responsible for receving access reports from the reader while the given 
