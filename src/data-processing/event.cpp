@@ -3,15 +3,13 @@
 #include "../cJSON/cJSON.h"
 #include "competition.h"
 
-#include <cstdio>
+#include <stdio.h>
 #include <list>
 using namespace std;
 
 list<Competition *> competitions;
 
 void importEventData(const char * file) {
-	printf("[INFO] importing event data\n");
-
 	char * sessionData;
 	readFile(file, &sessionData);
 
@@ -24,8 +22,6 @@ void importEventData(const char * file) {
 		Competition * competition = competition_fromJSON(competitionJSON);
 		competitions.push_front(competition);
 	}
-
-	printf("[INFO] event data imported successfully\n");
 }
 
 list<Competition *> * getCompetitions() {
