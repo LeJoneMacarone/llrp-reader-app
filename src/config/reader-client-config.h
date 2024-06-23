@@ -2,7 +2,7 @@
  * Holds the necessary data for the reader client's execution routine.
  */
 typedef struct {
-	const char * reader_host;
+	char * reader_host;
 	int enable_impinj_extensions;
 	int reset_to_factory_defaults;
 	unsigned int inventory_duration;
@@ -19,3 +19,8 @@ ReaderClientConfig * stringToConfig(const char * string);
  * Converts a JSON file to a configuration object. Returns NULL on error.
  */
 ReaderClientConfig * fileToConfig(const char * filePath); 
+
+/*
+ * Frees the memory allocated to the config pointed by the given pointer.
+ */
+void configFree(ReaderClientConfig * config);

@@ -1,7 +1,10 @@
 #include "reader-client-config.h"
-
 #include "../cJSON/cJSON.h"
 #include "../files/files.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 ReaderClientConfig * stringToConfig(const char * string) {
 	cJSON * json = cJSON_Parse(string);
@@ -35,4 +38,9 @@ ReaderClientConfig * fileToConfig(const char * filePath) {
 	if (size < 0) return NULL;
 	
 	return stringToConfig(buffer);	
+}
+
+void configFree(ReaderClientConfig * config) {
+	free(config->reader_host);
+	free(config);
 }
