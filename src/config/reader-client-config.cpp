@@ -14,13 +14,13 @@ ReaderClientConfig * stringToConfig(const char * string) {
 	config = (ReaderClientConfig *) malloc(sizeof(ReaderClientConfig));
 	
 	parameter = cJSON_GetObjectItem(json, "reader-host");
-	config->reader_host = parameter->valuestring;
+	config->reader_host = strdup(parameter->valuestring);
 
 	parameter = cJSON_GetObjectItem(json, "reader-client-logs");
-	config->logs_destination = parameter->valuestring;
+	config->logs_destination = strdup(parameter->valuestring);
 
 	parameter = cJSON_GetObjectItem(json, "readings-export-destination");
-	config->logs_destination = parameter->valuestring;
+	config->export_destination = strdup(parameter->valuestring);
 
 	parameter = cJSON_GetObjectItem(json, "inventory-duration");
 	config->inventory_duration = parameter->valueint;
