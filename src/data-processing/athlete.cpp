@@ -26,6 +26,16 @@ Athlete * athlete_create(
     return athlete;
 }
 
+void athlete_free(Athlete * athlete) {
+	free(athlete->rfid);
+	free(athlete->name);	
+	free(athlete->country);
+	free(athlete->club);
+	free(athlete->category);
+	free(athlete->gender);
+	free(athlete);
+}
+
 Athlete * athlete_fromJSON(cJSON * json) {
 	unsigned long id = cJSON_GetObjectItem(json, "id")->valueint;
 	char * rfid = cJSON_GetObjectItem(json, "rfid")->valuestring;

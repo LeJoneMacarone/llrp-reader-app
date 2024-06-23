@@ -23,6 +23,8 @@ Athlete * athlete_create(
 	const char * gender
 );
 
+void athlete_free(Athlete * athlete);
+
 Athlete * athlete_fromJSON(cJSON * json);
 
 char * athlete_toString(Athlete * athlete);
