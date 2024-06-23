@@ -40,6 +40,7 @@ Reading * readings_take() {
 	
 	pthread_mutex_unlock(&mutex);
 	sem_post(&empty);
+
 	return reading;
 }
 
@@ -53,11 +54,19 @@ int readings_count() {
 	return readingsCount;
 }
 
-void readings_print(){
-	printf("[INFO] readings count: %i\n", readingsCount);
-
+cJSON * readings_toJSON() {
+	cJSON * json = cJSON_CreateArray();
 	for (int i = 0; i < READINGS_BUFFER_SIZE; i++) {
 		if (readings[i] == NULL) continue;
-		printf("[INFO] Reading[%i] = %s\n", i, reading_toString(readings[i]));
+		cJSON * reading = reading_toJSON(readings[i]);
+		cJSON_AddItemToArray(json, reading);
 	}
+	return json;
+}
+
+char * readings_toString() {
+	cJSON * json = readings_toJSON();
+	char * string = cJSON_Print(json);
+	cJSON_Delete(json);
+	return string;
 }

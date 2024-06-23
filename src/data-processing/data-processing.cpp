@@ -1,6 +1,9 @@
 #include "crossings-buffer.h"
 #include "readings-buffer.h"
 #include "event.h"
+#include "../logs/logs.h"
+#include "../files/files.h"
+#include "readings.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -12,7 +15,7 @@ void setReaderClientDone() {
 }
 
 void * dataProcessingRun(void * args) {
-	printf("[INFO] data processing started\n");
+	log(stdout, INFO, "data processing started");
 
 	while (!readerClientDone || readings_count() > 0) {
 		Reading * reading = readings_take();
@@ -23,10 +26,18 @@ void * dataProcessingRun(void * args) {
 			crossings_addFromReading(&copy);
 	}
 	
-	printf("[INFO] data processing finished\n");
+	log(stdout, INFO, "data processing finished");
 
-	readings_print();
-	crossings_print();
+	// TODO: make the path a parameter 
+	char * readings = readings_toString();
+	writeFile("logs/READINGS.json", readings);
+	
+	// TODO: make the path a parameter 
+	char * crossings = crossings_toString();
+	writeFile("logs/CROSSINGS.json", readings);
+	
+	free(readings);
+	free(crossings);
 
 	return NULL;
 }

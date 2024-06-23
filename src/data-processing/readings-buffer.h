@@ -8,4 +8,7 @@ void readings_init();
 
 int readings_count();
 
-void readings_print();
+cJSON * readings_toJSON();
+
+char * readings_toString();
+

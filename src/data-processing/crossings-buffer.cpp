@@ -41,13 +41,19 @@ void crossings_addFromReading(Reading * reading) {
 	}
 }
 
-void crossings_print(){
-	printf("[INFO] crossings count: %i\n", crossingsCount);
-
+cJSON * crossings_toJSON() {
+	cJSON * json = cJSON_CreateArray();
 	for (int i = 0; i < CROSSINGS_BUFFER_SIZE; i++) {
 		if (crossings[i] == NULL) continue;
-		printf("[INFO] Crossing[%i] = %s\n", i, crossing_toString(crossings[i]));
+		cJSON * reading = crossing_toJSON(crossings[i]);
+		cJSON_AddItemToArray(json, reading);
 	}
+	return json;
 }
 
-
+char * crossings_toString() {
+	cJSON * json = crossings_toJSON();
+	char * string = cJSON_Print(json);
+	cJSON_Delete(json);
+	return string;
+}

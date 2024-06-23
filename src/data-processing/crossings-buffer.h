@@ -7,4 +7,6 @@ void crossings_addFromReading(Reading * reading);
 
 int crossings_contains(const char * rfid);
 
-void crossings_print();
+cJSON * crossings_toJSON();
+
+char * crossings_toString();
