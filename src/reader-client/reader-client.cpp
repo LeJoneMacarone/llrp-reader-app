@@ -82,12 +82,15 @@ void * readerClientRun(void * args) {
 
     connection->closeConnectionToReader();
     delete connection;
+
     CXMLTextDecoder::cleanupParser();
 	
 	log(out, INFO, "reader client finished");
 
 	char * readings = readings_toString();
 	writeFile(config->export_destination, readings);
+
+	free(readings);
 
 	return NULL;
 }
