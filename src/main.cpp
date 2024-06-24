@@ -13,19 +13,17 @@ DataProcessingConfig * dataProcessingConfig;
 
 pthread_t readerClient, dataProcessing;
 
-int option;
-
 int main(int argc, char * argv[]) {
-	printf("[INFO] Loading config ...\n");
+	printf("[INFO] loading config ...\n");
 	readerClientConfig = readerClientConfigFromFile(argv[1]);
 	dataProcessingConfig = dataProcessConfigFromFile(argv[1]);
-	printf("[INFO] Done\n");
+	printf("[INFO] done\n");
 
-	readings_init();
+	readings_init(256);
 
-	printf("[INFO] Loading event data ...\n");
+	printf("[INFO] loading event data ...\n");
 	importEventData("DATA_SESSION.json");
-	printf("[INFO] Done\n");
+	printf("[INFO] done\n");
 
 	pthread_create(
 		&readerClient, NULL, 
