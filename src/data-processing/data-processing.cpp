@@ -1,6 +1,7 @@
 #include "crossings-buffer.h"
 #include "readings-buffer.h"
 #include "event.h"
+#include "../config/data-processing-config.h"
 #include "../logs/logs.h"
 #include "../files/files.h"
 #include "readings.h"
@@ -15,26 +16,31 @@ void setReaderClientDone() {
 }
 
 void * dataProcessingRun(void * args) {
-	log(stdout, INFO, "data processing started");
+	DataProcessingConfig * config = (DataProcessingConfig *) args;
+	
+	FILE * out = strcmp(config->logs_destination, "stdout")
+		? fopen(config->logs_destination, "w") : stdout;
+
+	log(out, INFO, "data processing started");
 
 	while (!readerClientDone || readings_count() > 0) {
 		Reading * reading = readings_take();
-		if (reading == NULL) continue;
-		Reading copy = *reading;
 
-		if (!crossings_contains(copy.rfid)) 
-			crossings_addFromReading(&copy);
+		if (reading == NULL || !reading->status) continue;
+
+		if (!crossings_contains(reading->rfid))
+			crossings_addFromReading(reading);
 	}
 	
-	log(stdout, INFO, "data processing finished");
+	log(out, INFO, "data processing finished");
 
 	// TODO: make the path a parameter 
 	char * readings = readings_toString();
 	writeFile("logs/READINGS.json", readings);
 	
-	// TODO: make the path a parameter 
+	// export crossings to a file
 	char * crossings = crossings_toString();
-	writeFile("logs/CROSSINGS.json", readings);
+	writeFile(config->export_destination, crossings);
 	
 	free(readings);
 	free(crossings);
