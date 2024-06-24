@@ -3,81 +3,91 @@
 #include "reader-config.h"
 #include "reader-operations.h"
 #include "reader-reports.h"
+#include "../files/files.h"
 #include "../config/reader-client-config.h"
+#include "../data-processing/readings-buffer.h"
+#include "../logs/logs.h"
+
 #include <stdio.h>
+#include <string.h>
 
 void * readerClientRun(void * args) {
 	ReaderClientConfig * config = (ReaderClientConfig *) args;
+	
+	FILE * out = strcmp(config->logs_destination, "stdout")
+		? fopen(config->logs_destination, "w") : stdout;
+	
 	CConnection * connection = connectToReader(config->reader_host);
 	
 	if (NULL == connection) {
-		printf("[ERROR] failed to estabilish connection\n");
+		log(out, ERROR, "failed to estabilish connection");
 	}
 
     if (0 != checkConnectionStatus(connection, config->connection_attempt_timeout)) {
-		printf("[ERROR] check connection status failed\n");
+		log(out, ERROR, "check connection status failed");
 	}
 
-	printf("[INFO] connection status ok\n");
+	log(out, INFO, "connection status ok");
 
 	if (config->enable_impinj_extensions) {
 		if (0 != enableImpinjExtensions(connection))
-			printf("[WARN] couldn't enable Impinj extensions\n");
-		else printf("[INFO] Impinj extensions enabled\n");
+			log(out, WARN, "couldn't enable Impinj extensions");
+		else log(out, INFO, "Impinj extensions enabled");
 	}
 
 	if (config->reset_to_factory_defaults) {
 		if (0 != resetConfigurationToFactoryDefaults(connection))
-			printf("[WARN] couldn't reset config to factory defaults\n");
-		else printf("[INFO] config reseted to factory defaults\n");
+			log(out, WARN, "couldn't reset config to factory defaults");
+		else log(out, INFO, "config reseted to factory defaults");
 	}
 
     // OPTIONAL: getCapabilities(); getReaderConfig(); setReaderConfig();
 
 	if (0 != addROSpec(connection)) {
-		printf("[ERROR] failed adding ROSpec\n");
+		log(out, ERROR, "failed adding ROSpec");
 	}
 
-	printf("[INFO] ROSpec added successfully\n");
+	log(out, INFO, "ROSpec added successfully");
 
 	if (0 != enableROSpec(connection)) {
-		printf("[ERROR] failed enabling ROSpec\n");
+		log(out, ERROR, "failed enabling ROSpec");
 	}
 
-	printf("[INFO] ROSpec enabled successfully\n");
+	log(out, INFO, "ROSpec enabled successfully");
 
 	if (0 != startROSpec(connection)) {
-		printf("[ERROR] failed starting ROSpec\n");
+		log(out, ERROR, "failed starting ROSpec");
 	}
 
-	printf("[INFO] ROSpec started successfully\n");
+	log(out, INFO, "ROSpec started successfully");
 
     receiveAccessReports(
 			connection, 
 			config->inventory_duration, 
 			config->access_report_timeout,
-			saveAccessReport
+			addReadingsFromReport
 	);
 
 	if (0 != stopROSpec(connection)) {
-		printf("[ERROR] failed stopping ROSpec\n");
+		log(out, ERROR, "failed stopping ROSpec");
 	}
 
-	printf("[INFO] ROSpec stopped successfully\n");
+	log(out, INFO, "ROSpec stopped successfully");
 
 	if (config->reset_to_factory_defaults) {
 		if (0 != resetConfigurationToFactoryDefaults(connection))
-			printf("[WARN] couldn't reset to factory defaults\n");
-		else printf("[INFO] reset done successfully\n");
+			log(out, WARN, "couldn't reset to factory defaults");
+		else log(out, INFO, "reset done successfully");
 	}
 
     connection->closeConnectionToReader();
-    
     delete connection;
-
     CXMLTextDecoder::cleanupParser();
 	
-	printf("[INFO] reader client finished\n");
+	log(out, INFO, "reader client finished");
+
+	char * readings = readings_toString();
+	writeFile(config->export_destination, readings);
 
 	return NULL;
 }
