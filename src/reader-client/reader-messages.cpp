@@ -8,8 +8,7 @@ int getMessageID() {
     return messageID++;
 }
 
-CMessage * transact(CConnection * connection, CMessage * request)
-{
+CMessage * transact(CConnection * connection, CMessage * request) {
     CMessage * response = connection->transact(request, 5000);
 
     if (NULL == response) {
