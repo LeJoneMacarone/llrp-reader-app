@@ -36,6 +36,7 @@ Reading * readings_take() {
 	Reading * reading = readings[removeIndex];
 	readings[removeIndex]->status = 1;
 	removeIndex = (removeIndex + 1) % READINGS_BUFFER_SIZE;
+	readingsCount--;
 	
 	pthread_mutex_unlock(&mutex);
 	sem_post(&empty);
