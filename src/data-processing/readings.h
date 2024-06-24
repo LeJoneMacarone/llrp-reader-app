@@ -4,12 +4,13 @@
 #include "../cJSON/cJSON.h"
 #include <stdint.h>
 
-typedef struct {
+typedef struct Reading {
     uint64_t reader_time;
 	uint64_t local_time;
 	unsigned int antenna;	
     char * rfid; 
-    int rssi; 
+    int rssi;
+	int status; 
 } Reading;
 
 Reading * reading_create(
