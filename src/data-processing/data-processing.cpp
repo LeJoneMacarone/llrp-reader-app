@@ -34,15 +34,9 @@ void * dataProcessingRun(void * args) {
 	
 	log(out, INFO, "data processing finished");
 
-	// TODO: make the path a parameter 
-	char * readings = readings_toString();
-	writeFile("logs/READINGS.json", readings);
-	
-	// export crossings to a file
 	char * crossings = crossings_toString();
 	writeFile(config->export_destination, crossings);
 	
-	free(readings);
 	free(crossings);
 
 	return NULL;
