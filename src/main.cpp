@@ -3,6 +3,7 @@
 #include "config/data-processing-config.h"
 #include "data-processing/data-processing.h"
 #include "data-processing/readings-buffer.h"
+#include "data-processing/crossings-buffer.h"
 #include "data-processing/event.h"
 
 #include <stdio.h>
@@ -20,6 +21,7 @@ int main(int argc, char * argv[]) {
 	printf("[INFO] done\n");
 
 	readings_init(256);
+	crossings_init(256);
 
 	printf("[INFO] loading event data ...\n");
 	importEventData("DATA_SESSION.json");
