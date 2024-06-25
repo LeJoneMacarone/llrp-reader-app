@@ -42,4 +42,7 @@ int main(int argc, char * argv[]) {
 	pthread_join(readerClient, NULL);
 	setReaderClientDone();
 	pthread_join(dataProcessing, NULL);
+
+	readerClientConfigFree(readerClientConfig);
+	dataProcessConfigFree(dataProcessingConfig);
 }
