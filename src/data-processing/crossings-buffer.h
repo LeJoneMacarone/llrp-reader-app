@@ -1,5 +1,8 @@
 #include "crossings.h"
 #include "readings.h"
+#include <stddef.h>
+
+void crossings_init(size_t size);
 
 void crossings_add(Crossing * crossing);
 

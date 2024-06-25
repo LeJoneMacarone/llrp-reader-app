@@ -2,25 +2,32 @@
 #include "event.h"
 #include "readings.h"
 
+#include <cstdlib>
 #include <stdio.h>
 #include <string.h>
 
 #define USE_READER_TIMESTAMPS
 
-#define CROSSINGS_BUFFER_SIZE 256
-Crossing * crossings[CROSSINGS_BUFFER_SIZE];
+size_t crossingsBufferSize;
+Crossing ** crossings;
 
 int crossingsInsertIndex = 0,
 	crossingsCount = 0;
 
+void crossings_init(size_t size) {
+	crossingsBufferSize = size;
+	crossings = (Crossing **) malloc(size * sizeof(Crossing *));
+	memset(crossings, 0, size * sizeof(Crossing *));
+}
+
 void crossings_add(Crossing * crossing) {
 	crossings[crossingsInsertIndex] = crossing;
-	crossingsInsertIndex = (crossingsInsertIndex + 1) % CROSSINGS_BUFFER_SIZE;
+	crossingsInsertIndex = (crossingsInsertIndex + 1) % crossingsBufferSize;
 	crossingsCount++;
 }
 
 int crossings_contains(const char * rfid) {
-	for (int i = 0; i < CROSSINGS_BUFFER_SIZE; i++) {
+	for (int i = 0; i < crossingsBufferSize; i++) {
 		if (crossings[i] && strcmp(crossings[i]->reading->rfid, rfid) == 0)
 			return 1;
 	}
@@ -44,8 +51,8 @@ int crossings_addFromReading(Reading * reading) {
 
 cJSON * crossings_toJSON() {
 	cJSON * json = cJSON_CreateArray();
-	for (int i = 0; i < CROSSINGS_BUFFER_SIZE; i++) {
-		if (crossings[i] == NULL) continue;
+	for (int i = 0; i < crossingsBufferSize; i++) {
+		if (!crossings[i]) continue;
 		cJSON * reading = crossing_toJSON(crossings[i]);
 		cJSON_AddItemToArray(json, reading);
 	}
