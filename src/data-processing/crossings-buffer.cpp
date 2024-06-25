@@ -27,7 +27,7 @@ void crossings_add(Crossing * crossing) {
 }
 
 int crossings_contains(const char * rfid) {
-	for (int i = 0; i < crossingsBufferSize; i++) {
+	for (size_t i = 0; i < crossingsBufferSize; i++) {
 		if (crossings[i] && strcmp(crossings[i]->reading->rfid, rfid) == 0)
 			return 1;
 	}
@@ -51,7 +51,7 @@ int crossings_addFromReading(Reading * reading) {
 
 cJSON * crossings_toJSON() {
 	cJSON * json = cJSON_CreateArray();
-	for (int i = 0; i < crossingsBufferSize; i++) {
+	for (size_t i = 0; i < crossingsBufferSize; i++) {
 		if (!crossings[i]) continue;
 		cJSON * reading = crossing_toJSON(crossings[i]);
 		cJSON_AddItemToArray(json, reading);

@@ -1,6 +1,5 @@
 #include <stdint.h>
 
-char * timestampToString(uint64_t timestamp);
+char * stringFromMicroseconds(uint64_t timestamp);
 
-uint64_t stringToTimestamp(const char * string);
-
+uint64_t microsecondsFromString(const char * string);

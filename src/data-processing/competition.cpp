@@ -29,8 +29,8 @@ Competition * competition_fromJSON(cJSON * json) {
 
 	char * startString = cJSON_GetObjectItem(json, "start")->valuestring;
 	char * endString = cJSON_GetObjectItem(json, "end")->valuestring;
-	uint64_t start = stringToTimestamp(startString);
-	uint64_t end = stringToTimestamp(endString);
+	uint64_t start = microsecondsFromString(startString);
+	uint64_t end = microsecondsFromString(endString);
 
 	Competition * competition = competition_create(name, start, end, color);
 

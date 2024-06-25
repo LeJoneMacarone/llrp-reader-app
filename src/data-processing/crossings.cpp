@@ -42,11 +42,11 @@ cJSON * crossing_toJSON(Crossing * crossing) {
 	cJSON_AddStringToObject(json, "competition_name", crossing->competition->name);
 	cJSON_AddStringToObject(json, "competition_color", crossing->competition->color);
 	
-	char * competitionStart = timestampToString(crossing->competition->start);
+	char * competitionStart = stringFromMicroseconds(crossing->competition->start);
 	cJSON_AddStringToObject(json, "competition_start", competitionStart);
 	
-	uint64_t timeDifference = crossing->reading->reader_time - crossing->competition->start;
-	char * competitionTime = timestampToString(timeDifference);
+	uint64_t timeDiff = crossing->reading->reader_time - crossing->competition->start;
+	char * competitionTime = stringFromMicroseconds(timeDiff);
 	cJSON_AddStringToObject(json, "competition_time", competitionTime);
 	
 	cJSON_AddStringToObject(json, "status", "EP");

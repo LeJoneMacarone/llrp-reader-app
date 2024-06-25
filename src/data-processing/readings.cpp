@@ -39,8 +39,8 @@ char * reading_toString(Reading * reading) {
 cJSON * reading_toJSON(Reading * reading) {
 	cJSON * json = cJSON_CreateObject();
 
-	char * readerTimeString = timestampToString(reading->reader_time);
-	char * localTimeString = timestampToString(reading->local_time);
+	char * readerTimeString = stringFromMicroseconds(reading->reader_time);
+	char * localTimeString = stringFromMicroseconds(reading->local_time);
 	cJSON_AddStringToObject(json, "reader-time", readerTimeString);
 	cJSON_AddStringToObject(json, "local-time", localTimeString);
 
