@@ -27,18 +27,19 @@ int crossings_contains(const char * rfid) {
 	return 0;
 }
 
-void crossings_addFromReading(Reading * reading) {
+int crossings_addFromReading(Reading * reading) {
 	list <Competition *> * competitions = getCompetitions();
-	
 	for(Competition * competition : *competitions) {
 		for(Athlete * athlete : *(competition->athletes)) {
 			if (strcmp(athlete->rfid, reading->rfid) == 0) { 
 				Crossing * crossing 
 					= crossing_create(athlete, competition, reading);
 				crossings_add(crossing);
+				return 1;
 			}
 		}
 	}
+	return 0;
 }
 
 cJSON * crossings_toJSON() {

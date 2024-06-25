@@ -29,14 +29,16 @@ void * dataProcessingRun(void * args) {
 		if (reading == NULL || !reading->status) continue;
 
 		if (!crossings_contains(reading->rfid))
-			crossings_addFromReading(reading);
+			log(out, INFO, crossings_addFromReading(reading) 
+				? "reading accepted, crossing added" 
+				: "reading rejected"
+			);
 	}
 	
 	log(out, INFO, "data processing finished");
 
 	char * crossings = crossings_toString();
 	writeFile(config->export_destination, crossings);
-	
 	free(crossings);
 
 	return NULL;
