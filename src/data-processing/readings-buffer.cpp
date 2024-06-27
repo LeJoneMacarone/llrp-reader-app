@@ -35,7 +35,6 @@ Reading * readings_take() {
 	pthread_mutex_lock(&mutex);
 	
 	Reading * reading = readings[removeIndex];
-	readings[removeIndex]->status = 1;
 	removeIndex = (removeIndex + 1) % readingsBufferSize;
 	readingsCount--;
 

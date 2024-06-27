@@ -26,6 +26,7 @@ void * dataProcessingRun(void * args) {
 	while (!readerClientDone || readings_count() > 0) {
 		Reading * reading = readings_take();
 
+		// skip if reading doesnt exist or it was already processed
 		if (reading == NULL || !reading->status) continue;
 
 		if (!crossings_contains(reading->rfid))
@@ -33,6 +34,9 @@ void * dataProcessingRun(void * args) {
 				? "reading accepted, crossing added" 
 				: "reading rejected"
 			);
+		
+		// set status to 1 to say it was already processed
+		reading->status = 1;
 	}
 	
 	log(out, INFO, "data processing finished");
