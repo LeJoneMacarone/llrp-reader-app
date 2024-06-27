@@ -4,6 +4,7 @@
 #include "timestamps.h"
 
 typedef struct {
+	int time_sent;
 	Athlete * athlete;
 	Competition * competition;
 	Reading * reading;

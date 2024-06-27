@@ -19,6 +19,7 @@ Crossing * crossing_create(
 
 	crossing->status = strdup("EP");
 	crossing->status_sent = 0;
+	crossing->time_sent = 0;
 	crossing->row = rowCount++;
 
 	return crossing;
@@ -53,6 +54,9 @@ cJSON * crossing_toJSON(Crossing * crossing) {
 	crossing->status_sent 
 		? cJSON_AddTrueToObject(json, "status_sent")
 		: cJSON_AddFalseToObject(json, "status_sent");
+	crossing->time_sent 
+		? cJSON_AddTrueToObject(json, "time_sent")
+		: cJSON_AddFalseToObject(json, "time_sent");
 	cJSON_AddNumberToObject(json, "row", crossing->row);
 
 	return json;
