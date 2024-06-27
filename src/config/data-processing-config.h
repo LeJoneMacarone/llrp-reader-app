@@ -5,6 +5,8 @@
 typedef struct {
 	char * logs_destination;
 	char * export_destination;
+	char * server_url;
+	char * station_name;
 } DataProcessingConfig;
 
 /*
