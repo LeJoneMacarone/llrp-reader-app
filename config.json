@@ -3,7 +3,7 @@
 	"crossings-buffer-size" : 6,
 	"session-data-file" : "DATA_SESSION.json",
 
-	"reader-host" : "localhost",
+	"reader-host" : "192.168.1.64",
 	"enable-impinj-extensions" : false,
 	"reset-to-factory-defaults" : false,
 	"connection-attempt-timeout" : 5,
