@@ -2,18 +2,13 @@
 #include <curl/curl.h>
 #include <curl/easy.h>
 
-size_t writeToString(
-	void * contents, 
-	size_t size, 
-	size_t nmemb, 
-	char * buffer
-) {
-    size_t newLength = size * nmemb;
-    buffer = (char *) contents;
+size_t writeToString(void* contents, size_t size, size_t nmemb, string* buffer) {
+    size_t newLength = size*nmemb;
+    buffer->append((char*) contents, newLength);
     return newLength;
 }
 
-long performRequest(const char * url, char * buffer){
+long performRequest(const char *url, string* buffer){
 	CURL * curl;
 	CURLcode res;
  
