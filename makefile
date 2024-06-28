@@ -14,7 +14,7 @@ LIB_FILES := $(wildcard $(LIB_DIR)/**/*.a)
 SUFFIX := _x86_64
 
 LIBS := $(filter %$(SUFFIX).a, $(LIB_FILES))
-LIB_FLAGS := -l xml2 -l z -l dl -l ssl -l crypto -l curl
+LIB_FLAGS := -l xml2 -l z -l ssl -l crypto -l curl
 
 .PHONY: build clean run
 
